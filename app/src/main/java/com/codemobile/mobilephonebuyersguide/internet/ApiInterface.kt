@@ -1,0 +1,30 @@
+package com.codemobile.mobilephonebuyersguide.internet
+
+import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface ApiInterface {
+    @GET("mobile")
+    fun getMobileList(@Query("page")page:String):
+            Call<MobileListResponse>
+
+    companion object Factory {
+        private val BASE_URL = "https://scb-test-mobile.herokuapp.com/api/"
+
+        private var retrofit: Retrofit? = null
+
+        fun getBase(): ApiInterface {
+            if (retrofit == null) {
+                retrofit = Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+            return retrofit!!.create(ApiInterface::class.java)
+        }
+    }
+}
