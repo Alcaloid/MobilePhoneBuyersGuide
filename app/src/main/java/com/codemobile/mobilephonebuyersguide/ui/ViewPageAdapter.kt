@@ -25,4 +25,15 @@ class ViewPageAdapter(
         return 2
     }
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when (position) {
+            0 -> {
+                "Mobile List"
+            }
+            1 -> "Favorite"
+            else -> {
+                return ""
+            }
+        }
+    }
 }

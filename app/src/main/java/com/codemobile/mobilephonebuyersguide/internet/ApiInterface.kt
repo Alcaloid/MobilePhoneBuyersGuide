@@ -8,12 +8,12 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiInterface {
-    @GET("mobile")
-    fun getMobileList(@Query("page")page:String):
-            Call<MobileListResponse>
+    @GET("api/mobiles")
+    fun getMobileList():
+            Call<List<MobileListResponse>>
 
     companion object Factory {
-        private val BASE_URL = "https://scb-test-mobile.herokuapp.com/api/"
+        private val BASE_URL = "https://scb-test-mobile.herokuapp.com/"
 
         private var retrofit: Retrofit? = null
 

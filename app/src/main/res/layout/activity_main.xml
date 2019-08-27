@@ -24,10 +24,9 @@
                 android:text="FAVORITE LIST"/>
 
     </com.google.android.material.tabs.TabLayout>
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_itemList"
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/main_viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
+    </androidx.viewpager.widget.ViewPager>
 </LinearLayout>
