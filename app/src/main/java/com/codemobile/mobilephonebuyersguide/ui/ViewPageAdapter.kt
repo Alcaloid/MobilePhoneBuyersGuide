@@ -1,10 +1,14 @@
 package com.codemobile.mobilephonebuyersguide.ui
 
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
 import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
+import android.provider.SyncStateContract.Helpers.update
+import androidx.viewpager.widget.PagerAdapter
+
 
 class ViewPageAdapter(
     val fragment: FragmentManager
@@ -14,7 +18,9 @@ class ViewPageAdapter(
             0 -> {
                 MobileListFragment()
             }
-            1 -> FavouriteFragment()
+            1 -> {
+                FavouriteFragment()
+            }
             else -> {
                 return MobileListFragment()
             }
@@ -36,4 +42,15 @@ class ViewPageAdapter(
             }
         }
     }
+//    override fun getItemPosition(`object`: Any): Int {
+//        val f = `object` as FavouriteFragment
+//        if (f != null) {
+//            f.update()
+//        }
+//        return super.getItemPosition(`object`)
+//    }
+    override fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
+    }
+
 }
