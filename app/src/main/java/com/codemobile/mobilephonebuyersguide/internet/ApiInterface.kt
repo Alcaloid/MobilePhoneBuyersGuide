@@ -1,16 +1,22 @@
 package com.codemobile.mobilephonebuyersguide.internet
 
+import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiInterface {
     @GET("api/mobiles")
     fun getMobileList():
             Call<List<MobileListResponse>>
+
+    @GET("api/mobiles/{id}/images")
+    fun getMobileImage(@Path("id")id:String):
+            Call<List<ImageResponse>>
 
     companion object Factory {
         private val BASE_URL = "https://scb-test-mobile.herokuapp.com/"

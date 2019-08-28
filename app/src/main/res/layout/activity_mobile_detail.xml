@@ -1,77 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-    <LinearLayout
-            android:id="@+id/tab_show_rate_price"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+
+    <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            >
-        <TextView
-                android:id="@+id/txt_detailRating"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Rating"
-                android:layout_weight="1"
-                android:gravity="start"
-                />
-        <TextView
-                android:id="@+id/txt_detailPrice"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Price"
-                android:layout_weight="1"
-                android:gravity="end"
-                />
-    </LinearLayout>
-    <LinearLayout
+            android:background="#90CAF9"
+            android:minHeight="?attr/actionBarSize"
+            app:title="MobilePhone"
+            app:titleTextColor="@color/colorWhite"
+            app:navigationIcon="@drawable/ic_arrow_back_write_24dp"
+            android:id="@+id/detail_toolbar"/>
+
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight="0.35"
             >
-        <ImageView
-                android:id="@+id/image_detailMobile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:src="@drawable/ic_android_black_24dp"
-                />
         <LinearLayout
+                android:id="@+id/tab_show_rate_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 >
             <TextView
-                    android:id="@+id/txt_detailName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MobileName"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:id="@+id/txt_detailRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Rating"
+                    android:layout_weight="1"
+                    android:gravity="start"
                     />
             <TextView
-                    android:id="@+id/txt_detailBrand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MobileBrand"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp"
-                    android:alpha="0.75"
+                    android:id="@+id/txt_detailPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Price"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     />
         </LinearLayout>
-        <TextView
-                android:id="@+id/txt_detailDescription"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_rcv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.65"
-                android:text="Description"
+                >
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        <TextView
+                android:id="@+id/txt_detailName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MobileName"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                />
+        <TextView
+                android:id="@+id/txt_detailBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MobileBrand"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/colorBlack"
-                android:alpha="0.5"
+                android:textSize="16sp"
+                android:alpha="0.75"
                 />
     </LinearLayout>
-</RelativeLayout>
+    <TextView
+            android:id="@+id/txt_detailDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.65"
+            android:text="Description"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/colorBlack"
+            android:alpha="0.5"
+            />
+
+</LinearLayout>

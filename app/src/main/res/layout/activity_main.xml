@@ -6,10 +6,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity" android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#90CAF9"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextColor="@color/colorWhite"
+            android:id="@+id/main_toolbar">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MobilePhone"
+                    />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tab"
             app:tabIndicatorColor="@color/colorTransparent"
             android:background="#90CAF9"
+            app:tabTextColor="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
