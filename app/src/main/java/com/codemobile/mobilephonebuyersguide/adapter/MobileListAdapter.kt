@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.DetailActivity
 import com.codemobile.mobilephonebuyersguide.R
-import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
-import com.codemobile.mobilephonebuyersguide.ui.CustomItemTouchHelperListener
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.custom_mobile_list_item.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Adapter<CustomHodler>(),CustomItemTouchHelperListener{
+class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Adapter<CustomHodler>(){
 
 
     private var mDataArray:ArrayList<MobileListResponse> = arrayListOf()
@@ -54,17 +51,6 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
         }
     }
 
-    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        Collections.swap(mDataArray, fromPosition, toPosition)
-        notifyItemMoved(fromPosition, toPosition)
-        return true
-    }
-
-    override fun onItemDismiss(position: Int) {
-        mDataArray.removeAt(position)
-        notifyDataSetChanged()
-    }
-
     fun sublitList(list: ArrayList<MobileListResponse>){
         mDataArray = list
         notifyDataSetChanged()
@@ -75,7 +61,8 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
     }
 
     fun setMobileListHoler(holder: CustomHodler, position: Int){
-        var like:Boolean = false
+        var like:Boolean = mDataArray[position].fav
+        println("xxx:"+like)
         holder.name.text = mDataArray[position].name
         holder.description.text = mDataArray[position].description
         holder.price.text = mDataArray[position].price.toString()
@@ -83,9 +70,19 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
         Picasso.with(context)
             .load(mDataArray[position].thumbImageURL)
             .into(holder.img_mobile)
+
+        //when sort image fav must change
+        if (like){
+            holder.favorite.setImageResource(R.drawable.ic_favorite)
+        }else{
+            holder.favorite.setImageResource(R.drawable.ic_heart)
+        }
+
         holder.favorite.setOnClickListener {
+            //switch fav or not
             if (like){
                 holder.favorite.setImageResource(R.drawable.ic_heart)
+                mDataArray[position].fav = false
                 val indexTarget = favDataArray.find {
                     it.equals(mDataArray[position])
                 }
@@ -94,6 +91,7 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
                 like = false
             }else{
                 holder.favorite.setImageResource(R.drawable.ic_favorite)
+                mDataArray[position].fav = true
                 favDataArray.add(mDataArray[position])
                 println("Add_"+favDataArray.size)
                 like = true

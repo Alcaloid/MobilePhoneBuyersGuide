@@ -10,5 +10,5 @@ data class MobileListResponse(
     val price: Double,
     val rating: Double,
     val thumbImageURL: String,
-    val fav:Boolean
+    var fav:Boolean = false
 ) : Serializable
