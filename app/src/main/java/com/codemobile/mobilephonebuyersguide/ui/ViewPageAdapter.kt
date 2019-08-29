@@ -8,18 +8,23 @@ import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
 import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
 import android.provider.SyncStateContract.Helpers.update
 import androidx.viewpager.widget.PagerAdapter
+import android.provider.SyncStateContract.Helpers.update
+
+
 
 
 class ViewPageAdapter(
-    val fragment: FragmentManager
+    val fragment: FragmentManager,
+    val mobileFrag:MobileListFragment,
+    val favFrag:FavouriteFragment
 ): FragmentPagerAdapter(fragment){
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                MobileListFragment()
+                return mobileFrag
             }
             1 -> {
-                FavouriteFragment()
+                return favFrag
             }
             else -> {
                 return MobileListFragment()
@@ -42,15 +47,9 @@ class ViewPageAdapter(
             }
         }
     }
-//    override fun getItemPosition(`object`: Any): Int {
-//        val f = `object` as FavouriteFragment
-//        if (f != null) {
-//            f.update()
-//        }
-//        return super.getItemPosition(`object`)
-//    }
+
     override fun getItemPosition(`object`: Any): Int {
-        return PagerAdapter.POSITION_NONE
+        return super.getItemPosition(`object`)
     }
 
 }

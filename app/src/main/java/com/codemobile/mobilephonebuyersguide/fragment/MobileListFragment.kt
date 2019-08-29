@@ -18,8 +18,8 @@ import retrofit2.Response
 
 class MobileListFragment :Fragment(){
 
-    var dataArrayList : ArrayList<MobileListResponse> = arrayListOf()
-    lateinit var mobileListAdapter:MobileListAdapter
+    private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
+    private var mobileListAdapter:MobileListAdapter? =null
     lateinit var callMobileList: Call<List<MobileListResponse>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -30,17 +30,15 @@ class MobileListFragment :Fragment(){
     }
 
     private fun init(_view:View){
-        mobileListAdapter = MobileListAdapter(_view.context,dataArrayList)
+        mobileListAdapter = MobileListAdapter(_view.context,0)
         _view.rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(context)
-//            it.addItemDecoration(LinePagerIndicatorDecoration())
         }
-//        val snapHelper = PagerSnapHelper()
-//        snapHelper.attachToRecyclerView(rcv_frgment)
     }
 
     private fun feedMobile() {
+        mobileArrayList.clear()
         callMobileList = ApiInterface.getBase().getMobileList()
         //check request
         Log.d("SCB_Network", callMobileList.request().url().toString())
@@ -51,12 +49,36 @@ class MobileListFragment :Fragment(){
             override fun onResponse(call: Call<List<MobileListResponse>>, response: Response<List<MobileListResponse>>) {
                 Log.d("SCB_Network",response.body().toString())
                 if (response.isSuccessful){
-                    dataArrayList.addAll(response.body()!!)
-                    mobileListAdapter.notifyDataSetChanged()
+                    mobileArrayList.addAll(response.body()!!)
+                    mobileListAdapter?.sublitList(mobileArrayList)
                 }
             }
         })
     }
 
+    fun getFavData(): ArrayList<MobileListResponse>? {
+        val favList = mobileListAdapter?.getFavList()
+        return favList
+    }
+
+    fun mobileListSortData(sortForm:String){
+        when(sortForm){
+            "PriceLow"->{
+                mobileArrayList.sortBy { it.price }
+            }
+            "PriceHigh"->{
+                mobileArrayList.sortByDescending {
+                    it.price
+                }
+            }
+            "Rate"->{
+                mobileArrayList.sortByDescending { it.rating }
+            }
+            else->{
+                mobileArrayList.sortBy { it.price }
+            }
+        }
+        mobileListAdapter?.sublitList(mobileArrayList)
+    }
 
 }

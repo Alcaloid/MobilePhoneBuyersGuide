@@ -5,22 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codemobile.mobilephonebuyersguide.R
-import com.codemobile.mobilephonebuyersguide.adapter.FavoriteAdapter
+import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.ui.CustomItemTouchHelperCallback
+import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
-interface Update{
-    fun update()
-}
+class FavouriteFragment :Fragment(){
 
-class FavouriteFragment :Fragment(),Update{
-
-    lateinit var favoriteAdapter:FavoriteAdapter
-    companion object{
-        var favoriteItem:ArrayList<MobileListResponse> = arrayListOf()
-    }
+    private var favoriteAdapter:MobileListAdapter? = null
+    private var favoriteArrayList:ArrayList<MobileListResponse> = arrayListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val _view = inflater.inflate(R.layout.fragment_recyclerview, container, false)
@@ -28,21 +25,40 @@ class FavouriteFragment :Fragment(),Update{
         return _view
     }
 
-    override fun onResume() {
-        super.onResume()
-        favoriteAdapter.notifyDataSetChanged()
-    }
-
     private fun init(_view:View){
-        favoriteAdapter = FavoriteAdapter(_view.context, favoriteItem)
+        favoriteAdapter = MobileListAdapter(_view.context,1)
         _view.rcv_frgment.let {
             it.adapter = favoriteAdapter
             it.layoutManager = LinearLayoutManager(context)
         }
+        val callback = CustomItemTouchHelperCallback(favoriteAdapter!!)
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(rcv_frgment)
     }
 
-    override fun update() {
-        favoriteAdapter.notifyDataSetChanged()
+    fun sendDataFav(list:ArrayList<MobileListResponse>?){
+        if (list !=null){
+            favoriteArrayList = list
+            favoriteAdapter?.sublitList(favoriteArrayList)
+        }
     }
 
+    fun favoriteListSortData(sortForm:String){
+        when(sortForm){
+            "PriceLow"->{
+                favoriteArrayList.sortBy { it.price }
+            }
+            "PriceHigh"->{
+                favoriteArrayList.sortByDescending { it.price }
+            }
+            "Rate"->{
+                favoriteArrayList.sortByDescending { it.rating }
+            }
+            else->{
+                favoriteArrayList.sortBy { it.price }
+            }
+        }
+        println("ItemSize:"+favoriteArrayList.size)
+        favoriteAdapter?.sublitList(favoriteArrayList)
+    }
 }
