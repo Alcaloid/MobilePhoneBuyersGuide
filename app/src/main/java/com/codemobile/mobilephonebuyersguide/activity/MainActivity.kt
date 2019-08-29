@@ -1,18 +1,14 @@
-package com.codemobile.mobilephonebuyersguide
+package com.codemobile.mobilephonebuyersguide.activity
 
-import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
+import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
 import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.codemobile.mobilephonebuyersguide.ui.ViewPageAdapter
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +37,10 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 when(position){
+                    0->{
+                        val itemUnFav = frag2.getUnFav()
+                        frag1.sendUnFavToRemoveheart(itemUnFav)
+                    }
                     1->{
                         val itemFav = frag1.getFavData()
                         frag2.sendDataFav(itemFav)

@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.collections.ArrayList
 
 
 class MobileListFragment :Fragment(){
@@ -40,14 +41,10 @@ class MobileListFragment :Fragment(){
     private fun feedMobile() {
         mobileArrayList.clear()
         callMobileList = ApiInterface.getBase().getMobileList()
-        //check request
-        Log.d("SCB_Network", callMobileList.request().url().toString())
         callMobileList.enqueue(object : Callback<List<MobileListResponse>> {
             override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
-                Log.d("SCB_Network_Error",t.message.toString())
             }
             override fun onResponse(call: Call<List<MobileListResponse>>, response: Response<List<MobileListResponse>>) {
-                Log.d("SCB_Network",response.body().toString())
                 if (response.isSuccessful){
                     mobileArrayList.addAll(response.body()!!)
                     mobileListAdapter?.sublitList(mobileArrayList)
@@ -61,15 +58,27 @@ class MobileListFragment :Fragment(){
         return favList
     }
 
+    fun sendUnFavToRemoveheart(list: ArrayList<MobileListResponse>){
+        //list is item of fav
+        mobileArrayList.forEach {item->
+            //very slow!
+            item.fav = false
+            list.forEach {itemFav->
+                if (item.id==itemFav.id){
+                    item.fav = true
+                }
+            }
+        }
+        mobileListAdapter?.sublitList(mobileArrayList)
+    }
+
     fun mobileListSortData(sortForm:String){
         when(sortForm){
             "PriceLow"->{
                 mobileArrayList.sortBy { it.price }
             }
             "PriceHigh"->{
-                mobileArrayList.sortByDescending {
-                    it.price
-                }
+                mobileArrayList.sortByDescending { it.price }
             }
             "Rate"->{
                 mobileArrayList.sortByDescending { it.rating }

@@ -6,19 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codemobile.mobilephonebuyersguide.DetailActivity
+import com.codemobile.mobilephonebuyersguide.activity.DetailActivity
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
-import java.util.*
 import kotlin.collections.ArrayList
 
 
 class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Adapter<CustomHodler>(){
 
 
-    private var mDataArray:ArrayList<MobileListResponse> = arrayListOf()
-    private var favDataArray:ArrayList<MobileListResponse> = arrayListOf()
+    private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
+    private var favDataArray: ArrayList<MobileListResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHodler {
         return CustomHodler(
@@ -55,13 +54,12 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
         notifyDataSetChanged()
     }
 
-    fun getFavList():ArrayList<MobileListResponse>{
+    fun getFavList(): ArrayList<MobileListResponse>{
         return favDataArray
     }
 
     fun setMobileListHoler(holder: CustomHodler, position: Int){
         var like:Boolean = mDataArray[position].fav
-        println("xxx:"+like)
         holder.name.text = mDataArray[position].name
         holder.description.text = mDataArray[position].description
         holder.price.text = mDataArray[position].price.toString()
@@ -86,13 +84,11 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
                     it.equals(mDataArray[position])
                 }
                 favDataArray.remove(indexTarget)
-                println("Delte_"+favDataArray.size)
                 like = false
             }else{
                 holder.favorite.setImageResource(R.drawable.ic_favorite)
                 mDataArray[position].fav = true
                 favDataArray.add(mDataArray[position])
-                println("Add_"+favDataArray.size)
                 like = true
             }
         }
@@ -108,22 +104,6 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
             .into(holder.img_mobile)
         holder.rate.visibility      = View.GONE
         holder.favorite.visibility  = View.GONE
-
-        holder.itemView.setOnClickListener {
-            val adapterPos = holder.adapterPosition
-            if (adapterPos != RecyclerView.NO_POSITION) {
-                val intent = Intent(context, DetailActivity::class.java)
-                intent.putExtra("information",mDataArray[position])
-                context.startActivity(intent)
-            }
-        }
-    }
-
-    fun removeAt(position: Int) {
-        favDataArray.removeAt(position)
-        mDataArray[position].fav = false
-        notifyItemRemoved(position)
-        notifyDataSetChanged()
     }
 
 }

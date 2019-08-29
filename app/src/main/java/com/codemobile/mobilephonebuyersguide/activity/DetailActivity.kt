@@ -1,9 +1,10 @@
-package com.codemobile.mobilephonebuyersguide
+package com.codemobile.mobilephonebuyersguide.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.adapter.ImageMobileListAdapter
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse

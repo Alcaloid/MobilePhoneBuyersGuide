@@ -8,11 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
-import com.codemobile.mobilephonebuyersguide.ui.SwipeToDeleteCallback
-import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
 class FavouriteFragment :Fragment(){
@@ -21,9 +18,34 @@ class FavouriteFragment :Fragment(){
     private var favoriteArrayList:ArrayList<MobileListResponse> = arrayListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val _view = inflater.inflate(R.layout.fragment_recyclerview, container, false)
+        val _view = inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
         init(_view)
         return _view
+    }
+
+    private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(
+        0,
+        ItemTouchHelper.LEFT
+    ) {
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+            val dragFlags = 0
+            val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+            return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+            val position = viewHolder.adapterPosition
+            favoriteArrayList.removeAt(position)
+            favoriteAdapter?.notifyItemRemoved(position)
+        }
     }
 
     private fun init(_view:View){
@@ -31,16 +53,9 @@ class FavouriteFragment :Fragment(){
         _view.rcv_frgment.let {
             it.adapter = favoriteAdapter
             it.layoutManager = LinearLayoutManager(context)
+            val itemTouchHelper:ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(it)
         }
-        val swipeHandler = object : SwipeToDeleteCallback(_view.context) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                val adapter = rcv_frgment.adapter as MobileListAdapter
-//                adapter.removeAt(viewHolder.adapterPosition)
-                favoriteAdapter?.removeAt(viewHolder.adapterPosition)
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(rcv_frgment)
     }
 
     fun sendDataFav(list:ArrayList<MobileListResponse>?){
@@ -48,6 +63,10 @@ class FavouriteFragment :Fragment(){
             favoriteArrayList = list
             favoriteAdapter?.sublitList(favoriteArrayList)
         }
+    }
+
+    fun getUnFav():ArrayList<MobileListResponse>{
+        return favoriteArrayList
     }
 
     fun favoriteListSortData(sortForm:String){

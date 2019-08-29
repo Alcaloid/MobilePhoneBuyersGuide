@@ -31,8 +31,6 @@ class ImageMobileListAdapter (val context: Context, val urlArray:ArrayList<Image
             .load(urlArray[position].url)
             .into(holder.imageMobile)
     }
-
-
 }
 
 class ImageHolder(view: View): RecyclerView.ViewHolder(view) {

@@ -1,17 +1,10 @@
 package com.codemobile.mobilephonebuyersguide.ui
 
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
 import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
-import android.provider.SyncStateContract.Helpers.update
-import androidx.viewpager.widget.PagerAdapter
-import android.provider.SyncStateContract.Helpers.update
-
-
-
 
 class ViewPageAdapter(
     val fragment: FragmentManager,
@@ -27,7 +20,7 @@ class ViewPageAdapter(
                 return favFrag
             }
             else -> {
-                return MobileListFragment()
+                return mobileFrag
             }
         }
     }
