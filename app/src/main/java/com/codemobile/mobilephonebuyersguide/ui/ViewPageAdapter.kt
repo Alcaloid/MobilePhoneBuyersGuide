@@ -11,6 +11,15 @@ class ViewPageAdapter(
     val mobileFrag:MobileListFragment,
     val favFrag:FavouriteFragment
 ): FragmentPagerAdapter(fragment){
+
+    fun updateFragment() {
+        fragment.fragments.forEach({
+            if (it is FavouriteFragment) {
+//                it.sendDataFav()
+            }
+        })
+    }
+
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {

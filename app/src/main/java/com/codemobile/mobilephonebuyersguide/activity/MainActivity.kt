@@ -49,10 +49,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val popUpWillCilkListener = View.OnClickListener {
-
-        }
-        image_filter.setOnClickListener(popUpWillCilkListener)
         image_filter.setOnClickListener {
             val listItems = arrayOf("Price low to high", "Price high to low", "Rating 5-1")
             val builder = AlertDialog.Builder(this)
