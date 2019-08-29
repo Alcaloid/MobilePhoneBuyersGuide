@@ -12,13 +12,13 @@ class ViewPageAdapter(
     val favFrag:FavouriteFragment
 ): FragmentPagerAdapter(fragment){
 
-    fun updateFragment() {
-        fragment.fragments.forEach({
-            if (it is FavouriteFragment) {
-//                it.sendDataFav()
-            }
-        })
-    }
+//    fun updateFragment() {
+//        fragment.fragments.forEach({
+//            if (it is FavouriteFragment) {
+////                it.sendDataFav()
+//            }
+//        })
+//    }
 
     override fun getItem(position: Int): Fragment {
         return when (position) {

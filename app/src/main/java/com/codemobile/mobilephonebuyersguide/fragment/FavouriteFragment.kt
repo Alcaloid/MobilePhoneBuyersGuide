@@ -29,7 +29,7 @@ class FavouriteFragment :Fragment(){
     ) {
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
             val dragFlags = 0
-            val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+            val swipeFlags = ItemTouchHelper.START
             return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
         }
 
