@@ -34,7 +34,6 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
         return mDataArray.size
     }
 
-
     override fun onBindViewHolder(holder: CustomHodler, position: Int) {
         if (setHoler == 0){
             setMobileListHoler(holder,position)
@@ -118,6 +117,13 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
                 context.startActivity(intent)
             }
         }
+    }
+
+    fun removeAt(position: Int) {
+        favDataArray.removeAt(position)
+        mDataArray[position].fav = false
+        notifyItemRemoved(position)
+        notifyDataSetChanged()
     }
 
 }
