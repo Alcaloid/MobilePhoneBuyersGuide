@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.adapter.ImageMobileListAdapter
+import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
@@ -16,10 +17,10 @@ import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
 
-    var imageArrayList : ArrayList<ImageResponse> = arrayListOf()
     lateinit var mobileInfo:MobileListResponse
     lateinit var callImageMobile: Call<List<ImageResponse>>
     lateinit var imageAdapter: ImageMobileListAdapter
+    private var imageArrayList : ArrayList<ImageResponse> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +32,10 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupData() {
-        imageAdapter = ImageMobileListAdapter(this,imageArrayList)
+        imageAdapter = ImageMobileListAdapter(this)
         detail_rcv.setAdapter(imageAdapter)
         detail_rcv.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        mobileInfo = intent.extras?.getSerializable("information") as MobileListResponse
+        mobileInfo = intent.extras?.getSerializable(INFORMATION) as MobileListResponse
         detail_toolbar.setNavigationOnClickListener {
             finish()
         }
@@ -44,17 +45,13 @@ class DetailActivity : AppCompatActivity() {
     private fun feedImageMobile() {
         callImageMobile = ApiInterface.getBase().getMobileImage(mobileInfo.id.toString())
         //check request
-        Log.d("SCB_Network", callImageMobile.request().url().toString())
         callImageMobile.enqueue(object : Callback<List<ImageResponse>> {
             override fun onFailure(call: Call<List<ImageResponse>>, t: Throwable) {
-                Log.d("SCB_Network_Error",t.message.toString())
             }
-
             override fun onResponse(call: Call<List<ImageResponse>>, response: Response<List<ImageResponse>>) {
-                Log.d("SCB_Network",response.body().toString())
                 if (response.isSuccessful){
                     imageArrayList.addAll(response.body()!!)
-                    imageAdapter.notifyDataSetChanged()
+                    imageAdapter.sublitList(imageArrayList)
                 }
             }
         })

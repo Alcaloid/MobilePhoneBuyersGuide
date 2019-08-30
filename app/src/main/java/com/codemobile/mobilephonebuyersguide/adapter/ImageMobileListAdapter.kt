@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.grid_item_mobile_image.view.*
 
-class ImageMobileListAdapter (val context: Context, val urlArray:ArrayList<ImageResponse>): RecyclerView.Adapter<ImageHolder>(){
+class ImageMobileListAdapter (val context: Context): RecyclerView.Adapter<ImageHolder>(){
+
+    private var urlArray:ArrayList<ImageResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         return ImageHolder(
@@ -20,6 +23,11 @@ class ImageMobileListAdapter (val context: Context, val urlArray:ArrayList<Image
                 false
             )
         )
+    }
+
+    fun sublitList(list: ArrayList<ImageResponse>){
+        urlArray = list
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

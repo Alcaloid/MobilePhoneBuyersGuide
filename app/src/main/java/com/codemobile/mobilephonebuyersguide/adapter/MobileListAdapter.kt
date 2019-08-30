@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.activity.DetailActivity
 import com.codemobile.mobilephonebuyersguide.R
+import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
@@ -43,7 +44,7 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
             val adapterPos = holder.adapterPosition
             if (adapterPos != RecyclerView.NO_POSITION) {
                 val intent = Intent(context, DetailActivity::class.java)
-                intent.putExtra("information",mDataArray[position])
+                intent.putExtra(INFORMATION,mDataArray[position])
                 context.startActivity(intent)
             }
         }

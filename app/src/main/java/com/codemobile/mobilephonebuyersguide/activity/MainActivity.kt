@@ -2,10 +2,10 @@ package com.codemobile.mobilephonebuyersguide.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.ViewPager
-import com.codemobile.mobilephonebuyersguide.R
+import com.codemobile.mobilephonebuyersguide.*
+import com.codemobile.mobilephonebuyersguide.constantclass.LIST_SORT
 import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
 import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
 import com.codemobile.mobilephonebuyersguide.ui.ViewPageAdapter
@@ -50,27 +50,16 @@ class MainActivity : AppCompatActivity() {
         })
 
         image_filter.setOnClickListener {
-            val listItems = arrayOf("Price low to high", "Price high to low", "Rating 5-1")
             val builder = AlertDialog.Builder(this)
-                .setSingleChoiceItems(listItems, -1) { dialogInterface, i ->
-                    when(i){
-                        0 -> {
-                            frag1.mobileListSortData("PriceLow")
-                            frag2.favoriteListSortData("PriceLow")
-                        }
-                        1 -> {
-                            frag1.mobileListSortData("PriceHigh")
-                            frag2.favoriteListSortData("PriceHigh")
-                        }
-                        2 ->{
-                            frag1.mobileListSortData("Rate")
-                            frag2.favoriteListSortData("Rate")
-                        }
-                    }
+                .setSingleChoiceItems(LIST_SORT, -1) { dialogInterface, i ->
+                    frag1.mobileListSortData(LIST_SORT[i])
+                    frag2.favoriteListSortData(LIST_SORT[i])
                     dialogInterface.dismiss()
                 }
                 .create()
             builder.show()
         }
+
+
     }
 }

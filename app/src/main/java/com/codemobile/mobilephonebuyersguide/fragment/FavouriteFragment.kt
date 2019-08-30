@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
+import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
+import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
@@ -71,20 +74,19 @@ class FavouriteFragment :Fragment(){
 
     fun favoriteListSortData(sortForm:String){
         when(sortForm){
-            "PriceLow"->{
+            PRICE_LOWTOHIGH ->{
                 favoriteArrayList.sortBy { it.price }
             }
-            "PriceHigh"->{
+            PRICE_HIGHTOLOW ->{
                 favoriteArrayList.sortByDescending { it.price }
             }
-            "Rate"->{
+            RATE_5_1 ->{
                 favoriteArrayList.sortByDescending { it.rating }
             }
             else->{
                 favoriteArrayList.sortBy { it.price }
             }
         }
-        println("ItemSize:"+favoriteArrayList.size)
         favoriteAdapter?.sublitList(favoriteArrayList)
     }
 }
