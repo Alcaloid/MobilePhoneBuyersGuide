@@ -1,13 +1,12 @@
-package com.codemobile.mobilephonebuyersguide.internet
+package com.codemobile.mobilephonebuyersguide.nonmvp.internet
 
-import com.codemobile.mobilephonebuyersguide.model.ImageResponse
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.nonmvp.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.nonmvp.model.MobileListResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface ApiInterface {
     @GET("api/mobiles")

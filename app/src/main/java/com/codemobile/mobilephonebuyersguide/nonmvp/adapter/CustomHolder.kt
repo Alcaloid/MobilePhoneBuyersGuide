@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.adapter
+package com.codemobile.mobilephonebuyersguide.nonmvp.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

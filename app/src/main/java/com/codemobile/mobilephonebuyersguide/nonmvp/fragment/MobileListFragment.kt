@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.fragment
+package com.codemobile.mobilephonebuyersguide.nonmvp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
-import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
-import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
-import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.mvp.constantclass.PRICE_HIGHTOLOW
+import com.codemobile.mobilephonebuyersguide.mvp.constantclass.PRICE_LOWTOHIGH
+import com.codemobile.mobilephonebuyersguide.mvp.constantclass.RATE_5_1
+import com.codemobile.mobilephonebuyersguide.nonmvp.adapter.MobileListAdapter
+import com.codemobile.mobilephonebuyersguide.nonmvp.internet.ApiInterface
+import com.codemobile.mobilephonebuyersguide.nonmvp.model.MobileListResponse
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 import retrofit2.Call
 import retrofit2.Callback

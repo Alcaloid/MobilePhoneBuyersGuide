@@ -1,14 +1,14 @@
-package com.codemobile.mobilephonebuyersguide.activity
+package com.codemobile.mobilephonebuyersguide.nonmvp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.ViewPager
 import com.codemobile.mobilephonebuyersguide.*
-import com.codemobile.mobilephonebuyersguide.constantclass.LIST_SORT
-import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
-import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
-import com.codemobile.mobilephonebuyersguide.ui.ViewPageAdapter
+import com.codemobile.mobilephonebuyersguide.mvp.constantclass.LIST_SORT
+import com.codemobile.mobilephonebuyersguide.nonmvp.fragment.FavouriteFragment
+import com.codemobile.mobilephonebuyersguide.nonmvp.fragment.MobileListFragment
+import com.codemobile.mobilephonebuyersguide.nonmvp.ui.ViewPageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.model
+package com.codemobile.mobilephonebuyersguide.nonmvp.model
 
 data class ImageResponse(
     val id: Int,

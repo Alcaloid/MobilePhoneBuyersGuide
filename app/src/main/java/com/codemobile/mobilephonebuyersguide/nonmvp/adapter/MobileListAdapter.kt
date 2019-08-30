@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.adapter
+package com.codemobile.mobilephonebuyersguide.nonmvp.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codemobile.mobilephonebuyersguide.activity.DetailActivity
+import com.codemobile.mobilephonebuyersguide.nonmvp.activity.DetailActivity
 import com.codemobile.mobilephonebuyersguide.R
-import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.mvp.constantclass.INFORMATION
+import com.codemobile.mobilephonebuyersguide.nonmvp.model.MobileListResponse
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 

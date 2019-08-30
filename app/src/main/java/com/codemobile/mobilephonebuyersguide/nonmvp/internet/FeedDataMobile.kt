@@ -1,7 +1,6 @@
-package com.codemobile.mobilephonebuyersguide.internet
+package com.codemobile.mobilephonebuyersguide.nonmvp.internet
 
-import androidx.print.PrintHelper
-import com.codemobile.mobilephonebuyersguide.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.nonmvp.model.ImageResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
