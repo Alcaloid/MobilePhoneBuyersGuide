@@ -1,14 +1,14 @@
-package com.codemobile.mobilephonebuyersguide.nonmvp.activity
+package com.codemobile.mobilephonebuyersguide.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codemobile.mobilephonebuyersguide.R
-import com.codemobile.mobilephonebuyersguide.nonmvp.adapter.ImageMobileListAdapter
-import com.codemobile.mobilephonebuyersguide.mvp.constantclass.INFORMATION
-import com.codemobile.mobilephonebuyersguide.nonmvp.internet.ApiInterface
-import com.codemobile.mobilephonebuyersguide.nonmvp.model.ImageResponse
-import com.codemobile.mobilephonebuyersguide.nonmvp.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.adapter.ImageMobileListAdapter
+import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
+import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
+import com.codemobile.mobilephonebuyersguide.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import kotlinx.android.synthetic.main.activity_mobile_detail.*
 import retrofit2.Call
 import retrofit2.Callback

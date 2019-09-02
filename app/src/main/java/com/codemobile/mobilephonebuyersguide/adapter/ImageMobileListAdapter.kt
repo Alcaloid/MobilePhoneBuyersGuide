@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.nonmvp.adapter
+package com.codemobile.mobilephonebuyersguide.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.R
-import com.codemobile.mobilephonebuyersguide.nonmvp.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.grid_item_mobile_image.view.*
 

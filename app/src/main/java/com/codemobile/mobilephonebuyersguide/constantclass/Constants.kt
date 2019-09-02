@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.mvp.constantclass
+package com.codemobile.mobilephonebuyersguide.constantclass
 
 const val PRICE_LOWTOHIGH = "Price low to high"
 const val PRICE_HIGHTOLOW = "Price high to low"

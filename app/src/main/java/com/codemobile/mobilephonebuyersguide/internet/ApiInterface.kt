@@ -1,7 +1,7 @@
-package com.codemobile.mobilephonebuyersguide.nonmvp.internet
+package com.codemobile.mobilephonebuyersguide.internet
 
-import com.codemobile.mobilephonebuyersguide.nonmvp.model.ImageResponse
-import com.codemobile.mobilephonebuyersguide.nonmvp.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

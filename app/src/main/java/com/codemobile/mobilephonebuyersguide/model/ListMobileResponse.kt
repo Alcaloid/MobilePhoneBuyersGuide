@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.nonmvp.model
+package com.codemobile.mobilephonebuyersguide.model
 
 import java.io.Serializable
 

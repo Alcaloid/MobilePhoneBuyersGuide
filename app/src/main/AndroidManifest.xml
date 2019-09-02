@@ -13,11 +13,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="com.codemobile.mobilephonebuyersguide.nonmvp.activity.DetailActivity"
+        <activity android:name="com.codemobile.mobilephonebuyersguide.activity.DetailActivity"
                 >
         </activity>
         <activity
-                android:name="com.codemobile.mobilephonebuyersguide.nonmvp.activity.MainActivity">
+                android:name="com.codemobile.mobilephonebuyersguide.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

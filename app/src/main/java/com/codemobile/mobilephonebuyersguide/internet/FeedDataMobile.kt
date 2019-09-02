@@ -1,6 +1,6 @@
-package com.codemobile.mobilephonebuyersguide.nonmvp.internet
+package com.codemobile.mobilephonebuyersguide.internet
 
-import com.codemobile.mobilephonebuyersguide.nonmvp.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

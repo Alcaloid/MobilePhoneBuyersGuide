@@ -1,16 +1,16 @@
-package com.codemobile.mobilephonebuyersguide.mvp.adapter
-
+package com.codemobile.mobilephonebuyersguide.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.codemobile.mobilephonebuyersguide.nonmvp.fragment.FavouriteFragment
-import com.codemobile.mobilephonebuyersguide.nonmvp.fragment.MobileListFragment
+import com.codemobile.mobilephonebuyersguide.fragment.FavouriteFragment
+import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
 
-class SubViewPageAdapter (
-    val fragment: FragmentManager
+class ViewPageAdapter(
+    val fragment: FragmentManager,
+    val mobileFrag:MobileListFragment,
+    val favFrag:FavouriteFragment
 ): FragmentPagerAdapter(fragment){
-    
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
