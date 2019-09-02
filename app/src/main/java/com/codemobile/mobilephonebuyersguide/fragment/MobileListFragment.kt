@@ -1,21 +1,18 @@
 package com.codemobile.mobilephonebuyersguide.fragment
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
-import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
-import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import kotlin.collections.ArrayList
 
 
@@ -23,10 +20,11 @@ class MobileListFragment :Fragment(),MobileListContract.MobileListView{
 
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileListAdapter:MobileListAdapter? =null
-    private var mobilePresentor = MobileListPresen(this)
+    private var mobilePresentor = MobileListPresentation(this)
+    lateinit var _view:View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val _view = inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
+        _view = inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
         init(_view)
         return _view
     }
@@ -34,6 +32,26 @@ class MobileListFragment :Fragment(),MobileListContract.MobileListView{
     override fun showMobileList(list: ArrayList<MobileListResponse>) {
         mobileArrayList = list
         mobileListAdapter?.sublitList(mobileArrayList)
+    }
+
+    override fun showLoading() {
+        _view.pgb_fragment.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        _view.pgb_fragment.visibility = View.GONE
+    }
+
+    override fun showErrorMessage() {
+        val errorDialog = AlertDialog.Builder(context!!)
+            .setTitle("Error")
+            .setMessage("Can't feed mobile data")
+            .setPositiveButton("Feed Agian",DialogInterface.OnClickListener { dialogInterface, i ->
+                mobilePresentor.feedMobileList() })
+            .setNegativeButton("Ok",DialogInterface.OnClickListener { dialogInterface, i ->
+                 })
+            .create()
+        errorDialog.show()
     }
 
     fun mobileListSortData(sortForm:String) {

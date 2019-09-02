@@ -4,6 +4,9 @@ import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 interface MobileListContract {
     interface MobileListView{
+        fun showLoading()
+        fun hideLoading()
+        fun showErrorMessage()
         fun showMobileList(list:ArrayList<MobileListResponse>)
     }
     interface MobileListPresentor{
