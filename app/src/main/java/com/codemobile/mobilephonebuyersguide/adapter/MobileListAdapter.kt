@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Adapter<CustomHodler>(){
 
 
-    private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
+    private var mDataArray: List<MobileListResponse> = arrayListOf()
     private var favDataArray: ArrayList<MobileListResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHodler {
@@ -50,7 +50,7 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
         }
     }
 
-    fun sublitList(list: ArrayList<MobileListResponse>){
+    fun sublitList(list: List<MobileListResponse>){
         mDataArray = list
         notifyDataSetChanged()
     }
