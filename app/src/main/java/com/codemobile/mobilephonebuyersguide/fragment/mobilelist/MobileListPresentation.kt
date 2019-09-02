@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.fragment
+package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
 import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
@@ -9,20 +9,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MobileListPresentation (val _view:MobileListContract.MobileListView):MobileListContract.MobileListPresentor{
+class MobileListPresentation(val _view: MobileListContract.MobileListView) :
+    MobileListContract.MobileListPresentor {
 
-    override fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>,sortForm:String) {
-        when(sortForm){
-            PRICE_LOWTOHIGH ->{
+    override fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>, sortForm: String) {
+        when (sortForm) {
+            PRICE_LOWTOHIGH -> {
                 mobileArrayList.sortBy { it.price }
             }
-            PRICE_HIGHTOLOW ->{
+            PRICE_HIGHTOLOW -> {
                 mobileArrayList.sortByDescending { it.price }
             }
-            RATE_5_1 ->{
+            RATE_5_1 -> {
                 mobileArrayList.sortByDescending { it.rating }
             }
-            else->{
+            else -> {
                 mobileArrayList.sortBy { it.price }
             }
         }
@@ -37,15 +38,33 @@ class MobileListPresentation (val _view:MobileListContract.MobileListView):Mobil
                 _view.hideLoading()
                 _view.showErrorMessage()
             }
-            override fun onResponse(call: Call<List<MobileListResponse>>, response: Response<List<MobileListResponse>>) {
-                if (response.isSuccessful){
-                    val mobileArray:ArrayList<MobileListResponse> = arrayListOf()
+
+            override fun onResponse(
+                call: Call<List<MobileListResponse>>,
+                response: Response<List<MobileListResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    val mobileArray: ArrayList<MobileListResponse> = arrayListOf()
                     mobileArray.addAll(response.body()!!)
                     _view.hideLoading()
                     _view.showMobileList(mobileArray)
                 }
             }
         })
+    }
+
+    override fun getCurrentFav(mobileArrayList: ArrayList<MobileListResponse>, list: ArrayList<MobileListResponse>) {
+        //list is item of fav
+        mobileArrayList.forEach { item ->
+            //very slow!
+            item.fav = false
+            list.forEach { itemFav ->
+                if (item.id == itemFav.id) {
+                    item.fav = true
+                }
+            }
+        }
+        _view.showMobileList(mobileArrayList)
     }
 
 }

@@ -1,6 +1,5 @@
-package com.codemobile.mobilephonebuyersguide.activity
+package com.codemobile.mobilephonebuyersguide.activity.detail
 
-import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
@@ -8,7 +7,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailPresentation(val view:DetailContract.DetailView) :DetailContract.DetailPresenttaion{
+class DetailPresentation(val view: DetailContract.DetailView) :
+    DetailContract.DetailPresenttaion {
 
     override fun getPassData(info: MobileListResponse) {
         view.setName(info.name)
@@ -18,14 +18,15 @@ class DetailPresentation(val view:DetailContract.DetailView) :DetailContract.Det
         view.setRate(info.rating.toString())
     }
 
-    override fun feedImageDetail(id:Int) {
+    override fun feedImageDetail(id: Int) {
         val callImageMobile = ApiInterface.getBase().getMobileImage(id.toString())
         callImageMobile.enqueue(object : Callback<List<ImageResponse>> {
             override fun onFailure(call: Call<List<ImageResponse>>, t: Throwable) {
             }
+
             override fun onResponse(call: Call<List<ImageResponse>>, response: Response<List<ImageResponse>>) {
-                if (response.isSuccessful){
-                    val detailImage:ArrayList<ImageResponse> = arrayListOf()
+                if (response.isSuccessful) {
+                    val detailImage: ArrayList<ImageResponse> = arrayListOf()
                     detailImage.addAll(response.body()!!)
                     view.showImageMobileList(detailImage)
                 }

@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.fragment
+package com.codemobile.mobilephonebuyersguide.fragment.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,28 +8,33 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
-import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
+import com.codemobile.mobilephonebuyersguide.internet.BaseSortInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
-class FavouriteFragment :Fragment(),FavoriteContract.favView{
+class FavouriteFragment : Fragment(), FavoriteContract.favView,
+    BaseSortInterface {
 
-    private var favoriteAdapter:MobileListAdapter? = null
-    private var favoriteArrayList:ArrayList<MobileListResponse> = arrayListOf()
-    private val favPresentation:FavoritePresentation = FavoritePresentation(this)
+    private var favoriteAdapter: MobileListAdapter? = null
+    private var favoriteArrayList: ArrayList<MobileListResponse> = arrayListOf()
+    private val favPresentation: FavoritePresentation =
+        FavoritePresentation(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val _view = inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
+        val _view =
+            inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
         init(_view)
         return _view
     }
 
-    override fun showMobileFav(mobileFav:ArrayList<MobileListResponse>) {
+    override fun showMobileFav(mobileFav: ArrayList<MobileListResponse>) {
         favoriteArrayList = mobileFav
         favoriteAdapter?.sublitList(favoriteArrayList)
+    }
+
+    override fun updateSortType(sortType: String) {
+        favPresentation.sortMobile(favoriteArrayList, sortType)
     }
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(
@@ -52,32 +57,29 @@ class FavouriteFragment :Fragment(),FavoriteContract.favView{
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             val position = viewHolder.adapterPosition
-            favPresentation.removeMobileFav(favoriteArrayList,position)
+            favPresentation.removeMobileFav(favoriteArrayList, position)
         }
     }
 
-    private fun init(_view:View){
-        favoriteAdapter = MobileListAdapter(_view.context,1)
+    private fun init(_view: View) {
+        favoriteAdapter = MobileListAdapter(_view.context, 1)
         _view.rcv_frgment.let {
             it.adapter = favoriteAdapter
             it.layoutManager = LinearLayoutManager(context)
-            val itemTouchHelper:ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
+            val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
             itemTouchHelper.attachToRecyclerView(it)
         }
     }
 
-    fun favoriteListSortData(sortForm:String){
-        favPresentation.sortMobile(favoriteArrayList,sortForm)
-    }
-
-    fun sendDataFav(list:ArrayList<MobileListResponse>?){
-        if (list !=null){
+    fun sendDataFav(list: ArrayList<MobileListResponse>?) {
+        if (list != null) {
             favoriteArrayList = list
             favoriteAdapter?.sublitList(favoriteArrayList)
         }
     }
 
-    fun getUnFav():ArrayList<MobileListResponse>{
+    fun getUnFav(): ArrayList<MobileListResponse> {
         return favoriteArrayList
     }
+
 }
