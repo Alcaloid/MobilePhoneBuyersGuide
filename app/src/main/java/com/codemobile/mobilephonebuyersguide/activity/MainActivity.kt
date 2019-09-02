@@ -3,6 +3,7 @@ package com.codemobile.mobilephonebuyersguide.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.ViewPager
 import com.codemobile.mobilephonebuyersguide.*
@@ -29,6 +30,14 @@ class MainActivity : AppCompatActivity(),MainContact.View {
         main_viewPager.adapter = fragmentAdapter
         main_tab.setupWithViewPager(main_viewPager)
 
+        val builder = AlertDialog.Builder(this@MainActivity)
+            .setSingleChoiceItems(LIST_SORT, -1) { dialogInterface, i ->
+                Toast.makeText(this@MainActivity, LIST_SORT[i],Toast.LENGTH_SHORT).show()
+                frag1.mobileListSortData(LIST_SORT[i])
+                dialogInterface.dismiss()
+            }
+            .create()
+
         main_viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -41,27 +50,41 @@ class MainActivity : AppCompatActivity(),MainContact.View {
                     0->{
                         val itemUnFav = frag2.getUnFav()
                         frag1.sendUnFavToRemoveheart(itemUnFav)
+                        sortMobile(position)
                     }
                     1->{
                         val itemFav = frag1.getFavData()
                         frag2.sendDataFav(itemFav)
+                        sortMobile(position)
                     }
                 }
             }
         })
+        sortMobile(-1)
+    }
 
+    fun sortMobile(page:Int)
+    {
         image_filter.setOnClickListener {
             val builder = AlertDialog.Builder(this)
                 .setSingleChoiceItems(LIST_SORT, -1) { dialogInterface, i ->
-                    frag1.mobileListSortData(LIST_SORT[i])
-                    frag2.favoriteListSortData(LIST_SORT[i])
+                    when (page){
+                        0 ->{
+                            frag1.mobileListSortData(LIST_SORT[i])
+                        }
+                        1 ->{
+                            frag2.favoriteListSortData(LIST_SORT[i])
+                        }
+                        else ->{
+                            frag1.mobileListSortData(LIST_SORT[i])
+                        }
+                    }
                     dialogInterface.dismiss()
                 }
                 .create()
             builder.show()
         }
     }
-
     override fun setOnPageClick(pageClick: ViewPager.OnPageChangeListener) {
 //        main_viewPager.addOnPageChangeListener(pageClick)
     }

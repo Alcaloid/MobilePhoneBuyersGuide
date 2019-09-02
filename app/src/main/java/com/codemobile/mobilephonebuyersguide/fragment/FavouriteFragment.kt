@@ -15,15 +15,21 @@ import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
-class FavouriteFragment :Fragment(){
+class FavouriteFragment :Fragment(),FavoriteContract.favView{
 
     private var favoriteAdapter:MobileListAdapter? = null
     private var favoriteArrayList:ArrayList<MobileListResponse> = arrayListOf()
+    private val favPresentation:FavoritePresentation = FavoritePresentation(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val _view = inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
         init(_view)
         return _view
+    }
+
+    override fun showMobileFav(mobileFav:ArrayList<MobileListResponse>) {
+        favoriteArrayList = mobileFav
+        favoriteAdapter?.sublitList(favoriteArrayList)
     }
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(
@@ -46,8 +52,7 @@ class FavouriteFragment :Fragment(){
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             val position = viewHolder.adapterPosition
-            favoriteArrayList.removeAt(position)
-            favoriteAdapter?.notifyItemRemoved(position)
+            favPresentation.removeMobileFav(favoriteArrayList,position)
         }
     }
 
@@ -61,6 +66,10 @@ class FavouriteFragment :Fragment(){
         }
     }
 
+    fun favoriteListSortData(sortForm:String){
+        favPresentation.sortMobile(favoriteArrayList,sortForm)
+    }
+
     fun sendDataFav(list:ArrayList<MobileListResponse>?){
         if (list !=null){
             favoriteArrayList = list
@@ -70,23 +79,5 @@ class FavouriteFragment :Fragment(){
 
     fun getUnFav():ArrayList<MobileListResponse>{
         return favoriteArrayList
-    }
-
-    fun favoriteListSortData(sortForm:String){
-        when(sortForm){
-            PRICE_LOWTOHIGH ->{
-                favoriteArrayList.sortBy { it.price }
-            }
-            PRICE_HIGHTOLOW ->{
-                favoriteArrayList.sortByDescending { it.price }
-            }
-            RATE_5_1 ->{
-                favoriteArrayList.sortByDescending { it.rating }
-            }
-            else->{
-                favoriteArrayList.sortBy { it.price }
-            }
-        }
-        favoriteAdapter?.sublitList(favoriteArrayList)
     }
 }

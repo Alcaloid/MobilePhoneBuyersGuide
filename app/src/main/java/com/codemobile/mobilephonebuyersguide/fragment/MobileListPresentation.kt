@@ -34,12 +34,10 @@ class MobileListPresentation (val _view:MobileListContract.MobileListView):Mobil
         _view.showLoading()
         callMobileList.enqueue(object : Callback<List<MobileListResponse>> {
             override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
-                println("Fail!")
                 _view.hideLoading()
                 _view.showErrorMessage()
             }
             override fun onResponse(call: Call<List<MobileListResponse>>, response: Response<List<MobileListResponse>>) {
-                println("Sub?")
                 if (response.isSuccessful){
                     val mobileArray:ArrayList<MobileListResponse> = arrayListOf()
                     mobileArray.addAll(response.body()!!)

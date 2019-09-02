@@ -60,12 +60,14 @@ class MobileListFragment :Fragment(),MobileListContract.MobileListView{
 
     private fun init(_view:View){
         mobileListAdapter = MobileListAdapter(_view.context,0)
+        mobileArrayList.clear()
         mobilePresentor.feedMobileList()
         _view.rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(context)
         }
     }
+
 
     fun getFavData(): ArrayList<MobileListResponse>? {
         val favList = mobileListAdapter?.getFavList()
