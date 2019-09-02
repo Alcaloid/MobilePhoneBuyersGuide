@@ -14,55 +14,45 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(),DetailContract.DetailView {
 
     lateinit var mobileInfo:MobileListResponse
     lateinit var callImageMobile: Call<List<ImageResponse>>
     lateinit var imageAdapter: ImageMobileListAdapter
     private var imageArrayList : ArrayList<ImageResponse> = arrayListOf()
+    lateinit var presentor:DetailContract.DetailPresenttaion
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mobile_detail)
 
         setupData()
-        feedImageMobile()
-        initDetail()
+    }
+
+    override fun setName(name: String) { txt_detailName.text = name }
+
+    override fun setBrand(brand: String) { txt_detailBrand.text = brand }
+
+    override fun setPrice(price: String) { txt_detailPrice.text = price }
+
+    override fun setRate(rate: String) { txt_detailRating.text = rate }
+
+    override fun setDescription(description: String) { txt_detailDescription.text = description }
+
+    override fun showImageMobileList(imageList: ArrayList<ImageResponse>) {
+        imageAdapter.sublitList(imageList)
     }
 
     private fun setupData() {
         imageAdapter = ImageMobileListAdapter(this)
         detail_rcv.setAdapter(imageAdapter)
         detail_rcv.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        presentor = DetailPresentation(this)
         mobileInfo = intent.extras?.getSerializable(INFORMATION) as MobileListResponse
+        presentor.getPassData(mobileInfo)
+        presentor.feedImageDetail(mobileInfo.id)
         detail_toolbar.setNavigationOnClickListener {
             finish()
-        }
-    }
-
-
-    private fun feedImageMobile() {
-        callImageMobile = ApiInterface.getBase().getMobileImage(mobileInfo.id.toString())
-        //check request
-        callImageMobile.enqueue(object : Callback<List<ImageResponse>> {
-            override fun onFailure(call: Call<List<ImageResponse>>, t: Throwable) {
-            }
-            override fun onResponse(call: Call<List<ImageResponse>>, response: Response<List<ImageResponse>>) {
-                if (response.isSuccessful){
-                    imageArrayList.addAll(response.body()!!)
-                    imageAdapter.sublitList(imageArrayList)
-                }
-            }
-        })
-    }
-
-    private fun initDetail() {
-        if (::mobileInfo.isLateinit){
-            txt_detailBrand.text        = mobileInfo.brand
-            txt_detailName.text         = mobileInfo.name
-            txt_detailPrice.text        = mobileInfo.price.toString()
-            txt_detailRating.text       = mobileInfo.rating.toString()
-            txt_detailDescription.text  = mobileInfo.description
         }
     }
 }

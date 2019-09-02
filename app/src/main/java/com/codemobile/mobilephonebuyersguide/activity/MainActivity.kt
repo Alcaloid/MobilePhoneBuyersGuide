@@ -1,8 +1,8 @@
 package com.codemobile.mobilephonebuyersguide.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.ViewPager
 import com.codemobile.mobilephonebuyersguide.*
@@ -12,7 +12,7 @@ import com.codemobile.mobilephonebuyersguide.fragment.MobileListFragment
 import com.codemobile.mobilephonebuyersguide.ui.ViewPageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),MainContact.View {
 
     lateinit var frag1:MobileListFragment
     lateinit var frag2:FavouriteFragment
@@ -60,7 +60,13 @@ class MainActivity : AppCompatActivity() {
                 .create()
             builder.show()
         }
+    }
 
+    override fun setOnPageClick(pageClick: ViewPager.OnPageChangeListener) {
+//        main_viewPager.addOnPageChangeListener(pageClick)
+    }
 
+    override fun setSortOnClick(itemClick: View.OnClickListener) {
+//        image_filter.setOnClickListener(itemClick)
     }
 }
