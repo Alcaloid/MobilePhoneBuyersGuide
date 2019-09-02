@@ -17,7 +17,9 @@ import retrofit2.Response
 class DetailActivity : AppCompatActivity(),DetailContract.DetailView {
 
     lateinit var mobileInfo:MobileListResponse
+    lateinit var callImageMobile: Call<List<ImageResponse>>
     lateinit var imageAdapter: ImageMobileListAdapter
+    private var imageArrayList : ArrayList<ImageResponse> = arrayListOf()
     lateinit var presentor:DetailContract.DetailPresenttaion
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +39,9 @@ class DetailActivity : AppCompatActivity(),DetailContract.DetailView {
 
     override fun setDescription(description: String) { txt_detailDescription.text = description }
 
-    override fun showImageMobileList(imageList: List<ImageResponse>) { imageAdapter.sublitList(imageList) }
+    override fun showImageMobileList(imageList: ArrayList<ImageResponse>) {
+        imageAdapter.sublitList(imageList)
+    }
 
     private fun setupData() {
         imageAdapter = ImageMobileListAdapter(this)

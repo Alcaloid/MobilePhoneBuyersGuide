@@ -10,7 +10,7 @@ interface DetailContract {
         fun setPrice(price:String)
         fun setRate(rate:String)
         fun setDescription(description:String)
-        fun showImageMobileList(imageList:List<ImageResponse>)
+        fun showImageMobileList(imageList:ArrayList<ImageResponse>)
     }
     interface DetailPresenttaion{
         fun getPassData(info:MobileListResponse)

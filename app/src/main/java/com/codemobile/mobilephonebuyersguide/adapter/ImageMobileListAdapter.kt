@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.grid_item_mobile_image.view.*
 
 class ImageMobileListAdapter (val context: Context): RecyclerView.Adapter<ImageHolder>(){
 
-    private var urlArray:List<ImageResponse> = arrayListOf()
+    private var urlArray:ArrayList<ImageResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         return ImageHolder(
@@ -24,7 +24,7 @@ class ImageMobileListAdapter (val context: Context): RecyclerView.Adapter<ImageH
         )
     }
 
-    fun sublitList(list: List<ImageResponse>){
+    fun sublitList(list: ArrayList<ImageResponse>){
         urlArray = list
         notifyDataSetChanged()
     }

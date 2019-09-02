@@ -1,5 +1,6 @@
 package com.codemobile.mobilephonebuyersguide.activity
 
+import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
@@ -24,7 +25,9 @@ class DetailPresentation(val view:DetailContract.DetailView) :DetailContract.Det
             }
             override fun onResponse(call: Call<List<ImageResponse>>, response: Response<List<ImageResponse>>) {
                 if (response.isSuccessful){
-                    view.showImageMobileList(response.body()!!)
+                    val detailImage:ArrayList<ImageResponse> = arrayListOf()
+                    detailImage.addAll(response.body()!!)
+                    view.showImageMobileList(detailImage)
                 }
             }
         })

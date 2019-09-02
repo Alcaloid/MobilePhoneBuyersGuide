@@ -19,30 +19,40 @@ import retrofit2.Response
 import kotlin.collections.ArrayList
 
 
-class MobileListFragment :Fragment(),MobileListContract.View{
+class MobileListFragment :Fragment(){
 
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileListAdapter:MobileListAdapter? =null
-    lateinit var mobilePresentor: MobileListContract.Presentor
+    lateinit var callMobileList: Call<List<MobileListResponse>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val _view = inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
         init(_view)
+        feedMobile()
         return _view
-    }
-
-    override fun showMobileList(mobileList: List<MobileListResponse>) {
-        mobileListAdapter?.sublitList(mobileList)
     }
 
     private fun init(_view:View){
         mobileListAdapter = MobileListAdapter(_view.context,0)
-        mobilePresentor = MobileListPresentor(this)
-        mobilePresentor.feedMobile()
         _view.rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(context)
         }
+    }
+
+    private fun feedMobile() {
+        mobileArrayList.clear()
+        callMobileList = ApiInterface.getBase().getMobileList()
+        callMobileList.enqueue(object : Callback<List<MobileListResponse>> {
+            override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
+            }
+            override fun onResponse(call: Call<List<MobileListResponse>>, response: Response<List<MobileListResponse>>) {
+                if (response.isSuccessful){
+                    mobileArrayList.addAll(response.body()!!)
+                    mobileListAdapter?.sublitList(mobileArrayList)
+                }
+            }
+        })
     }
 
     fun getFavData(): ArrayList<MobileListResponse>? {
