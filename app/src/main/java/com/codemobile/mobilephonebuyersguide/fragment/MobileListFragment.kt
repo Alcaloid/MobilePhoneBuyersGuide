@@ -19,40 +19,34 @@ import retrofit2.Response
 import kotlin.collections.ArrayList
 
 
-class MobileListFragment :Fragment(){
+class MobileListFragment :Fragment(),MobileListContract.MobileListView{
 
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileListAdapter:MobileListAdapter? =null
-    lateinit var callMobileList: Call<List<MobileListResponse>>
+    private var mobilePresentor = MobileListPresen(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val _view = inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
         init(_view)
-        feedMobile()
         return _view
+    }
+
+    override fun showMobileList(list: ArrayList<MobileListResponse>) {
+        mobileArrayList = list
+        mobileListAdapter?.sublitList(mobileArrayList)
+    }
+
+    fun mobileListSortData(sortForm:String) {
+        mobilePresentor.sortMobile(mobileArrayList,sortForm)
     }
 
     private fun init(_view:View){
         mobileListAdapter = MobileListAdapter(_view.context,0)
+        mobilePresentor.feedMobileList()
         _view.rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(context)
         }
-    }
-
-    private fun feedMobile() {
-        mobileArrayList.clear()
-        callMobileList = ApiInterface.getBase().getMobileList()
-        callMobileList.enqueue(object : Callback<List<MobileListResponse>> {
-            override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
-            }
-            override fun onResponse(call: Call<List<MobileListResponse>>, response: Response<List<MobileListResponse>>) {
-                if (response.isSuccessful){
-                    mobileArrayList.addAll(response.body()!!)
-                    mobileListAdapter?.sublitList(mobileArrayList)
-                }
-            }
-        })
     }
 
     fun getFavData(): ArrayList<MobileListResponse>? {
@@ -73,23 +67,4 @@ class MobileListFragment :Fragment(){
         }
         mobileListAdapter?.sublitList(mobileArrayList)
     }
-
-    fun mobileListSortData(sortForm:String){
-        when(sortForm){
-            PRICE_LOWTOHIGH ->{
-                mobileArrayList.sortBy { it.price }
-            }
-            PRICE_HIGHTOLOW ->{
-                mobileArrayList.sortByDescending { it.price }
-            }
-            RATE_5_1 ->{
-                mobileArrayList.sortByDescending { it.rating }
-            }
-            else->{
-                mobileArrayList.sortBy { it.price }
-            }
-        }
-        mobileListAdapter?.sublitList(mobileArrayList)
-    }
-
 }
