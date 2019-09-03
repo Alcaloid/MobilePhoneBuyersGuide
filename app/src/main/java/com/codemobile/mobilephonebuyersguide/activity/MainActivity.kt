@@ -26,8 +26,7 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0->{
-//                        val itemUnFav = frag2.getUnFav()
-//                        frag1.checkUnFav(itemUnFav)
+                        fragmentAdapter.setUnFavoriteMobile()
                     }
                     1->{
                         fragmentAdapter.setFavoriteMobile()

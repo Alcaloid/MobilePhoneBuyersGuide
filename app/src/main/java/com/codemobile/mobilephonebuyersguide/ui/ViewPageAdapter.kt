@@ -12,7 +12,6 @@ class ViewPageAdapter(
     val fragmentManager: FragmentManager
 ) : FragmentPagerAdapter(fragmentManager) {
 
-
     fun updateSortTye(sortType: String) {
         val fragments = fragmentManager.fragments
         fragments.forEach {
@@ -33,11 +32,31 @@ class ViewPageAdapter(
     }
 
     fun setFavoriteMobile(){
-        val a = getFavoriteMobile()
+        val favoriteMobile = getFavoriteMobile()
         val fragments = fragmentManager.fragments
         fragments.forEach {
             if (it is FavouriteFragment) {
-                it.sendDataFav(a)
+                it.sendDataFav(favoriteMobile)
+            }
+        }
+    }
+
+    fun getUnFavoriteMobile(): ArrayList<MobileListResponse>?{
+        val fragments = fragmentManager.fragments
+        fragments.forEach {
+            if (it is FavouriteFragment) {
+                return it.getUnFav()
+            }
+        }
+        return null
+    }
+
+    fun setUnFavoriteMobile(){
+        val unFavoriteMobile = getUnFavoriteMobile()
+        val fragments = fragmentManager.fragments
+        fragments.forEach {
+            if (it is MobileListFragment) {
+                it.checkUnFav(unFavoriteMobile)
             }
         }
     }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
 import com.codemobile.mobilephonebuyersguide.R
@@ -14,8 +15,7 @@ import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 
-class MobileListAdapter(val context: Context, val setHoler: Int) : RecyclerView.Adapter<CustomHodler>() {
-
+class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdapterInterface) : RecyclerView.Adapter<CustomHodler>() {
 
     private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
     private var favDataArray: ArrayList<MobileListResponse> = arrayListOf()
@@ -43,11 +43,14 @@ class MobileListAdapter(val context: Context, val setHoler: Int) : RecyclerView.
         holder.itemView.setOnClickListener {
             val adapterPos = holder.adapterPosition
             if (adapterPos != RecyclerView.NO_POSITION) {
-                val intent = Intent(context, DetailActivity::class.java)
-                intent.putExtra(INFORMATION, mDataArray[position])
-                context.startActivity(intent)
+                mobileAdapterInterface.gotoDetailPage(mDataArray[position])
             }
         }
+    }
+
+    interface MobileAdapterInterface{
+        fun gotoDetailPage(infomation:MobileListResponse)
+        fun setImage(imageTarget:ImageView, imageURL:String)
     }
 
     fun sublitList(list: ArrayList<MobileListResponse>) {
@@ -65,9 +68,7 @@ class MobileListAdapter(val context: Context, val setHoler: Int) : RecyclerView.
         holder.description.text = mDataArray[position].description
         holder.price.text = mDataArray[position].price.toString()
         holder.rate.text = mDataArray[position].rating.toString()
-        Picasso.with(context)
-            .load(mDataArray[position].thumbImageURL)
-            .into(holder.img_mobile)
+        mobileAdapterInterface.setImage(holder.img_mobile,mDataArray[position].thumbImageURL)
 
         //when sort image fav must change
         if (like) {
@@ -100,9 +101,7 @@ class MobileListAdapter(val context: Context, val setHoler: Int) : RecyclerView.
         holder.description.text = mDataArray[position].price.toString()
         holder.price.text = mDataArray[position].rating.toString()
         holder.price.alpha = 0.5f
-        Picasso.with(context)
-            .load(mDataArray[position].thumbImageURL)
-            .into(holder.img_mobile)
+        mobileAdapterInterface.setImage(holder.img_mobile,mDataArray[position].thumbImageURL)
         holder.rate.visibility = View.GONE
         holder.favorite.visibility = View.GONE
     }

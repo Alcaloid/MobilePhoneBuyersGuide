@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.internet.BaseSortInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
 class FavouriteFragment : Fragment(), FavoriteContract.favView,
@@ -24,8 +26,12 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val _view =
             inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
-        init(_view)
         return _view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init(view)
     }
 
     override fun showMobileFav(mobileFav: ArrayList<MobileListResponse>) {
@@ -62,7 +68,15 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     private fun init(_view: View) {
-        favoriteAdapter = MobileListAdapter(_view.context, 1)
+        favoriteAdapter = MobileListAdapter( 1,object :MobileListAdapter.MobileAdapterInterface{
+            override fun setImage(imageTarget: ImageView, imageURL: String) {
+                favPresentation.setImageTarget(_view.context,imageTarget,imageURL)
+            }
+
+            override fun gotoDetailPage(infomation: MobileListResponse) {
+                favPresentation.gotoDetailPage(_view.context,infomation)
+            }
+        })
         _view.rcv_frgment.let {
             it.adapter = favoriteAdapter
             it.layoutManager = LinearLayoutManager(context)
@@ -72,10 +86,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     fun sendDataFav(list: ArrayList<MobileListResponse>?) {
-        if (list != null) {
-            favoriteArrayList = list
-            favoriteAdapter?.sublitList(favoriteArrayList)
-        }
+        favPresentation.setMobileFav(list)
     }
 
     fun getUnFav(): ArrayList<MobileListResponse> {
