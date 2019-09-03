@@ -30,6 +30,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init(view)
+        favPresentation.initDatabase(view.context)
     }
 
     override fun showMobileFav(mobileFav: ArrayList<MobileListResponse>) {
@@ -77,13 +78,9 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
 
     fun setFavAdapter(_view: View){
         favoriteAdapter = MobileListAdapter( 1,object :MobileListAdapter.MobileAdapterInterface{
-            override fun addFavMobile(target: MobileListResponse) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun addFavMobile(target: MobileListResponse) {}
 
-            override fun removeFavMobile(target: MobileListResponse) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun removeFavMobile(target: MobileListResponse) {}
 
             override fun setImage(imageTarget: ImageView, imageURL: String) {
                 favPresentation.setImageTarget(_view.context,imageTarget,imageURL)

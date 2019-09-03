@@ -8,13 +8,34 @@ import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
 import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
 import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
+import com.codemobile.mobilephonebuyersguide.database.AppDatabase
+import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
+import com.codemobile.mobilephonebuyersguide.database.DatabaseEntity
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
 
 class FavoritePresentation(val _view: FavoriteContract.favView) :
     FavoriteContract.favPresentor {
+    override fun initDatabase(context: Context) {
+        appDatabase = AppDatabase.getInstance(context).also {
+            it.openHelper.readableDatabase
+        }
+    }
+
+    var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
+        it.start()
+    }
+    private var appDatabase: AppDatabase? = null
 
     override fun removeMobileFav(mobileFav: ArrayList<MobileListResponse>, position: Int) {
+        val target = mobileFav[position]
+        val task = Runnable {
+            appDatabase?.favoriteDao()?.deleteFavorite(
+                DatabaseEntity(target.id,target.name
+                    ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav)
+            )
+        }
+        mCMWorkerThread.postTask(task)
         mobileFav.removeAt(position)
         _view.showMobileFav(mobileFav)
     }
