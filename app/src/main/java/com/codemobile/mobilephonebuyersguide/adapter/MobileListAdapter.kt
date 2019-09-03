@@ -52,7 +52,7 @@ class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdap
         fun setImage(imageTarget:ImageView, imageURL:String)
         //write data here?
         fun addFavMobile(target:MobileListResponse)
-        fun removeFavMobile(target:MobileListResponse?)
+        fun removeFavMobile(target:MobileListResponse)
     }
 
     fun sublitList(list: ArrayList<MobileListResponse>) {

@@ -51,46 +51,48 @@ class MobileListFragment : Fragment(),
         val errorDialog = AlertDialog.Builder(context!!)
             .setTitle("Error")
             .setMessage("Can't feed mobile data")
-            .setPositiveButton("Feed Agian", DialogInterface.OnClickListener { _ , _->
+            .setPositiveButton("Feed Agian", DialogInterface.OnClickListener { _, _ ->
                 mobilePresentor.feedMobileList()
             })
-            .setNegativeButton("Ok", DialogInterface.OnClickListener { _ , _ ->
+            .setNegativeButton("Ok", DialogInterface.OnClickListener { _, _ ->
             })
             .create()
         errorDialog.show()
     }
 
     override fun updateSortType(sortType: String) {
-        mobilePresentor.sortMobile(mobileArrayList,sortType)
+        mobilePresentor.sortMobile(mobileArrayList, sortType)
     }
 
-    private fun init(view:View) {
+    private fun init(view: View) {
         //start -> feeddata -> loadfav -> checkfav -> send fav
-       setMobileAdapter(view)
+        setMobileAdapter(view)
+        mobilePresentor.setupDatabase(view.context)
         mobileArrayList.clear()
         mobilePresentor.feedMobileList()
+        mobilePresentor.checkPreviousFavorite(mobileArrayList)
         rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(view.context)
         }
     }
 
-    fun setMobileAdapter(view: View){
-        mobileListAdapter = MobileListAdapter(0, object : MobileListAdapter.MobileAdapterInterface{
+    fun setMobileAdapter(view: View) {
+        mobileListAdapter = MobileListAdapter(0, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {
                 mobilePresentor.addFavoriteMobile(target)
             }
 
-            override fun removeFavMobile(target: MobileListResponse?) {
+            override fun removeFavMobile(target: MobileListResponse) {
                 mobilePresentor.removeFavoriteMobile(target)
             }
 
             override fun setImage(imageTarget: ImageView, imageURL: String) {
-                mobilePresentor.setImageTarget(view.context,imageTarget,imageURL)
+                mobilePresentor.setImageTarget(view.context, imageTarget, imageURL)
             }
 
-            override fun gotoDetailPage(infomation:MobileListResponse) {
-                mobilePresentor.gotoDetailPage(view.context,infomation)
+            override fun gotoDetailPage(infomation: MobileListResponse) {
+                mobilePresentor.gotoDetailPage(view.context, infomation)
             }
         })
     }

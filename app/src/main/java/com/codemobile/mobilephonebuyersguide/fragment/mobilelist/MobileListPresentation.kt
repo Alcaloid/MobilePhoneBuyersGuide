@@ -4,24 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.widget.ImageView
 import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
-import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
-import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
+import com.codemobile.mobilephonebuyersguide.constantclass.*
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.nio.file.Files.exists
-
+import com.codemobile.mobilephonebuyersguide.database.AppDatabase
+import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
+import com.codemobile.mobilephonebuyersguide.database.DatabaseEntity
 
 
 class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     MobileListContract.MobileListPresentor {
 
     private var favMobileArrayList:ArrayList<MobileListResponse> = arrayListOf()
+    private var appDatabase:AppDatabase? = null
+    var mCMWorkerThread: CMWorkerThread? = null
 
     override fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>, sortForm: String) {
         when (sortForm) {
@@ -74,11 +74,6 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
         Picasso.with(context).load(url).into(target)
     }
 
-    override fun checkFileExist(context: Context,filename:String): Boolean {
-        val file = context.getFileStreamPath(filename)
-        return file.exists()
-    }
-
     override fun getCurrentFav(mobileArrayList: ArrayList<MobileListResponse>, list: ArrayList<MobileListResponse>?) {
         //list is item of fav
         mobileArrayList.forEach { item ->
@@ -95,15 +90,43 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
 
     override fun addFavoriteMobile(target: MobileListResponse) {
         favMobileArrayList.add(target)
+        val task = Runnable {
+            appDatabase?.favoriteDao()?.addFavorite(DatabaseEntity(target.id,target.name
+                ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav))
+        }
+        mCMWorkerThread?.postTask(task)
     }
 
-    override fun removeFavoriteMobile(target: MobileListResponse?) {
+    override fun removeFavoriteMobile(target: MobileListResponse) {
         favMobileArrayList.remove(target)
+        val task = Runnable {
+            appDatabase?.favoriteDao()?.deleteFavorite(DatabaseEntity(target.id,target.name
+                ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav))
+        }
+        mCMWorkerThread?.postTask(task)
     }
 
     override fun getFavoriteMobile(): ArrayList<MobileListResponse> {
         return favMobileArrayList
     }
 
-    
+    override fun setupDatabase(context: Context) {
+        mCMWorkerThread = CMWorkerThread("favoritedatabase").also {
+            it.start()
+        }
+        appDatabase = AppDatabase.getInstance(context).also {
+            it.openHelper.readableDatabase
+        }
+    }
+
+    override fun checkPreviousFavorite(list: ArrayList<MobileListResponse>) {
+        val task = Runnable {
+            val result = appDatabase?.favoriteDao()?.queryFavorites()
+            println("Result" + result)
+            println("List"+list)
+        }
+        mCMWorkerThread?.postTask(task)
+    }
+
+
 }

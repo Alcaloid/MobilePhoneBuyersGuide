@@ -83,7 +83,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun removeFavMobile(target: MobileListResponse?) {
+            override fun removeFavMobile(target: MobileListResponse) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
