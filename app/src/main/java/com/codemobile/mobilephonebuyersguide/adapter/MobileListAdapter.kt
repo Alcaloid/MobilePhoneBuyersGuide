@@ -15,7 +15,8 @@ import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 
-class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdapterInterface) : RecyclerView.Adapter<CustomHodler>() {
+class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAdapterInterface) :
+    RecyclerView.Adapter<CustomHodler>() {
 
     private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
 
@@ -47,12 +48,13 @@ class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdap
         }
     }
 
-    interface MobileAdapterInterface{
-        fun gotoDetailPage(infomation:MobileListResponse)
-        fun setImage(imageTarget:ImageView, imageURL:String)
+    interface MobileAdapterInterface {
+        fun gotoDetailPage(infomation: MobileListResponse)
+        fun setImage(imageTarget: ImageView, imageURL: String)
         //write data here?
-        fun addFavMobile(target:MobileListResponse)
-        fun removeFavMobile(target:MobileListResponse)
+        fun addFavMobile(target: MobileListResponse)
+
+        fun removeFavMobile(target: MobileListResponse)
     }
 
     fun sublitList(list: ArrayList<MobileListResponse>) {
@@ -66,7 +68,7 @@ class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdap
         holder.description.text = mDataArray[position].description
         holder.price.text = mDataArray[position].price.toString()
         holder.rate.text = mDataArray[position].rating.toString()
-        mobileAdapterInterface.setImage(holder.img_mobile,mDataArray[position].thumbImageURL)
+        mobileAdapterInterface.setImage(holder.img_mobile, mDataArray[position].thumbImageURL)
 
         //when sort image fav must change
         if (like) {
@@ -98,7 +100,7 @@ class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdap
         holder.description.text = mDataArray[position].price.toString()
         holder.price.text = mDataArray[position].rating.toString()
         holder.price.alpha = 0.5f
-        mobileAdapterInterface.setImage(holder.img_mobile,mDataArray[position].thumbImageURL)
+        mobileAdapterInterface.setImage(holder.img_mobile, mDataArray[position].thumbImageURL)
         holder.rate.visibility = View.GONE
         holder.favorite.visibility = View.GONE
     }

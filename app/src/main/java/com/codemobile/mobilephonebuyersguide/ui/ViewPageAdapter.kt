@@ -31,7 +31,7 @@ class ViewPageAdapter(
         return null
     }
 
-    fun setFavoriteMobile(){
+    fun setFavoriteMobile() {
         val favoriteMobile = getFavoriteMobile()
         val fragments = fragmentManager.fragments
         fragments.forEach {
@@ -41,7 +41,7 @@ class ViewPageAdapter(
         }
     }
 
-    fun getUnFavoriteMobile(): ArrayList<MobileListResponse>?{
+    fun getUnFavoriteMobile(): ArrayList<MobileListResponse>? {
         val fragments = fragmentManager.fragments
         fragments.forEach {
             if (it is FavouriteFragment) {
@@ -51,7 +51,7 @@ class ViewPageAdapter(
         return null
     }
 
-    fun setUnFavoriteMobile(){
+    fun setUnFavoriteMobile() {
         val unFavoriteMobile = getUnFavoriteMobile()
         val fragments = fragmentManager.fragments
         fragments.forEach {

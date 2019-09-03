@@ -40,8 +40,8 @@ abstract class AppDatabase : RoomDatabase() {
                         Log.d(TAG, "onCreate")
                     }
                 }).build().also {
-                        instance = it
-                        return instance!!
+                    instance = it
+                    return instance!!
                 }
             }
         }

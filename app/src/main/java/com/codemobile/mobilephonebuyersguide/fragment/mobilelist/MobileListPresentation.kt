@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.widget.ImageView
 import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
-import com.codemobile.mobilephonebuyersguide.constantclass.*
+import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
+import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
+import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
+import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
@@ -18,15 +21,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 
-
-
-
-
 class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     MobileListContract.MobileListPresentor {
 
-    private var favMobileArrayList:ArrayList<MobileListResponse> = arrayListOf()
-    private var appDatabase:AppDatabase? = null
+    private var favMobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
+    private var appDatabase: AppDatabase? = null
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
@@ -98,21 +97,31 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     }
 
     override fun addFavoriteMobile(target: MobileListResponse) {
-        favMobileArrayList.add(target)
         val task = Runnable {
-            appDatabase?.favoriteDao()?.addFavorite(DatabaseEntity(target.id,target.name
-                ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav))
+            appDatabase?.favoriteDao()?.addFavorite(
+                DatabaseEntity(
+                    target.id, target.name
+                    , target.description, target.brand, target.price, target.rating, target.thumbImageURL, target.fav
+                )
+            )
         }
         mCMWorkerThread.postTask(task)
+        favMobileArrayList.add(target)
     }
 
     override fun removeFavoriteMobile(target: MobileListResponse) {
-        favMobileArrayList.remove(target)
         val task = Runnable {
-            appDatabase?.favoriteDao()?.deleteFavorite(DatabaseEntity(target.id,target.name
-                ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav))
+            appDatabase?.favoriteDao()?.deleteFavorite(
+                DatabaseEntity(
+                    target.id, target.name
+                    , target.description, target.brand, target.price, target.rating, target.thumbImageURL, target.fav
+                )
+            )
         }
         mCMWorkerThread.postTask(task)
+        target.fav = true //remove must same object
+        favMobileArrayList.remove(target)
+
     }
 
     override fun getFavoriteMobile(): ArrayList<MobileListResponse> {
@@ -130,7 +139,9 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
             val result = appDatabase?.favoriteDao()?.queryFavorites()
             val gson = Gson()
             val json = gson.toJson(result)
-            val data = gson.fromJson<List<MobileListResponse>>(json,object : TypeToken<List<MobileListResponse>>() {}.type)
+            val data =
+                gson.fromJson<List<MobileListResponse>>(json, object : TypeToken<List<MobileListResponse>>() {}.type)
+            println("Add!!")
             favMobileArrayList.addAll(data)
         }
         mCMWorkerThread.postTask(task)

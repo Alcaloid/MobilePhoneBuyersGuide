@@ -76,18 +76,18 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
         }
     }
 
-    fun setFavAdapter(_view: View){
-        favoriteAdapter = MobileListAdapter( 1,object :MobileListAdapter.MobileAdapterInterface{
+    fun setFavAdapter(_view: View) {
+        favoriteAdapter = MobileListAdapter(1, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {}
 
             override fun removeFavMobile(target: MobileListResponse) {}
 
             override fun setImage(imageTarget: ImageView, imageURL: String) {
-                favPresentation.setImageTarget(_view.context,imageTarget,imageURL)
+                favPresentation.setImageTarget(_view.context, imageTarget, imageURL)
             }
 
             override fun gotoDetailPage(infomation: MobileListResponse) {
-                favPresentation.gotoDetailPage(_view.context,infomation)
+                favPresentation.gotoDetailPage(_view.context, infomation)
             }
         })
     }

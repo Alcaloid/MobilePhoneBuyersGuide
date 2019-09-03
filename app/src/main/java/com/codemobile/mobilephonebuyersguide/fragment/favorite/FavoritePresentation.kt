@@ -31,8 +31,10 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
         val target = mobileFav[position]
         val task = Runnable {
             appDatabase?.favoriteDao()?.deleteFavorite(
-                DatabaseEntity(target.id,target.name
-                    ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav)
+                DatabaseEntity(
+                    target.id, target.name
+                    , target.description, target.brand, target.price, target.rating, target.thumbImageURL, target.fav
+                )
             )
         }
         mCMWorkerThread.postTask(task)
@@ -69,7 +71,7 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
     }
 
     override fun setMobileFav(list: ArrayList<MobileListResponse>?) {
-        if (list!=null){
+        if (list != null) {
             _view.showMobileFav(list)
         }
     }

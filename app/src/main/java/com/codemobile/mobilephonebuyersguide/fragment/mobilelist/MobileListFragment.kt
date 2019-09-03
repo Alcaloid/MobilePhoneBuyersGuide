@@ -97,7 +97,7 @@ class MobileListFragment : Fragment(),
     }
 
     override fun setPreFavorite() {
-        mobilePresentor.getCurrentFav(mobileArrayList,mobilePresentor.getFavoriteMobile())
+        mobilePresentor.getCurrentFav(mobileArrayList, mobilePresentor.getFavoriteMobile())
     }
 
     fun getFavData(): ArrayList<MobileListResponse>? {

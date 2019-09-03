@@ -25,41 +25,7 @@ class DetailActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.codemobile.mobilephonebuyersguide.R.layout.activity_mobile_detail)
-
         setupData()
-        /*val testArray:ArrayList<String> = arrayListOf("10","20","30")
-        var count = 0
-        btn_test_write.setOnClickListener {
-            val file:String = "testingText"
-            val data:String = testArray[count]
-            count += 1
-            val fileOutputStream: FileOutputStream
-            try {
-                fileOutputStream = openFileOutput(file, Context.MODE_PRIVATE)
-                fileOutputStream.write(data.toByteArray())
-            }catch (e: Exception){
-                e.printStackTrace()
-            }
-        }
-        btn_test_load.setOnClickListener {
-            var fileInputStream: FileInputStream? = null
-            fileInputStream = openFileInput("testingText")
-            var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
-            val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
-            val stringBuilder: StringBuilder = StringBuilder()
-            var text: String? = null
-            while ({ text = bufferedReader.readLine();
-                    text }() != null) {
-                stringBuilder.append(text)
-            }
-            stringBuilder.forEach {
-                println(it)
-            }
-            bufferedReader.close()
-        }
-        btn_test_delete.setOnClickListener {
-            this.deleteFile("testingText")
-        }*/
     }
 
     override fun setName(name: String) {
