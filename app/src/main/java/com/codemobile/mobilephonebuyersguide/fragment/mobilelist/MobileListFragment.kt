@@ -65,12 +65,11 @@ class MobileListFragment : Fragment(),
     }
 
     private fun init(view: View) {
-        //start -> feeddata -> loadfav -> checkfav -> send fav
         setMobileAdapter(view)
         mobilePresentor.setupDatabase(view.context)
         mobileArrayList.clear()
         mobilePresentor.feedMobileList()
-        mobilePresentor.checkPreviousFavorite(mobileArrayList)
+        mobilePresentor.checkPreviousFavorite()
         rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(view.context)
@@ -97,6 +96,9 @@ class MobileListFragment : Fragment(),
         })
     }
 
+    override fun setPreFavorite() {
+        mobilePresentor.getCurrentFav(mobileArrayList,mobilePresentor.getFavoriteMobile())
+    }
 
     fun getFavData(): ArrayList<MobileListResponse>? {
         return mobilePresentor.getFavoriteMobile()

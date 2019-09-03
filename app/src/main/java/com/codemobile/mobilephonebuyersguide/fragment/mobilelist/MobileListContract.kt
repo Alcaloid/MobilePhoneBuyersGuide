@@ -10,6 +10,7 @@ interface MobileListContract {
         fun hideLoading()
         fun showErrorMessage()
         fun showMobileList(list: ArrayList<MobileListResponse>)
+        fun setPreFavorite()
     }
 
     interface MobileListPresentor {
@@ -22,6 +23,6 @@ interface MobileListContract {
         fun removeFavoriteMobile(target:MobileListResponse)
         fun getFavoriteMobile(): ArrayList<MobileListResponse>
         fun setupDatabase(context: Context)
-        fun checkPreviousFavorite(list: ArrayList<MobileListResponse>)
+        fun checkPreviousFavorite()
     }
 }

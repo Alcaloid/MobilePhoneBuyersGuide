@@ -14,6 +14,12 @@ import retrofit2.Response
 import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
 import com.codemobile.mobilephonebuyersguide.database.DatabaseEntity
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
+
+
+
 
 
 class MobileListPresentation(val _view: MobileListContract.MobileListView) :
@@ -21,7 +27,9 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
 
     private var favMobileArrayList:ArrayList<MobileListResponse> = arrayListOf()
     private var appDatabase:AppDatabase? = null
-    var mCMWorkerThread: CMWorkerThread? = null
+    var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
+        it.start()
+    }
 
     override fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>, sortForm: String) {
         when (sortForm) {
@@ -59,6 +67,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
                     mobileArray.addAll(response.body()!!)
                     _view.hideLoading()
                     _view.showMobileList(mobileArray)
+                    _view.setPreFavorite()
                 }
             }
         })
@@ -94,7 +103,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
             appDatabase?.favoriteDao()?.addFavorite(DatabaseEntity(target.id,target.name
                 ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav))
         }
-        mCMWorkerThread?.postTask(task)
+        mCMWorkerThread.postTask(task)
     }
 
     override fun removeFavoriteMobile(target: MobileListResponse) {
@@ -103,7 +112,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
             appDatabase?.favoriteDao()?.deleteFavorite(DatabaseEntity(target.id,target.name
                 ,target.description,target.brand,target.price,target.rating,target.thumbImageURL,target.fav))
         }
-        mCMWorkerThread?.postTask(task)
+        mCMWorkerThread.postTask(task)
     }
 
     override fun getFavoriteMobile(): ArrayList<MobileListResponse> {
@@ -111,21 +120,20 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     }
 
     override fun setupDatabase(context: Context) {
-        mCMWorkerThread = CMWorkerThread("favoritedatabase").also {
-            it.start()
-        }
         appDatabase = AppDatabase.getInstance(context).also {
             it.openHelper.readableDatabase
         }
     }
 
-    override fun checkPreviousFavorite(list: ArrayList<MobileListResponse>) {
+    override fun checkPreviousFavorite() {
         val task = Runnable {
             val result = appDatabase?.favoriteDao()?.queryFavorites()
-            println("Result" + result)
-            println("List"+list)
+            val gson = Gson()
+            val json = gson.toJson(result)
+            val data = gson.fromJson<List<MobileListResponse>>(json,object : TypeToken<List<MobileListResponse>>() {}.type)
+            favMobileArrayList.addAll(data)
         }
-        mCMWorkerThread?.postTask(task)
+        mCMWorkerThread.postTask(task)
     }
 
 
