@@ -14,9 +14,14 @@ import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.nio.file.Files.exists
+
+
 
 class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     MobileListContract.MobileListPresentor {
+
+    private var favMobileArrayList:ArrayList<MobileListResponse> = arrayListOf()
 
     override fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>, sortForm: String) {
         when (sortForm) {
@@ -69,6 +74,10 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
         Picasso.with(context).load(url).into(target)
     }
 
+    override fun checkFileExist(context: Context,filename:String): Boolean {
+        val file = context.getFileStreamPath(filename)
+        return file.exists()
+    }
 
     override fun getCurrentFav(mobileArrayList: ArrayList<MobileListResponse>, list: ArrayList<MobileListResponse>?) {
         //list is item of fav
@@ -84,4 +93,17 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
         _view.showMobileList(mobileArrayList)
     }
 
+    override fun addFavoriteMobile(target: MobileListResponse) {
+        favMobileArrayList.add(target)
+    }
+
+    override fun removeFavoriteMobile(target: MobileListResponse?) {
+        favMobileArrayList.remove(target)
+    }
+
+    override fun getFavoriteMobile(): ArrayList<MobileListResponse> {
+        return favMobileArrayList
+    }
+
+    
 }

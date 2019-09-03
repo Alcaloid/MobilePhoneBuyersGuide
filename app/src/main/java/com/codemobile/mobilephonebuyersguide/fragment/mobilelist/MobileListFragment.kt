@@ -65,15 +65,8 @@ class MobileListFragment : Fragment(),
     }
 
     private fun init(view:View) {
-        mobileListAdapter = MobileListAdapter(0, object : MobileListAdapter.MobileAdapterInterface{
-            override fun setImage(imageTarget: ImageView, imageURL: String) {
-                mobilePresentor.setImageTarget(view.context,imageTarget,imageURL)
-            }
-
-            override fun gotoDetailPage(infomation:MobileListResponse) {
-                mobilePresentor.gotoDetailPage(view.context,infomation)
-            }
-        })
+        //start -> feeddata -> loadfav -> checkfav -> send fav
+       setMobileAdapter(view)
         mobileArrayList.clear()
         mobilePresentor.feedMobileList()
         rcv_frgment.let {
@@ -82,10 +75,29 @@ class MobileListFragment : Fragment(),
         }
     }
 
+    fun setMobileAdapter(view: View){
+        mobileListAdapter = MobileListAdapter(0, object : MobileListAdapter.MobileAdapterInterface{
+            override fun addFavMobile(target: MobileListResponse) {
+                mobilePresentor.addFavoriteMobile(target)
+            }
+
+            override fun removeFavMobile(target: MobileListResponse?) {
+                mobilePresentor.removeFavoriteMobile(target)
+            }
+
+            override fun setImage(imageTarget: ImageView, imageURL: String) {
+                mobilePresentor.setImageTarget(view.context,imageTarget,imageURL)
+            }
+
+            override fun gotoDetailPage(infomation:MobileListResponse) {
+                mobilePresentor.gotoDetailPage(view.context,infomation)
+            }
+        })
+    }
+
 
     fun getFavData(): ArrayList<MobileListResponse>? {
-        val favList = mobileListAdapter?.getFavList()
-        return favList
+        return mobilePresentor.getFavoriteMobile()
     }
 
     fun checkUnFav(list: ArrayList<MobileListResponse>?) {

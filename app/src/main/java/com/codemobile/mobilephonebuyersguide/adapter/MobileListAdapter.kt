@@ -18,7 +18,6 @@ import kotlin.collections.ArrayList
 class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdapterInterface) : RecyclerView.Adapter<CustomHodler>() {
 
     private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
-    private var favDataArray: ArrayList<MobileListResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHodler {
         return CustomHodler(
@@ -51,15 +50,14 @@ class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdap
     interface MobileAdapterInterface{
         fun gotoDetailPage(infomation:MobileListResponse)
         fun setImage(imageTarget:ImageView, imageURL:String)
+        //write data here?
+        fun addFavMobile(target:MobileListResponse)
+        fun removeFavMobile(target:MobileListResponse?)
     }
 
     fun sublitList(list: ArrayList<MobileListResponse>) {
         mDataArray = list
         notifyDataSetChanged()
-    }
-
-    fun getFavList(): ArrayList<MobileListResponse> {
-        return favDataArray
     }
 
     fun setMobileListHoler(holder: CustomHodler, position: Int) {
@@ -82,15 +80,14 @@ class MobileListAdapter(val setHoler: Int,val mobileAdapterInterface: MobileAdap
             if (like) {
                 holder.favorite.setImageResource(R.drawable.ic_heart)
                 mDataArray[position].fav = false
-                val indexTarget = favDataArray.find {
-                    it.equals(mDataArray[position])
-                }
-                favDataArray.remove(indexTarget)
+                //write data here
+                mobileAdapterInterface.removeFavMobile(mDataArray[position])
                 like = false
             } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite)
                 mDataArray[position].fav = true
-                favDataArray.add(mDataArray[position])
+                //write data here
+                mobileAdapterInterface.addFavMobile(mDataArray[position])
                 like = true
             }
         }

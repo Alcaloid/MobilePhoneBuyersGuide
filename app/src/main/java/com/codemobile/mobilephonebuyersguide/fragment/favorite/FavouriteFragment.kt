@@ -68,7 +68,25 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     private fun init(_view: View) {
+        setFavAdapter(_view)
+        _view.rcv_frgment.let {
+            it.adapter = favoriteAdapter
+            it.layoutManager = LinearLayoutManager(context)
+            val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(it)
+        }
+    }
+
+    fun setFavAdapter(_view: View){
         favoriteAdapter = MobileListAdapter( 1,object :MobileListAdapter.MobileAdapterInterface{
+            override fun addFavMobile(target: MobileListResponse) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun removeFavMobile(target: MobileListResponse?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override fun setImage(imageTarget: ImageView, imageURL: String) {
                 favPresentation.setImageTarget(_view.context,imageTarget,imageURL)
             }
@@ -77,12 +95,6 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
                 favPresentation.gotoDetailPage(_view.context,infomation)
             }
         })
-        _view.rcv_frgment.let {
-            it.adapter = favoriteAdapter
-            it.layoutManager = LinearLayoutManager(context)
-            val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
-            itemTouchHelper.attachToRecyclerView(it)
-        }
     }
 
     fun sendDataFav(list: ArrayList<MobileListResponse>?) {
