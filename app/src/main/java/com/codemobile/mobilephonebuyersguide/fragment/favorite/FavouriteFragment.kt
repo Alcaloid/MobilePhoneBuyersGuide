@@ -73,6 +73,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
             it.layoutManager = LinearLayoutManager(context)
             val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
             itemTouchHelper.attachToRecyclerView(it)
+            
         }
     }
 
