@@ -51,9 +51,7 @@ class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAda
     interface MobileAdapterInterface {
         fun gotoDetailPage(infomation: MobileListResponse)
         fun setImage(imageTarget: ImageView, imageURL: String)
-        //write data here?
         fun addFavMobile(target: MobileListResponse)
-
         fun removeFavMobile(target: MobileListResponse)
     }
 
@@ -82,13 +80,11 @@ class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAda
             if (like) {
                 holder.favorite.setImageResource(R.drawable.ic_heart)
                 mDataArray[position].fav = false
-                //write data here
                 mobileAdapterInterface.removeFavMobile(mDataArray[position])
                 like = false
             } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite)
                 mDataArray[position].fav = true
-                //write data here
                 mobileAdapterInterface.addFavMobile(mDataArray[position])
                 like = true
             }

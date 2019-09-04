@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.internet.BaseSortInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlin.collections.ArrayList
 
@@ -51,10 +50,8 @@ class MobileListFragment : Fragment(),
         val errorDialog = AlertDialog.Builder(context!!)
             .setTitle("Error")
             .setMessage("Can't feed mobile data")
-            .setPositiveButton("Feed Agian", DialogInterface.OnClickListener { _, _ ->
-                mobilePresentor.feedMobileList()
-            })
-            .setNegativeButton("Ok", DialogInterface.OnClickListener { _, _ ->
+            .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+//                mobilePresentor.feedMobileList()
             })
             .create()
         errorDialog.show()
