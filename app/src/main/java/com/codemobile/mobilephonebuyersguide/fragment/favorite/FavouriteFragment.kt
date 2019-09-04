@@ -12,14 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.internet.BaseSortInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
 class FavouriteFragment : Fragment(), FavoriteContract.favView,
     BaseSortInterface {
 
     private var favoriteAdapter: MobileListAdapter? = null
-    private var favoriteArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private val favPresentation: FavoritePresentation =
         FavoritePresentation(this)
 
@@ -34,12 +32,12 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     override fun showMobileFav(mobileFav: ArrayList<MobileListResponse>) {
-        favoriteArrayList = mobileFav
-        favoriteAdapter?.sublitList(favoriteArrayList)
+//        favoriteArrayList = mobileFav
+        favoriteAdapter?.sublitList(mobileFav)
     }
 
     override fun updateSortType(sortType: String) {
-        favPresentation.sortMobile(favoriteArrayList, sortType)
+        favPresentation.sortMobile(sortType)
     }
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(
@@ -62,7 +60,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             val position = viewHolder.adapterPosition
-            favPresentation.removeMobileFav(favoriteArrayList, position)
+            favPresentation.removeMobileFav(position)
         }
     }
 
@@ -73,7 +71,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
             it.layoutManager = LinearLayoutManager(context)
             val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
             itemTouchHelper.attachToRecyclerView(it)
-            
+
         }
     }
 
@@ -98,7 +96,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     fun getUnFav(): ArrayList<MobileListResponse> {
-        return favoriteArrayList
+        return favPresentation.getMobileFavorite()
     }
 
 }

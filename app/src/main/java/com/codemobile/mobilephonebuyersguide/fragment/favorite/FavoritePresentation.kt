@@ -16,19 +16,16 @@ import com.squareup.picasso.Picasso
 
 class FavoritePresentation(val _view: FavoriteContract.favView) :
     FavoriteContract.favPresentor {
-    override fun initDatabase(context: Context) {
-        appDatabase = AppDatabase.getInstance(context).also {
-            it.openHelper.readableDatabase
-        }
-    }
+
+    private var favoriteMobile: ArrayList<MobileListResponse> = arrayListOf()
 
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
     private var appDatabase: AppDatabase? = null
 
-    override fun removeMobileFav(mobileFav: ArrayList<MobileListResponse>, position: Int) {
-        val target = mobileFav[position]
+    override fun removeMobileFav(position: Int) {
+        val target = favoriteMobile[position]
         val task = Runnable {
             appDatabase?.favoriteDao()?.deleteFavorite(
                 DatabaseEntity(
@@ -38,26 +35,32 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
             )
         }
         mCMWorkerThread.postTask(task)
-        mobileFav.removeAt(position)
-        _view.showMobileFav(mobileFav)
+        favoriteMobile.removeAt(position)
+        _view.showMobileFav(favoriteMobile)
     }
 
-    override fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>, sortForm: String) {
+    override fun sortMobile(sortForm: String) {
         when (sortForm) {
             PRICE_LOWTOHIGH -> {
-                mobileArrayList.sortBy { it.price }
+                favoriteMobile.sortBy { it.price }
             }
             PRICE_HIGHTOLOW -> {
-                mobileArrayList.sortByDescending { it.price }
+                favoriteMobile.sortByDescending { it.price }
             }
             RATE_5_1 -> {
-                mobileArrayList.sortByDescending { it.rating }
+                favoriteMobile.sortByDescending { it.rating }
             }
             else -> {
-                mobileArrayList.sortBy { it.price }
+                favoriteMobile.sortBy { it.price }
             }
         }
-        _view.showMobileFav(mobileArrayList)
+        _view.showMobileFav(favoriteMobile)
+    }
+
+    override fun initDatabase(context: Context) {
+        appDatabase = AppDatabase.getInstance(context).also {
+            it.openHelper.readableDatabase
+        }
     }
 
     override fun gotoDetailPage(context: Context, infomation: MobileListResponse) {
@@ -72,8 +75,13 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
 
     override fun setMobileFav(list: ArrayList<MobileListResponse>?) {
         if (list != null) {
-            _view.showMobileFav(list)
+            favoriteMobile = list
+            _view.showMobileFav(favoriteMobile)
         }
+    }
+
+    override fun getMobileFavorite(): ArrayList<MobileListResponse> {
+        return favoriteMobile
     }
 
 }
