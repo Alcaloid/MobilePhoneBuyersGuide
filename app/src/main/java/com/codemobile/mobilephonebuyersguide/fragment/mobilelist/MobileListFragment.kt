@@ -61,11 +61,14 @@ class MobileListFragment : Fragment(),
     private fun init(view: View) {
         setMobileAdapter(view)
         mobilePresentor.setupDatabase(view.context)
-        mobilePresentor.feedMobileList()
         mobilePresentor.checkPreviousFavorite()
+        mobilePresentor.feedMobileList()
         rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(view.context)
+        }
+        srl_refreshData.setOnRefreshListener {
+            mobilePresentor.feedMobileList()
         }
     }
 
@@ -87,6 +90,10 @@ class MobileListFragment : Fragment(),
                 mobilePresentor.gotoDetailPage(view.context, infomation)
             }
         })
+    }
+
+    override fun closeRefresh() {
+        srl_refreshData.isRefreshing = false
     }
 
     override fun setPreFavorite() {

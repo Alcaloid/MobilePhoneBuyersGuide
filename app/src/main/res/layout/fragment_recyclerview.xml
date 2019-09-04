@@ -16,8 +16,14 @@
             android:indeterminateDrawable="@drawable/rotate_progressbar"
             />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_refreshData"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rcv_frgment"/>
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rcv_frgment"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

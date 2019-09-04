@@ -1,10 +1,8 @@
 package com.codemobile.mobilephonebuyersguide.database
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 @Entity(tableName = "favorite")
 data class DatabaseEntity(

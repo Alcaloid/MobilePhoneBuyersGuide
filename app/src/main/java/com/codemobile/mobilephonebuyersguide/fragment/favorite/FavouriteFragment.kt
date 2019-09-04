@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.internet.BaseSortInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
 class FavouriteFragment : Fragment(), FavoriteContract.favView,
@@ -65,6 +66,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
 
     private fun init(_view: View) {
         setFavAdapter(_view)
+        srl_refreshData.isEnabled = false
         _view.rcv_frgment.let {
             it.adapter = favoriteAdapter
             it.layoutManager = LinearLayoutManager(context)

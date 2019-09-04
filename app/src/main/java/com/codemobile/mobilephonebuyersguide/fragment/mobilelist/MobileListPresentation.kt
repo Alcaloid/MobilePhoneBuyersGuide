@@ -2,6 +2,7 @@ package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.widget.ImageView
 import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
 import com.codemobile.mobilephonebuyersguide.constantclass.*
@@ -53,6 +54,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
         callMobileList.enqueue(object : Callback<List<MobileListResponse>> {
             override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
                 _view.hideLoading()
+                _view.closeRefresh()
                 _view.showErrorMessage()
             }
 
@@ -66,6 +68,10 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
                     _view.hideLoading()
                     _view.showMobileList(mobileArrayList)
                     _view.setPreFavorite()
+
+                    Handler().postDelayed({
+                        _view.closeRefresh()
+                    },3000)
                 }
             }
         })

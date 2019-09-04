@@ -11,6 +11,7 @@ interface MobileListContract {
         fun showErrorMessage()
         fun showMobileList(list: ArrayList<MobileListResponse>)
         fun setPreFavorite()
+        fun closeRefresh()
     }
 
     interface MobileListPresentor {
