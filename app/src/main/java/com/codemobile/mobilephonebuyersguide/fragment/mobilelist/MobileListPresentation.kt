@@ -83,16 +83,30 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     }
 
     override fun getCurrentFav(mobileArrayList: ArrayList<MobileListResponse>, list: ArrayList<MobileListResponse>?) {
-        //list is item of fav
+        // size mobile -> 10
+        // size fav-> 5
+        // 1-> run 10 + run 5
+        // 2-> run 10*5
         mobileArrayList.forEach { item ->
-            //very slow!
             item.fav = false
-            list?.forEach { itemFav ->
-                if (item.id == itemFav.id) {
-                    item.fav = true
-                }
-            }
         }
+        list?.forEach {
+            mobileFav->
+            val favPosition = mobileArrayList.find {mobile->
+                mobile.id == mobileFav.id
+            }
+            favPosition?.fav = true
+        }
+//        //list is item of fav -> size x size
+//        mobileArrayList.forEach { item ->
+//            //very slow!
+//            item.fav = false
+//            list?.forEach { itemFav ->
+//                if (item.id == itemFav.id) {
+//                    item.fav = true
+//                }
+//            }
+//        }
         _view.showMobileList(mobileArrayList)
     }
 
