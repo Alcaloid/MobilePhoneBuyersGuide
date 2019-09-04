@@ -22,13 +22,14 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     MobileListContract.MobileListPresentor {
 
     private var favMobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
+    private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var appDatabase: AppDatabase? = null
     val gson = Gson()
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
 
-    override fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>, sortForm: String) {
+    override fun sortMobile(sortForm: String) {
         when (sortForm) {
             PRICE_LOWTOHIGH -> {
                 mobileArrayList.sortBy { it.price }
@@ -60,10 +61,10 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
                 response: Response<List<MobileListResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val mobileArray: ArrayList<MobileListResponse> = arrayListOf()
-                    mobileArray.addAll(response.body()!!)
+                    mobileArrayList.clear()
+                    mobileArrayList.addAll(response.body()!!)
                     _view.hideLoading()
-                    _view.showMobileList(mobileArray)
+                    _view.showMobileList(mobileArrayList)
                     _view.setPreFavorite()
                 }
             }
@@ -80,11 +81,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
         Picasso.with(context).load(url).into(target)
     }
 
-    override fun getCurrentFav(mobileArrayList: ArrayList<MobileListResponse>, list: ArrayList<MobileListResponse>?) {
-        // size mobile -> 10
-        // size fav-> 5
-        // 1-> run 10 + run 5
-        // 2-> run 10*5
+    override fun getCurrentFav(list: ArrayList<MobileListResponse>?) {
         mobileArrayList.forEach { item ->
             item.fav = false
         }
@@ -94,16 +91,6 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
             }
             favPosition?.fav = true
         }
-//        //list is item of fav -> size x size
-//        mobileArrayList.forEach { item ->
-//            //very slow!
-//            item.fav = false
-//            list?.forEach { itemFav ->
-//                if (item.id == itemFav.id) {
-//                    item.fav = true
-//                }
-//            }
-//        }
         _view.showMobileList(mobileArrayList)
     }
 

@@ -17,8 +17,8 @@ interface MobileListContract {
         fun feedMobileList()
         fun setImageTarget(context: Context, target: ImageView, url: String)
         fun gotoDetailPage(context: Context, infomation: MobileListResponse)
-        fun sortMobile(mobileArrayList: ArrayList<MobileListResponse>, sortForm: String)
-        fun getCurrentFav(mobileArrayList: ArrayList<MobileListResponse>, list: ArrayList<MobileListResponse>?)
+        fun sortMobile(sortForm: String)
+        fun getCurrentFav(list: ArrayList<MobileListResponse>?)
         fun addFavoriteMobile(target: MobileListResponse)
         fun removeFavoriteMobile(target: MobileListResponse)
         fun getFavoriteMobile(): ArrayList<MobileListResponse>

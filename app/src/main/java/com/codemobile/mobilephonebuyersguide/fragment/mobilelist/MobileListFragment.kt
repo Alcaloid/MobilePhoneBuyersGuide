@@ -20,7 +20,6 @@ class MobileListFragment : Fragment(),
     MobileListContract.MobileListView,
     BaseSortInterface {
 
-    private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileListAdapter: MobileListAdapter? = null
     private var mobilePresentor = MobileListPresentation(this)
 
@@ -34,8 +33,7 @@ class MobileListFragment : Fragment(),
     }
 
     override fun showMobileList(list: ArrayList<MobileListResponse>) {
-        mobileArrayList = list
-        mobileListAdapter?.sublitList(mobileArrayList)
+        mobileListAdapter?.sublitList(list)
     }
 
     override fun showLoading() {
@@ -51,20 +49,18 @@ class MobileListFragment : Fragment(),
             .setTitle("Error")
             .setMessage("Can't feed mobile data")
             .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-//                mobilePresentor.feedMobileList()
             })
             .create()
         errorDialog.show()
     }
 
     override fun updateSortType(sortType: String) {
-        mobilePresentor.sortMobile(mobileArrayList, sortType)
+        mobilePresentor.sortMobile(sortType)
     }
 
     private fun init(view: View) {
         setMobileAdapter(view)
         mobilePresentor.setupDatabase(view.context)
-        mobileArrayList.clear()
         mobilePresentor.feedMobileList()
         mobilePresentor.checkPreviousFavorite()
         rcv_frgment.let {
@@ -94,7 +90,7 @@ class MobileListFragment : Fragment(),
     }
 
     override fun setPreFavorite() {
-        mobilePresentor.getCurrentFav(mobileArrayList, mobilePresentor.getFavoriteMobile())
+        mobilePresentor.getCurrentFav(mobilePresentor.getFavoriteMobile())
     }
 
     fun getFavData(): ArrayList<MobileListResponse>? {
@@ -102,6 +98,6 @@ class MobileListFragment : Fragment(),
     }
 
     fun checkUnFav(list: ArrayList<MobileListResponse>?) {
-        mobilePresentor.getCurrentFav(mobileArrayList, list)
+        mobilePresentor.getCurrentFav(list)
     }
 }
