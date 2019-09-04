@@ -39,7 +39,6 @@
 
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tab"
-            app:tabIndicatorColor="@color/colorTransparent"
             android:background="#90CAF9"
             app:tabTextColor="@color/colorWhite"
             android:layout_width="match_parent"

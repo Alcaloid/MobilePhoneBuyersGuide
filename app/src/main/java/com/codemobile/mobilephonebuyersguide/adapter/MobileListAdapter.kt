@@ -5,8 +5,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.codemobile.mobilephonebuyersguide.activity.DetailActivity
+import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
@@ -14,11 +15,10 @@ import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 
-class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Adapter<CustomHodler>(){
-
+class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAdapterInterface) :
+    RecyclerView.Adapter<CustomHodler>() {
 
     private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
-    private var favDataArray: ArrayList<MobileListResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHodler {
         return CustomHodler(
@@ -35,76 +35,70 @@ class MobileListAdapter (val context: Context,val setHoler:Int): RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: CustomHodler, position: Int) {
-        if (setHoler == 0){
-            setMobileListHoler(holder,position)
-        }else{
-            setFavoriteHolder(holder,position)
+        if (setHoler == 0) {
+            setMobileListHoler(holder, position)
+        } else {
+            setFavoriteHolder(holder, position)
         }
         holder.itemView.setOnClickListener {
             val adapterPos = holder.adapterPosition
             if (adapterPos != RecyclerView.NO_POSITION) {
-                val intent = Intent(context, DetailActivity::class.java)
-                intent.putExtra(INFORMATION,mDataArray[position])
-                context.startActivity(intent)
+                mobileAdapterInterface.gotoDetailPage(mDataArray[position])
             }
         }
     }
 
-    fun sublitList(list: ArrayList<MobileListResponse>){
+    interface MobileAdapterInterface {
+        fun gotoDetailPage(infomation: MobileListResponse)
+        fun setImage(imageTarget: ImageView, imageURL: String)
+        fun addFavMobile(target: MobileListResponse)
+        fun removeFavMobile(target: MobileListResponse)
+    }
+
+    fun sublitList(list: ArrayList<MobileListResponse>) {
         mDataArray = list
         notifyDataSetChanged()
     }
 
-    fun getFavList(): ArrayList<MobileListResponse>{
-        return favDataArray
-    }
-
-    fun setMobileListHoler(holder: CustomHodler, position: Int){
-        var like:Boolean = mDataArray[position].fav
+    fun setMobileListHoler(holder: CustomHodler, position: Int) {
+        var like: Boolean = mDataArray[position].fav
         holder.name.text = mDataArray[position].name
         holder.description.text = mDataArray[position].description
         holder.price.text = mDataArray[position].price.toString()
         holder.rate.text = mDataArray[position].rating.toString()
-        Picasso.with(context)
-            .load(mDataArray[position].thumbImageURL)
-            .into(holder.img_mobile)
+        mobileAdapterInterface.setImage(holder.img_mobile, mDataArray[position].thumbImageURL)
 
         //when sort image fav must change
-        if (like){
+        if (like) {
             holder.favorite.setImageResource(R.drawable.ic_favorite)
-        }else{
+        } else {
             holder.favorite.setImageResource(R.drawable.ic_heart)
         }
 
         holder.favorite.setOnClickListener {
             //switch fav or not
-            if (like){
+            if (like) {
                 holder.favorite.setImageResource(R.drawable.ic_heart)
                 mDataArray[position].fav = false
-                val indexTarget = favDataArray.find {
-                    it.equals(mDataArray[position])
-                }
-                favDataArray.remove(indexTarget)
+                mobileAdapterInterface.removeFavMobile(mDataArray[position])
                 like = false
-            }else{
+            } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite)
                 mDataArray[position].fav = true
-                favDataArray.add(mDataArray[position])
+                mobileAdapterInterface.addFavMobile(mDataArray[position])
                 like = true
             }
         }
     }
 
-    fun setFavoriteHolder(holder: CustomHodler, position: Int){
-        holder.name.text            = mDataArray[position].name
-        holder.description.text     = mDataArray[position].price.toString()
-        holder.price.text           = mDataArray[position].rating.toString()
-        holder.price.alpha          = 0.5f
-        Picasso.with(context)
-            .load(mDataArray[position].thumbImageURL)
-            .into(holder.img_mobile)
-        holder.rate.visibility      = View.GONE
-        holder.favorite.visibility  = View.GONE
+    fun setFavoriteHolder(holder: CustomHodler, position: Int) {
+        holder.name.text = mDataArray[position].name
+        holder.description.text = mDataArray[position].price.toString()
+        holder.price.text = mDataArray[position].rating.toString()
+        holder.price.alpha = 0.5f
+        mobileAdapterInterface.setImage(holder.img_mobile, mDataArray[position].thumbImageURL)
+        holder.rate.visibility = View.GONE
+        holder.favorite.visibility = View.GONE
     }
 
 }

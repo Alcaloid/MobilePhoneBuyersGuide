@@ -13,7 +13,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="com.codemobile.mobilephonebuyersguide.activity.DetailActivity"
+        <activity android:name="com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity"
                 >
         </activity>
         <activity
@@ -24,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".mvp.activity.SubMainActivity"/>
     </application>
 
 </manifest>

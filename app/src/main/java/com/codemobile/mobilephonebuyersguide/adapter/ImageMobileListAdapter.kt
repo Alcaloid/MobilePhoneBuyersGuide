@@ -10,9 +10,9 @@ import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.grid_item_mobile_image.view.*
 
-class ImageMobileListAdapter (val context: Context): RecyclerView.Adapter<ImageHolder>(){
+class ImageMobileListAdapter(val context: Context) : RecyclerView.Adapter<ImageHolder>() {
 
-    private var urlArray:ArrayList<ImageResponse> = arrayListOf()
+    private var urlArray: ArrayList<ImageResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         return ImageHolder(
@@ -24,7 +24,7 @@ class ImageMobileListAdapter (val context: Context): RecyclerView.Adapter<ImageH
         )
     }
 
-    fun sublitList(list: ArrayList<ImageResponse>){
+    fun sublitList(list: ArrayList<ImageResponse>) {
         urlArray = list
         notifyDataSetChanged()
     }
@@ -40,6 +40,6 @@ class ImageMobileListAdapter (val context: Context): RecyclerView.Adapter<ImageH
     }
 }
 
-class ImageHolder(view: View): RecyclerView.ViewHolder(view) {
+class ImageHolder(view: View) : RecyclerView.ViewHolder(view) {
     val imageMobile = view.grid_item
 }
