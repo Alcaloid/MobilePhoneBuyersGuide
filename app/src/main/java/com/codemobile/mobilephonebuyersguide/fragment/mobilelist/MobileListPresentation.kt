@@ -68,11 +68,8 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
                     _view.hideLoading()
                     _view.showMobileList(mobileArrayList)
                     _view.setPreFavorite()
-
-                    Handler().postDelayed({
-                        _view.closeRefresh()
-                    },3000)
                 }
+                _view.closeRefresh()
             }
         })
     }
