@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var fragmentAdapter: ViewPageAdapter
-    var currentPage: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +34,9 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-                        currentPage = 0
                         fragmentAdapter.setUnFavoriteMobile()
                     }
                     1 -> {
-                        currentPage = 1
                         fragmentAdapter.setFavoriteMobile()
                     }
                 }

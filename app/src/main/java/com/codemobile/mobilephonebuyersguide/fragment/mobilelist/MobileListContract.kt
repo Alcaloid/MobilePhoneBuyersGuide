@@ -24,5 +24,6 @@ interface MobileListContract {
         fun getFavoriteMobile(): ArrayList<MobileListResponse>
         fun setupDatabase(context: Context)
         fun checkPreviousFavorite()
+
     }
 }

@@ -32,7 +32,6 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     override fun showMobileFav(mobileFav: ArrayList<MobileListResponse>) {
-//        favoriteArrayList = mobileFav
         favoriteAdapter?.sublitList(mobileFav)
     }
 
