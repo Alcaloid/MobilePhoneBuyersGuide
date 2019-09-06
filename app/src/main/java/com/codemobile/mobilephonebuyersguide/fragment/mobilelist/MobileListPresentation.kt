@@ -16,11 +16,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 
-class MobileListPresentation(val _view: MobileListContract.MobileListView) :
+class MobileListPresentation(val _view: MobileListContract.MobileListView, val service: ApiInterface = ApiInterface.getBase()) :
     MobileListContract.MobileListPresentor {
 
     private var favMobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
+    private var stateTypeSort:String? = null
     private var appDatabase: AppDatabase? = null
     val gson = Gson()
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
@@ -28,6 +29,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     }
 
     override fun sortMobile(sortForm: String) {
+        stateTypeSort = sortForm
         when (sortForm) {
             PRICE_LOWTOHIGH -> {
                 mobileArrayList.sortBy { it.price }
@@ -46,9 +48,9 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
     }
 
     override fun feedMobileList() {
-        val callMobileList = ApiInterface.getBase().getMobileList()
+//        val callMobileList = ApiInterface.getBase().getMobileList()
         _view.showLoading()
-        callMobileList.enqueue(object : Callback<List<MobileListResponse>> {
+        service.getMobileList().enqueue(object : Callback<List<MobileListResponse>> {
             override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
                 _view.hideLoading()
                 _view.closeRefresh()
@@ -62,6 +64,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
                 if (response.isSuccessful) {
                     mobileArrayList.clear()
                     mobileArrayList.addAll(response.body()!!)
+                    checkSort()
                     _view.hideLoading()
                     _view.showMobileList(mobileArrayList)
                     _view.setPreFavorite()
@@ -69,6 +72,10 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
                 _view.closeRefresh()
             }
         })
+    }
+
+    fun checkSort(){
+        stateTypeSort?.let { sortMobile(it) }
     }
 
     override fun gotoDetailPage(context: Context, infomation: MobileListResponse) {
