@@ -20,6 +20,11 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
     private var appDatabase: AppDatabase? = null
 
     override fun removeMobileFav(position: Int) {
+        favoriteMobile.removeAt(position)
+        _view.showMobileFav(favoriteMobile)
+    }
+
+    override fun deleteMobileFavInDatabase(position: Int) {
         val target = favoriteMobile[position]
         val task = Runnable {
             appDatabase?.favoriteDao()?.deleteFavorite(
@@ -30,8 +35,6 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
             )
         }
         mCMWorkerThread.postTask(task)
-        favoriteMobile.removeAt(position)
-        _view.showMobileFav(favoriteMobile)
     }
 
     override fun sortMobile(sortForm: String) {

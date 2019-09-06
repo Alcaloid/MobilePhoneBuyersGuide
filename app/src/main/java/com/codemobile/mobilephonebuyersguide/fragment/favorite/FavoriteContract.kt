@@ -11,6 +11,7 @@ interface FavoriteContract {
 
     interface favPresentor {
         fun removeMobileFav(position: Int)
+        fun deleteMobileFavInDatabase(position: Int)
         fun sortMobile(sortForm: String)
         fun setMobileFav(list: ArrayList<MobileListResponse>?)
         fun initDatabase(context: Context)

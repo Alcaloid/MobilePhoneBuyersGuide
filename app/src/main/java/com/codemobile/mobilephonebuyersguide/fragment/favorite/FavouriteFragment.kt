@@ -64,6 +64,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             val position = viewHolder.adapterPosition
+            favPresentation.deleteMobileFavInDatabase(position)
             favPresentation.removeMobileFav(position)
         }
     }
