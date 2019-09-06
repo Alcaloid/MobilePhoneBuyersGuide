@@ -1,7 +1,6 @@
 package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import android.content.Context
-import android.widget.ImageView
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 interface MobileListContract {

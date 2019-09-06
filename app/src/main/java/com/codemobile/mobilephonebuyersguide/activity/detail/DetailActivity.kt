@@ -1,6 +1,5 @@
 package com.codemobile.mobilephonebuyersguide.activity.detail
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,10 +8,6 @@ import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import kotlinx.android.synthetic.main.activity_mobile_detail.*
-import java.io.BufferedReader
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.InputStreamReader
 
 
 class DetailActivity : AppCompatActivity(),

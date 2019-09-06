@@ -2,13 +2,10 @@ package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.widget.ImageView
 import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
 import com.codemobile.mobilephonebuyersguide.constantclass.*
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

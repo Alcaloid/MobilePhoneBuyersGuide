@@ -1,17 +1,12 @@
 package com.codemobile.mobilephonebuyersguide.adapter
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
 import com.codemobile.mobilephonebuyersguide.R
-import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
-import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 
