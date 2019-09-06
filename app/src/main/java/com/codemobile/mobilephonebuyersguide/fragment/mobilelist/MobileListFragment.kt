@@ -34,9 +34,6 @@ class MobileListFragment : Fragment(),
     }
 
     override fun showMobileList(list: ArrayList<MobileListResponse>) {
-//        list.forEach {
-//            println(it)
-//        }
         mobileListAdapter?.sublitList(list)
     }
 

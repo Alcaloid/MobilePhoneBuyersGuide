@@ -14,6 +14,7 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
 
     private var favoriteMobile: ArrayList<MobileListResponse> = arrayListOf()
 
+
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }

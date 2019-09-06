@@ -1,7 +1,6 @@
 package com.codemobile.mobilephonebuyersguide.fragment.favorite
 
 import android.content.Context
-import android.widget.ImageView
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 interface FavoriteContract {
