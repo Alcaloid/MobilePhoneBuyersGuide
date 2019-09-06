@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
 import com.codemobile.mobilephonebuyersguide.internet.BaseSortInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlin.collections.ArrayList
 
@@ -33,6 +34,9 @@ class MobileListFragment : Fragment(),
     }
 
     override fun showMobileList(list: ArrayList<MobileListResponse>) {
+//        list.forEach {
+//            println(it)
+//        }
         mobileListAdapter?.sublitList(list)
     }
 
@@ -83,7 +87,7 @@ class MobileListFragment : Fragment(),
             }
 
             override fun setImage(imageTarget: ImageView, imageURL: String) {
-                mobilePresentor.setImageTarget(view.context, imageTarget, imageURL)
+                Picasso.with(view.context).load(imageURL).into(imageTarget)
             }
 
             override fun gotoDetailPage(infomation: MobileListResponse) {

@@ -16,7 +16,6 @@ interface MobileListContract {
 
     interface MobileListPresentor {
         fun feedMobileList()
-        fun setImageTarget(context: Context, target: ImageView, url: String)
         fun gotoDetailPage(context: Context, infomation: MobileListResponse)
         fun sortMobile(sortForm: String)
         fun getCurrentFav(list: ArrayList<MobileListResponse>?)

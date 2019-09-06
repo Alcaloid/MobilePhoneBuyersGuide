@@ -13,8 +13,6 @@ interface FavoriteContract {
         fun removeMobileFav(position: Int)
         fun sortMobile(sortForm: String)
         fun setMobileFav(list: ArrayList<MobileListResponse>?)
-        fun gotoDetailPage(context: Context, infomation: MobileListResponse)
-        fun setImageTarget(context: Context, target: ImageView, url: String)
         fun initDatabase(context: Context)
         fun getMobileFavorite(): ArrayList<MobileListResponse>
     }

@@ -80,10 +80,6 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView) :
         context.startActivity(intent)
     }
 
-    override fun setImageTarget(context: Context, target: ImageView, url: String) {
-        Picasso.with(context).load(url).into(target)
-    }
-
     override fun getCurrentFav(list: ArrayList<MobileListResponse>?) {
         mobileArrayList.forEach { item ->
             item.fav = false
