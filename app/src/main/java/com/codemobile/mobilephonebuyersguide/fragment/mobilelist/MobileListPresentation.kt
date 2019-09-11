@@ -1,8 +1,6 @@
 package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import android.content.Context
-import android.content.Intent
-import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
 import com.codemobile.mobilephonebuyersguide.constantclass.*
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
@@ -48,7 +46,6 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
     }
 
     override fun feedMobileList() {
-//        val callMobileList = ApiInterface.getBase().getMobileList()
         _view.showLoading()
         service.getMobileList().enqueue(object : Callback<List<MobileListResponse>> {
             override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
@@ -78,12 +75,6 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
         stateTypeSort?.let { sortMobile(it) }
     }
 
-    override fun gotoDetailPage(context: Context, infomation: MobileListResponse) {
-        val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra(INFORMATION, infomation)
-        context.startActivity(intent)
-    }
-
     override fun getCurrentFav(list: ArrayList<MobileListResponse>?) {
         mobileArrayList.forEach { item ->
             item.fav = false
@@ -98,21 +89,15 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
     }
 
     override fun addFavoriteMobile(target: MobileListResponse) {
-        val data = DatabaseEntity(
-            target.id,
-            target.name,
-            target.description,
-            target.brand,
-            target.price,
-            target.rating,
-            target.thumbImageURL,
-            target.fav
-        )
-        dataFromRoomDatabase(ADD_FAV, data)
         favMobileArrayList.add(target)
     }
 
     override fun removeFavoriteMobile(target: MobileListResponse) {
+        target.fav = true //remove must same object
+        favMobileArrayList.remove(target)
+    }
+
+    override fun makeFavoriteMobileInRoomDatabase(target: MobileListResponse, roomFunction: String) {
         val data = DatabaseEntity(
             target.id,
             target.name,
@@ -123,10 +108,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
             target.thumbImageURL,
             target.fav
         )
-        dataFromRoomDatabase(DELETE_FAV, data)
-        target.fav = true //remove must same object
-        favMobileArrayList.remove(target)
-
+        dataFromRoomDatabase(roomFunction, data)
     }
 
     override fun getFavoriteMobile(): ArrayList<MobileListResponse> {

@@ -15,7 +15,6 @@ interface MobileListContract {
 
     interface MobileListPresentor {
         fun feedMobileList()
-        fun gotoDetailPage(context: Context, infomation: MobileListResponse)
         fun sortMobile(sortForm: String)
         fun getCurrentFav(list: ArrayList<MobileListResponse>?)
         fun addFavoriteMobile(target: MobileListResponse)
@@ -23,6 +22,6 @@ interface MobileListContract {
         fun getFavoriteMobile(): ArrayList<MobileListResponse>
         fun setupDatabase(context: Context)
         fun checkPreviousFavorite()
-
+        fun makeFavoriteMobileInRoomDatabase(target: MobileListResponse,roomFunction:String)
     }
 }

@@ -1,6 +1,7 @@
 package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,11 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.codemobile.mobilephonebuyersguide.activity.detail.DetailActivity
 import com.codemobile.mobilephonebuyersguide.adapter.MobileListAdapter
+import com.codemobile.mobilephonebuyersguide.constantclass.ADD_FAV
+import com.codemobile.mobilephonebuyersguide.constantclass.DELETE_FAV
+import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.internet.BaseSortInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
@@ -77,10 +82,12 @@ class MobileListFragment : Fragment(),
         mobileListAdapter = MobileListAdapter(0, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {
                 mobilePresentor.addFavoriteMobile(target)
+                mobilePresentor.makeFavoriteMobileInRoomDatabase(target, ADD_FAV)
             }
 
             override fun removeFavMobile(target: MobileListResponse) {
                 mobilePresentor.removeFavoriteMobile(target)
+                mobilePresentor.makeFavoriteMobileInRoomDatabase(target, DELETE_FAV)
             }
 
             override fun setImage(imageTarget: ImageView, imageURL: String) {
@@ -88,7 +95,9 @@ class MobileListFragment : Fragment(),
             }
 
             override fun gotoDetailPage(infomation: MobileListResponse) {
-                mobilePresentor.gotoDetailPage(view.context, infomation)
+                val intent = Intent(view.context, DetailActivity::class.java)
+                intent.putExtra(INFORMATION, infomation)
+                view.context.startActivity(intent)
             }
         })
     }
