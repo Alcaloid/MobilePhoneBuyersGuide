@@ -1,5 +1,6 @@
 package com.codemobile.mobilephonebuyersguide.favoritepagetest
 
+import com.codemobile.mobilephonebuyersguide.TestUtil
 import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
 import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
 import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
@@ -26,27 +27,13 @@ class FavoritePresenterTest {
         presenter = FavoritePresentation(view)
     }
 
-    fun addMobile(id:Int,price:Double,rating:Double):MobileListResponse{
-        val result = MobileListResponse(
-            "xxx",
-            "xxx",
-            id,
-            "yyy",
-            price,
-            rating,
-            "rrrr",
-            true
-        )
-        return result
-    }
-
     @Test
     fun `sort data with Price Low To High`(){
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(addMobile(1,15.0,4.0))
-        mockMobileArray.add(addMobile(2,10.5,8.1))
-        mockMobileArray.add(addMobile(3,5.1,3.4))
+        mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
+        mockMobileArray.add(TestUtil.createMobile(2,10.5,8.1))
+        mockMobileArray.add(TestUtil.createMobile(3,5.1,3.4))
         Deencapsulation.setField(presenter,"favoriteMobile", mockMobileArray)
 
         //when
@@ -54,9 +41,9 @@ class FavoritePresenterTest {
         val result = Deencapsulation.getField<ArrayList<MobileListResponse>>(presenter,"favoriteMobile")
 
         //then
-        assertEquals(result[0].price,5.1)
-        assertEquals(result[1].price,10.5)
-        assertEquals(result[2].price,15.0)
+        assertEquals(5.1,result[0].price)
+        assertEquals(10.5,result[1].price)
+        assertEquals(15.0,result[2].price)
 
     }
 
@@ -64,9 +51,9 @@ class FavoritePresenterTest {
     fun `sort data with Price High To Low`(){
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(addMobile(1,15.0,4.0))
-        mockMobileArray.add(addMobile(2,10.5,8.1))
-        mockMobileArray.add(addMobile(3,5.1,3.4))
+        mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
+        mockMobileArray.add(TestUtil.createMobile(2,10.5,8.1))
+        mockMobileArray.add(TestUtil.createMobile(3,5.1,3.4))
         Deencapsulation.setField(presenter,"favoriteMobile", mockMobileArray)
 
         //when
@@ -74,9 +61,9 @@ class FavoritePresenterTest {
         val result = Deencapsulation.getField<ArrayList<MobileListResponse>>(presenter,"favoriteMobile")
 
         //then
-        assertEquals(result[0].price,15.0)
-        assertEquals(result[1].price,10.5)
-        assertEquals(result[2].price,5.1)
+        assertEquals(15.0,result[0].price)
+        assertEquals(10.5,result[1].price)
+        assertEquals(5.1,result[2].price)
 
     }
 
@@ -84,9 +71,9 @@ class FavoritePresenterTest {
     fun `sort data with Rating`(){
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(addMobile(1,15.0,4.0))
-        mockMobileArray.add(addMobile(2,10.5,8.1))
-        mockMobileArray.add(addMobile(3,5.1,3.4))
+        mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
+        mockMobileArray.add(TestUtil.createMobile(2,10.5,8.1))
+        mockMobileArray.add(TestUtil.createMobile(3,5.1,3.4))
         Deencapsulation.setField(presenter,"favoriteMobile", mockMobileArray)
 
         //when
@@ -94,9 +81,9 @@ class FavoritePresenterTest {
         val result = Deencapsulation.getField<ArrayList<MobileListResponse>>(presenter,"favoriteMobile")
 
         //then
-        assertEquals(result[0].rating,8.1)
-        assertEquals(result[1].rating,4.0)
-        assertEquals(result[2].rating,3.4)
+        assertEquals(8.1,result[0].rating)
+        assertEquals(4.0,result[1].rating)
+        assertEquals(3.4,result[2].rating)
 
     }
 
@@ -104,45 +91,45 @@ class FavoritePresenterTest {
     fun `Test set favorite`(){
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(addMobile(1,15.0,4.0))
-        mockMobileArray.add(addMobile(2,10.5,8.1))
-        mockMobileArray.add(addMobile(3,5.1,3.4))
+        mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
+        mockMobileArray.add(TestUtil.createMobile(2,10.5,8.1))
+        mockMobileArray.add(TestUtil.createMobile(3,5.1,3.4))
 
         //when
         presenter.setMobileFav(mockMobileArray)
         val result = Deencapsulation.getField<ArrayList<MobileListResponse>>(presenter,"favoriteMobile")
 
         //then
-        assertEquals(result[0].id,1)
-        assertEquals(result[1].id,2)
-        assertEquals(result[2].id,3)
+        assertEquals(1,result[0].id)
+        assertEquals(2,result[1].id)
+        assertEquals(3,result[2].id)
     }
 
     @Test
     fun `Test get favorite`() {
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(addMobile(1,15.0,4.0))
-        mockMobileArray.add(addMobile(2,10.5,8.1))
-        mockMobileArray.add(addMobile(3,5.1,3.4))
+        mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
+        mockMobileArray.add(TestUtil.createMobile(2,10.5,8.1))
+        mockMobileArray.add(TestUtil.createMobile(3,5.1,3.4))
         Deencapsulation.setField(presenter,"favoriteMobile", mockMobileArray)
 
         //when
         val result = presenter.getMobileFavorite()
 
         //then
-        assertEquals(result[0].id,1)
-        assertEquals(result[1].id,2)
-        assertEquals(result[2].id,3)
+        assertEquals(1,result[0].id)
+        assertEquals(2,result[1].id)
+        assertEquals(3,result[2].id)
     }
 
     @Test
     fun `Test remove mobile favorite`(){
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(addMobile(1,15.0,4.0))
-        mockMobileArray.add(addMobile(2,10.5,8.1))
-        mockMobileArray.add(addMobile(3,5.1,3.4))
+        mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
+        mockMobileArray.add(TestUtil.createMobile(2,10.5,8.1))
+        mockMobileArray.add(TestUtil.createMobile(3,5.1,3.4))
         Deencapsulation.setField(presenter,"favoriteMobile", mockMobileArray)
 
         //when
@@ -150,8 +137,8 @@ class FavoritePresenterTest {
 
         //then
         val result = Deencapsulation.getField<ArrayList<MobileListResponse>>(presenter,"favoriteMobile")
-        assertEquals(result[0].id,2)
-        assertEquals(result.size,2)
+        assertEquals(2,result[0].id)
+        assertEquals(2,result.size)
     }
 
 }
