@@ -13,12 +13,11 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
     FavoriteContract.favPresentor {
 
     private var favoriteMobile: ArrayList<MobileListResponse> = arrayListOf()
-
-
+    private var appDatabase: AppDatabase? = null
+    private var stateTypeSort:String? = null
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
-    private var appDatabase: AppDatabase? = null
 
     override fun removeMobileFav(position: Int) {
         favoriteMobile.removeAt(position)
@@ -39,6 +38,7 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
     }
 
     override fun sortMobile(sortForm: String) {
+        stateTypeSort = sortForm
         when (sortForm) {
             PRICE_LOWTOHIGH -> {
                 favoriteMobile.sortBy { it.price }
@@ -66,7 +66,12 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
         if (list != null) {
             favoriteMobile = list
             _view.showMobileFav(favoriteMobile)
+            checkSortType()
         }
+    }
+
+    fun checkSortType(){
+        stateTypeSort?.let{sortMobile(it)}
     }
 
     override fun getMobileFavorite(): ArrayList<MobileListResponse> {
