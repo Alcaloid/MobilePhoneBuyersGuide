@@ -1,5 +1,6 @@
 package com.codemobile.mobilephonebuyersguide.api
 
+import com.codemobile.mobilephonebuyersguide.TestUtil
 import com.codemobile.mobilephonebuyersguide.fragment.mobilelist.MobileListContract
 import com.codemobile.mobilephonebuyersguide.fragment.mobilelist.MobileListPresentation
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
@@ -54,9 +55,9 @@ class APIUnitTesting {
     fun `Test feeddata Response`(){
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(addMobile(1,15.0,4.0))
-        mockMobileArray.add(addMobile(2,10.5,8.1))
-        mockMobileArray.add(addMobile(3,5.1,3.4))
+        mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
+        mockMobileArray.add(TestUtil.createMobile(2,10.5,8.1))
+        mockMobileArray.add(TestUtil.createMobile(3,5.1,3.4))
         val call: retrofit2.Call<List<MobileListResponse>> = mock()
         whenever(service.getMobileList()).thenReturn(call)
         whenever(call.enqueue(any())).thenAnswer {
@@ -74,19 +75,4 @@ class APIUnitTesting {
         verify(view).setPreFavorite()
         assertEquals(mockMobileArray[0].id,result[0].id)
     }
-
-    fun addMobile(id:Int,price:Double,rating:Double):MobileListResponse{
-        val result = MobileListResponse(
-            "xxx",
-            "xxx",
-            id,
-            "yyy",
-            price,
-            rating,
-            "rrrr",
-            true
-        )
-        return result
-    }
-
 }
