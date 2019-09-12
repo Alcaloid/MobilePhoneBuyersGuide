@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailPresentation(val view: DetailContract.DetailView) :
+class DetailPresentation(val view: DetailContract.DetailView,val service: ApiInterface = ApiInterface.getBase()) :
     DetailContract.DetailPresenttaion {
 
     override fun getPassData(info: MobileListResponse) {
@@ -19,9 +19,10 @@ class DetailPresentation(val view: DetailContract.DetailView) :
     }
 
     override fun feedImageDetail(id: Int) {
-        val callImageMobile = ApiInterface.getBase().getMobileImage(id.toString())
-        callImageMobile.enqueue(object : Callback<List<ImageResponse>> {
+        val call = service.getMobileImage(id.toString())
+        call.enqueue(object : Callback<List<ImageResponse>> {
             override fun onFailure(call: Call<List<ImageResponse>>, t: Throwable) {
+                view.showErrorMessage()
             }
 
             override fun onResponse(call: Call<List<ImageResponse>>, response: Response<List<ImageResponse>>) {
