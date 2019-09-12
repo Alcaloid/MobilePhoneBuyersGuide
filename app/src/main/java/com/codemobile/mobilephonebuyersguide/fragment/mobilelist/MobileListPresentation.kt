@@ -47,7 +47,8 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
 
     override fun feedMobileList() {
         _view.showLoading()
-        service.getMobileList().enqueue(object : Callback<List<MobileListResponse>> {
+        val call = service.getMobileList()
+        call.enqueue(object : Callback<List<MobileListResponse>> {
             override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
                 _view.hideLoading()
                 _view.closeRefresh()

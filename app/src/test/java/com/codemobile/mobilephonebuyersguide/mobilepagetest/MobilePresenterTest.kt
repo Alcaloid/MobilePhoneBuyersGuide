@@ -90,12 +90,12 @@ class MobilePresenterTest {
     fun `set Image Favorite`() {
         //given
         val mockMobileArray: ArrayList<MobileListResponse> = arrayListOf()
-        mockMobileArray.add(TestUtil.createMobile(1, 15.0, 4.0, false))
-        mockMobileArray.add(TestUtil.createMobile(2, 10.5, 8.1, false))
-        mockMobileArray.add(TestUtil.createMobile(3, 5.1, 3.4, false))
+        mockMobileArray.add(TestUtil.createMobile(1, 15.0, 4.0, favorite = false))
+        mockMobileArray.add(TestUtil.createMobile(2, 10.5, 8.1, favorite =false))
+        mockMobileArray.add(TestUtil.createMobile(3, 5.1, 3.4, favorite =false))
         Deencapsulation.setField(presenter, "mobileArrayList", mockMobileArray)
         val favoriteArray: ArrayList<MobileListResponse> = arrayListOf()
-        favoriteArray.add(TestUtil.createMobile(1, 15.0, 4.0, true))
+        favoriteArray.add(TestUtil.createMobile(1, 15.0, 4.0, favorite =true))
 
         //when
         presenter.getCurrentFav(favoriteArray)

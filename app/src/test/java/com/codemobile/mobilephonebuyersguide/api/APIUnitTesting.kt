@@ -33,7 +33,7 @@ class APIUnitTesting {
     }
 
     @Test
-    fun `Test feeddata Fail`(){
+    fun `Test mobile feeddata Fail`(){
         //given
         val call: retrofit2.Call<List<MobileListResponse>> = mock()
         whenever(service.getMobileList()).thenReturn(call)
@@ -52,7 +52,7 @@ class APIUnitTesting {
     }
 
     @Test
-    fun `Test feeddata Response`(){
+    fun `Test mobile feeddata Response`(){
         //given
         val mockMobileArray:ArrayList<MobileListResponse> = arrayListOf()
         mockMobileArray.add(TestUtil.createMobile(1,15.0,4.0))
