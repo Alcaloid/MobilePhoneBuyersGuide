@@ -1,7 +1,9 @@
 package com.codemobile.mobilephonebuyersguide.activity.detail
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codemobile.mobilephonebuyersguide.adapter.ImageMobileListAdapter
 import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
@@ -45,6 +47,16 @@ class DetailActivity : AppCompatActivity(),
 
     override fun showImageMobileList(imageList: ArrayList<ImageResponse>) {
         imageAdapter.sublitList(imageList)
+    }
+
+    override fun showErrorMessage() {
+        val errorDialog = AlertDialog.Builder(this)
+            .setTitle("Error")
+            .setMessage("Can't feed mobile image")
+            .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+            })
+            .create()
+        errorDialog.show()
     }
 
     private fun setupData() {

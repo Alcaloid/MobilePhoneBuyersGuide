@@ -10,6 +10,7 @@ interface DetailContract {
         fun setPrice(price: String)
         fun setRate(rate: String)
         fun setDescription(description: String)
+        fun showErrorMessage()
         fun showImageMobileList(imageList: ArrayList<ImageResponse>)
     }
 
