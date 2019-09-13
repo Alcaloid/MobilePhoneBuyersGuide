@@ -1,6 +1,5 @@
 package com.codemobile.mobilephonebuyersguide
 
-import com.codemobile.mobilephonebuyersguide.database.DatabaseEntity
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
@@ -17,27 +16,14 @@ class TestUtil {
             favorite: Boolean = false
         ): MobileListResponse {
             return MobileListResponse(
-                brand,
-                description,
                 id,
+                description,
+                brand,
                 name,
                 price,
                 rating,
                 url,
                 favorite
-            )
-        }
-
-        fun createMobileDataBase(id: Int, price: Double, rating: Double): DatabaseEntity {
-            return DatabaseEntity(
-                id = id,
-                price = price,
-                rating = rating,
-                name = "",
-                description = "",
-                brand = "",
-                fav = true,
-                thumbImageURL = ""
             )
         }
 

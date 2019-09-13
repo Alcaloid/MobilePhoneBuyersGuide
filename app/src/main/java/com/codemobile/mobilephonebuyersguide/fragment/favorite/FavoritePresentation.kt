@@ -6,7 +6,6 @@ import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
 import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
 import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
-import com.codemobile.mobilephonebuyersguide.database.DatabaseEntity
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 class FavoritePresentation(val _view: FavoriteContract.favView) :
@@ -14,7 +13,7 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
 
     private var favoriteMobile: ArrayList<MobileListResponse> = arrayListOf()
     private var appDatabase: AppDatabase? = null
-    private var stateTypeSort:String? = null
+    private var stateTypeSort: String? = null
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
@@ -28,10 +27,7 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
         val target = favoriteMobile[position]
         val task = Runnable {
             appDatabase?.favoriteDao()?.deleteFavorite(
-                DatabaseEntity(
-                    target.id, target.name
-                    , target.description, target.brand, target.price, target.rating, target.thumbImageURL, target.fav
-                )
+                target
             )
         }
         mCMWorkerThread.postTask(task)
@@ -70,8 +66,8 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
         }
     }
 
-    fun checkSortType(){
-        stateTypeSort?.let{sortMobile(it)}
+    fun checkSortType() {
+        stateTypeSort?.let { sortMobile(it) }
     }
 
     override fun getMobileFavorite(): ArrayList<MobileListResponse> {

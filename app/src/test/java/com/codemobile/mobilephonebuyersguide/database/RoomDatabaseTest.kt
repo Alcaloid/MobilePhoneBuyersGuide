@@ -34,7 +34,7 @@ class RoomDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun writeUserAndReadInList() {
-        val favoriteMobile: DatabaseEntity = TestUtil.createMobileDataBase(1,300.0,10.0)
+        val favoriteMobile = TestUtil.createMobile(1,300.0,10.0)
         favoriteDAO.addFavorite(favoriteMobile)
         val idFavorite = favoriteDAO.queryFavorites()
         assertThat(idFavorite.get(0),equalTo(favoriteMobile))

@@ -1,18 +1,19 @@
 package com.codemobile.mobilephonebuyersguide.database
 
 import androidx.room.*
+import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 @Dao
 interface FavoriteDAO {
     @Query(value = "select * from favorite")
-    fun queryFavorites(): List<DatabaseEntity>
+    fun queryFavorites(): List<MobileListResponse>
 
     @Insert
-    fun addFavorite(favoriteEntity: DatabaseEntity)
+    fun addFavorite(favoriteEntity: MobileListResponse)
 
     @Update
-    fun updateFavorite(favoriteEntity: DatabaseEntity)
+    fun updateFavorite(favoriteEntity: MobileListResponse)
 
     @Delete
-    fun deleteFavorite(favoriteEntity: DatabaseEntity)
+    fun deleteFavorite(favoriteEntity: MobileListResponse)
 }

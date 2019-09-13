@@ -7,8 +7,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.codemobile.mobilephonebuyersguide.constantclass.DATABASE_NAME
+import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
-@Database(entities = [DatabaseEntity::class], version = 1, exportSchema = true)
+@Database(entities = [MobileListResponse::class], version = 1, exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun favoriteDao(): FavoriteDAO

@@ -9,10 +9,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
-import com.codemobile.mobilephonebuyersguide.database.DatabaseEntity
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-
 
 class MobileListPresentation(val _view: MobileListContract.MobileListView, val service: ApiInterface = ApiInterface.getBase()) :
     MobileListContract.MobileListPresentor {
@@ -21,7 +17,6 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var stateTypeSort:String? = null
     private var appDatabase: AppDatabase? = null
-    val gson = Gson()
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
@@ -99,17 +94,7 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
     }
 
     override fun makeFavoriteMobileInRoomDatabase(target: MobileListResponse, roomFunction: String) {
-        val data = DatabaseEntity(
-            target.id,
-            target.name,
-            target.description,
-            target.brand,
-            target.price,
-            target.rating,
-            target.thumbImageURL,
-            target.fav
-        )
-        dataFromRoomDatabase(roomFunction, data)
+        dataFromRoomDatabase(roomFunction, target)
     }
 
     override fun getFavoriteMobile(): ArrayList<MobileListResponse> {
@@ -126,18 +111,14 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
         dataFromRoomDatabase(QUERY_ALLFAV, null)
     }
 
-    fun dataFromRoomDatabase(stateFunction: String, databaseEntity: DatabaseEntity?) {
+    private fun dataFromRoomDatabase(stateFunction: String, databaseEntity: MobileListResponse?) {
         val task = Runnable {
             when (stateFunction) {
                 QUERY_ALLFAV -> {
                     val result = appDatabase?.favoriteDao()?.queryFavorites()
-                    val json = gson.toJson(result)
-                    val data =
-                        gson.fromJson<List<MobileListResponse>>(
-                            json,
-                            object : TypeToken<List<MobileListResponse>>() {}.type
-                        )
-                    favMobileArrayList.addAll(data)
+                    if (result != null) {
+                        favMobileArrayList.addAll(result)
+                    }
                 }
                 DELETE_FAV -> {
                     appDatabase?.favoriteDao()?.deleteFavorite(
