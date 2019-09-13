@@ -1,5 +1,6 @@
 package com.codemobile.mobilephonebuyersguide.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +8,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 
-class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAdapterInterface) :
+class MobileListAdapter(val context: Context, val setHoler: Int, val mobileAdapterInterface: MobileAdapterInterface) :
     RecyclerView.Adapter<CustomHodler>() {
 
     private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
@@ -45,7 +47,6 @@ class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAda
 
     interface MobileAdapterInterface {
         fun gotoDetailPage(infomation: MobileListResponse)
-        fun setImage(imageTarget: ImageView, imageURL: String)
         fun addFavMobile(target: MobileListResponse)
         fun removeFavMobile(target: MobileListResponse)
     }
@@ -61,7 +62,7 @@ class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAda
         holder.description.text = mDataArray[position].description
         holder.price.text = mDataArray[position].price.toString()
         holder.rate.text = mDataArray[position].rating.toString()
-        mobileAdapterInterface.setImage(holder.img_mobile, mDataArray[position].thumbImageURL)
+        Picasso.with(context).load(mDataArray[position].thumbImageURL).into(holder.img_mobile)
 
         //when sort image fav must change
         if (like) {
@@ -91,7 +92,7 @@ class MobileListAdapter(val setHoler: Int, val mobileAdapterInterface: MobileAda
         holder.description.text = mDataArray[position].price.toString()
         holder.price.text = mDataArray[position].rating.toString()
         holder.price.alpha = 0.5f
-        mobileAdapterInterface.setImage(holder.img_mobile, mDataArray[position].thumbImageURL)
+        Picasso.with(context).load(mDataArray[position].thumbImageURL).into(holder.img_mobile)
         holder.rate.visibility = View.GONE
         holder.favorite.visibility = View.GONE
     }

@@ -19,24 +19,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fragmentAdapter = ViewPageAdapter(supportFragmentManager)
-        main_viewPager.adapter = fragmentAdapter
-        main_tab.setupWithViewPager(main_viewPager)
-        main_viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {}
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    0 -> {
-                        fragmentAdapter.setUnFavoriteMobile()
-                    }
-                    1 -> {
-                        fragmentAdapter.setFavoriteMobile()
-                    }
-                }
-            }
-        })
+        main_viewPager.let {
+            it.adapter = fragmentAdapter
+            main_tab.setupWithViewPager(it)
+            it.addOnPageChangeListener(mainPageChangeListener)
+        }
         image_filter.setOnClickListener {
             val builder = AlertDialog.Builder(this)
                 .setSingleChoiceItems(LIST_SORT, -1) { dialogInterface, i ->
@@ -46,6 +33,21 @@ class MainActivity : AppCompatActivity() {
                 }
                 .create()
             builder.show()
+        }
+    }
+
+    private val mainPageChangeListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {}
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+        override fun onPageSelected(position: Int) {
+            when (position) {
+                0 -> {
+                    fragmentAdapter.setUnFavoriteMobile()
+                }
+                1 -> {
+                    fragmentAdapter.setFavoriteMobile()
+                }
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ class DetailActivity : AppCompatActivity(),
         txt_detailDescription.text = description
     }
 
-    override fun showImageMobileList(imageList: ArrayList<ImageResponse>) {
+    override fun showImageMobileList(imageList: List<ImageResponse>) {
         imageAdapter.sublitList(imageList)
     }
 
@@ -61,8 +61,10 @@ class DetailActivity : AppCompatActivity(),
 
     private fun setupData() {
         imageAdapter = ImageMobileListAdapter(this)
-        detail_rcv.setAdapter(imageAdapter)
-        detail_rcv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        detail_rcv.let {
+            it.adapter = imageAdapter
+            it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        }
         presentor = DetailPresentation(this)
         mobileInfo = intent.extras?.getSerializable(INFORMATION) as MobileListResponse
         presentor.getPassData(mobileInfo)

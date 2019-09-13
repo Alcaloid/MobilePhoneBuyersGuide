@@ -11,7 +11,7 @@ interface DetailContract {
         fun setRate(rate: String)
         fun setDescription(description: String)
         fun showErrorMessage()
-        fun showImageMobileList(imageList: ArrayList<ImageResponse>)
+        fun showImageMobileList(imageList: List<ImageResponse>)
     }
 
     interface DetailPresenttaion {

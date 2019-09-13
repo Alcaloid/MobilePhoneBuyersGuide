@@ -9,7 +9,7 @@ import com.codemobile.mobilephonebuyersguide.fragment.mobilelist.MobileListFragm
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 class ViewPageAdapter(
-    val fragmentManager: FragmentManager
+    private val fragmentManager: FragmentManager
 ) : FragmentPagerAdapter(fragmentManager) {
 
     fun updateSortTye(sortType: String) {
@@ -21,7 +21,7 @@ class ViewPageAdapter(
         }
     }
 
-    fun getFavoriteMobile(): ArrayList<MobileListResponse>? {
+    private fun getFavoriteMobile(): ArrayList<MobileListResponse>? {
         val fragments = fragmentManager.fragments
         fragments.forEach {
             if (it is MobileListFragment) {
@@ -41,7 +41,7 @@ class ViewPageAdapter(
         }
     }
 
-    fun getUnFavoriteMobile(): ArrayList<MobileListResponse>? {
+    private fun getUnFavoriteMobile(): ArrayList<MobileListResponse>? {
         val fragments = fragmentManager.fragments
         fragments.forEach {
             if (it is FavouriteFragment) {

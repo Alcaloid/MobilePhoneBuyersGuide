@@ -66,9 +66,11 @@ class MobileListFragment : Fragment(),
 
     private fun init(view: View) {
         setMobileAdapter(view)
-        mobilePresentor.setupDatabase(view.context)
-        mobilePresentor.checkPreviousFavorite()
-        mobilePresentor.feedMobileList()
+        mobilePresentor.let {
+            it.setupDatabase(view.context)
+            it.checkPreviousFavorite()
+            it.feedMobileList()
+        }
         rcv_frgment.let {
             it.adapter = mobileListAdapter
             it.layoutManager = LinearLayoutManager(view.context)
@@ -79,7 +81,7 @@ class MobileListFragment : Fragment(),
     }
 
     fun setMobileAdapter(view: View) {
-        mobileListAdapter = MobileListAdapter(0, object : MobileListAdapter.MobileAdapterInterface {
+        mobileListAdapter = MobileListAdapter(view.context,0, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {
                 mobilePresentor.addFavoriteMobile(target)
                 mobilePresentor.makeFavoriteMobileInRoomDatabase(target, ADD_FAV)
@@ -88,10 +90,6 @@ class MobileListFragment : Fragment(),
             override fun removeFavMobile(target: MobileListResponse) {
                 mobilePresentor.removeFavoriteMobile(target)
                 mobilePresentor.makeFavoriteMobileInRoomDatabase(target, DELETE_FAV)
-            }
-
-            override fun setImage(imageTarget: ImageView, imageURL: String) {
-                Picasso.with(view.context).load(imageURL).into(imageTarget)
             }
 
             override fun gotoDetailPage(infomation: MobileListResponse) {

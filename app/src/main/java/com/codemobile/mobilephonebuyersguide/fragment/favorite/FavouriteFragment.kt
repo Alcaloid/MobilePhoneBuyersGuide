@@ -82,14 +82,10 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     fun setFavAdapter(_view: View) {
-        favoriteAdapter = MobileListAdapter(1, object : MobileListAdapter.MobileAdapterInterface {
+        favoriteAdapter = MobileListAdapter(_view.context, 1, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {}
 
             override fun removeFavMobile(target: MobileListResponse) {}
-
-            override fun setImage(imageTarget: ImageView, imageURL: String) {
-                Picasso.with(_view.context).load(imageURL).into(imageTarget)
-            }
 
             override fun gotoDetailPage(infomation: MobileListResponse) {
                 val intent = Intent(_view.context, DetailActivity::class.java)

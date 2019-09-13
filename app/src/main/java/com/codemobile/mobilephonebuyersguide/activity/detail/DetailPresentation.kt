@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailPresentation(val view: DetailContract.DetailView,val service: ApiInterface = ApiInterface.getBase()) :
+class DetailPresentation(val view: DetailContract.DetailView, val service: ApiInterface = ApiInterface.getBase()) :
     DetailContract.DetailPresenttaion {
 
     override fun getPassData(info: MobileListResponse) {
@@ -27,9 +27,11 @@ class DetailPresentation(val view: DetailContract.DetailView,val service: ApiInt
 
             override fun onResponse(call: Call<List<ImageResponse>>, response: Response<List<ImageResponse>>) {
                 if (response.isSuccessful) {
-                    val detailImage: ArrayList<ImageResponse> = arrayListOf()
-                    detailImage.addAll(response.body()!!)
-                    view.showImageMobileList(detailImage)
+                    response.body().let { data ->
+                        if (data != null) {
+                            view.showImageMobileList(data)
+                        }
+                    }
                 }
             }
         })
