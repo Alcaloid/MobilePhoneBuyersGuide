@@ -78,15 +78,13 @@ class MobileListFragment : Fragment(),
         }
     }
 
-    fun setMobileAdapter(view: View) {
+    private fun setMobileAdapter(view: View) {
         mobileListAdapter = MobileListAdapter(view.context,0, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {
-                mobilePresentor.addFavoriteMobile(target)
                 mobilePresentor.makeFavoriteMobileInRoomDatabase(target, ADD_FAV)
             }
 
             override fun removeFavMobile(target: MobileListResponse) {
-                mobilePresentor.removeFavoriteMobile(target)
                 mobilePresentor.makeFavoriteMobileInRoomDatabase(target, DELETE_FAV)
             }
 
@@ -103,14 +101,10 @@ class MobileListFragment : Fragment(),
     }
 
     override fun setPreFavorite() {
-        mobilePresentor.getCurrentFav(mobilePresentor.getFavoriteMobile())
+        mobilePresentor.getCurrentFav()
     }
 
-    fun getFavData(): ArrayList<MobileListResponse>? {
-        return mobilePresentor.getFavoriteMobile()
-    }
-
-    fun checkUnFav(list: ArrayList<MobileListResponse>?) {
-        mobilePresentor.getCurrentFav(list)
+    fun checkUnFav() {
+        mobilePresentor.checkPreviousFavorite()
     }
 }

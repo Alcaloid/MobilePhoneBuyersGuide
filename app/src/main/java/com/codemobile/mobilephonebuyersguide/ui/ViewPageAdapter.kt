@@ -21,42 +21,22 @@ class ViewPageAdapter(
         }
     }
 
-    private fun getFavoriteMobile(): ArrayList<MobileListResponse>? {
-        val fragments = fragmentManager.fragments
-        fragments.forEach {
-            if (it is MobileListFragment) {
-                return it.getFavData()
-            }
-        }
-        return null
-    }
-
     fun setFavoriteMobile() {
-        val favoriteMobile = getFavoriteMobile()
+//        val favoriteMobile = getFavoriteMobile()
         val fragments = fragmentManager.fragments
         fragments.forEach {
             if (it is FavouriteFragment) {
-                it.sendDataFav(favoriteMobile)
+                it.sendDataFav()
             }
         }
-    }
-
-    private fun getUnFavoriteMobile(): ArrayList<MobileListResponse>? {
-        val fragments = fragmentManager.fragments
-        fragments.forEach {
-            if (it is FavouriteFragment) {
-                return it.getUnFav()
-            }
-        }
-        return null
     }
 
     fun setUnFavoriteMobile() {
-        val unFavoriteMobile = getUnFavoriteMobile()
+//        val unFavoriteMobile = getUnFavoriteMobile()
         val fragments = fragmentManager.fragments
         fragments.forEach {
             if (it is MobileListFragment) {
-                it.checkUnFav(unFavoriteMobile)
+                it.checkUnFav()
             }
         }
     }

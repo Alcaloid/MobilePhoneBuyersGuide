@@ -16,7 +16,7 @@ interface MobileListContract {
     interface MobileListPresentor {
         fun feedMobileList()
         fun sortMobile(sortForm: String)
-        fun getCurrentFav(list: ArrayList<MobileListResponse>?)
+        fun getCurrentFav()
         fun addFavoriteMobile(target: MobileListResponse)
         fun removeFavoriteMobile(target: MobileListResponse)
         fun getFavoriteMobile(): ArrayList<MobileListResponse>

@@ -12,7 +12,7 @@ interface FavoriteContract {
         fun removeMobileFav(position: Int)
         fun deleteMobileFavInDatabase(position: Int)
         fun sortMobile(sortForm: String)
-        fun setMobileFav(list: ArrayList<MobileListResponse>?)
+        fun setMobileFav()
         fun initDatabase(context: Context)
         fun getMobileFavorite(): ArrayList<MobileListResponse>
     }

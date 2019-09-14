@@ -71,11 +71,11 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
         stateTypeSort?.let { sortMobile(it) }
     }
 
-    override fun getCurrentFav(list: ArrayList<MobileListResponse>?) {
+    override fun getCurrentFav() {
         mobileArrayList.forEach { item ->
             item.fav = false
         }
-        list?.forEach { mobileFav ->
+        favMobileArrayList.forEach { mobileFav ->
             val favPosition = mobileArrayList.find { mobile ->
                 mobile.id == mobileFav.id
             }
@@ -109,12 +109,14 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
 
     override fun checkPreviousFavorite() {
         dataFromRoomDatabase(QUERY_ALLFAV, null)
+        getCurrentFav()
     }
 
     private fun dataFromRoomDatabase(stateFunction: String, databaseEntity: MobileListResponse?) {
         val task = Runnable {
             when (stateFunction) {
                 QUERY_ALLFAV -> {
+                    favMobileArrayList.clear()
                     val result = appDatabase?.favoriteDao()?.queryFavorites()
                     if (result != null) {
                         favMobileArrayList.addAll(result)

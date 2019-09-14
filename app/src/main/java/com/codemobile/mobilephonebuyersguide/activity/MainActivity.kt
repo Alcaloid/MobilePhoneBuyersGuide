@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         override fun onPageSelected(position: Int) {
             when (position) {
                 0 -> {
-                    fragmentAdapter.setUnFavoriteMobile()
+//                    fragmentAdapter.setUnFavoriteMobile()
                 }
                 1 -> {
                     fragmentAdapter.setFavoriteMobile()

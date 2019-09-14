@@ -35,6 +35,7 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
 
     override fun sortMobile(sortForm: String) {
         stateTypeSort = sortForm
+        println("Size:"+favoriteMobile.size)
         when (sortForm) {
             PRICE_LOWTOHIGH -> {
                 favoriteMobile.sortBy { it.price }
@@ -58,16 +59,25 @@ class FavoritePresentation(val _view: FavoriteContract.favView) :
         }
     }
 
-    override fun setMobileFav(list: ArrayList<MobileListResponse>?) {
-        if (list != null) {
-            favoriteMobile = list
-            _view.showMobileFav(favoriteMobile)
-            checkSortType()
-        }
+    override fun setMobileFav() {
+        queryFavoriteFromDB()
+        _view.showMobileFav(favoriteMobile)
+//        checkSortType()
     }
 
-    fun checkSortType() {
+    private fun checkSortType() {
         stateTypeSort?.let { sortMobile(it) }
+    }
+
+    private fun queryFavoriteFromDB() {
+        favoriteMobile.clear()
+        val task = Runnable {
+            val result = appDatabase?.favoriteDao()?.queryFavorites()
+            if (result != null) {
+                favoriteMobile.addAll(result)
+            }
+        }
+        mCMWorkerThread.postTask(task)
     }
 
     override fun getMobileFavorite(): ArrayList<MobileListResponse> {

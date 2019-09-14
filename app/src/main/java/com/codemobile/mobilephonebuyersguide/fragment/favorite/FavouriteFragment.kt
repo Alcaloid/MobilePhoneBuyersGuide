@@ -79,7 +79,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
         }
     }
 
-    fun setFavAdapter(_view: View) {
+    private fun setFavAdapter(_view: View) {
         favoriteAdapter = MobileListAdapter(_view.context, 1, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {}
 
@@ -93,12 +93,8 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
         })
     }
 
-    fun sendDataFav(list: ArrayList<MobileListResponse>?) {
-        favPresentation.setMobileFav(list)
-    }
+    fun sendDataFav() {
+        favPresentation.setMobileFav()
 
-    fun getUnFav(): ArrayList<MobileListResponse> {
-        return favPresentation.getMobileFavorite()
     }
-
 }
