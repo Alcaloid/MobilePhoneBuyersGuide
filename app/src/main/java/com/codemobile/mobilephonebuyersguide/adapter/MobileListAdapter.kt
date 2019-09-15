@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
@@ -13,12 +12,12 @@ import kotlin.collections.ArrayList
 
 
 class MobileListAdapter(val context: Context, val setHoler: Int, val mobileAdapterInterface: MobileAdapterInterface) :
-    RecyclerView.Adapter<CustomHodler>() {
+    RecyclerView.Adapter<CustomHolder>() {
 
     private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHodler {
-        return CustomHodler(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
+        return CustomHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.custom_mobile_list_item,
                 parent,
@@ -31,9 +30,9 @@ class MobileListAdapter(val context: Context, val setHoler: Int, val mobileAdapt
         return mDataArray.size
     }
 
-    override fun onBindViewHolder(holder: CustomHodler, position: Int) {
+    override fun onBindViewHolder(holder: CustomHolder, position: Int) {
         if (setHoler == 0) {
-            setMobileListHoler(holder, position)
+            setMobileListHolder(holder, position)
         } else {
             setFavoriteHolder(holder, position)
         }
@@ -51,18 +50,18 @@ class MobileListAdapter(val context: Context, val setHoler: Int, val mobileAdapt
         fun removeFavMobile(target: MobileListResponse)
     }
 
-    fun sublitList(list: ArrayList<MobileListResponse>) {
+    fun submitList(list: ArrayList<MobileListResponse>) {
         mDataArray = list
         notifyDataSetChanged()
     }
 
-    fun setMobileListHoler(holder: CustomHodler, position: Int) {
+    private fun setMobileListHolder(holder: CustomHolder, position: Int) {
         var like: Boolean = mDataArray[position].fav
         holder.name.text = mDataArray[position].name
         holder.description.text = mDataArray[position].description
         holder.price.text = mDataArray[position].price.toString()
         holder.rate.text = mDataArray[position].rating.toString()
-        Picasso.with(context).load(mDataArray[position].thumbImageURL).into(holder.img_mobile)
+        Picasso.with(context).load(mDataArray[position].thumbImageURL).into(holder.image_mobile)
 
         //when sort image fav must change
         if (like) {
@@ -87,12 +86,12 @@ class MobileListAdapter(val context: Context, val setHoler: Int, val mobileAdapt
         }
     }
 
-    fun setFavoriteHolder(holder: CustomHodler, position: Int) {
+    private fun setFavoriteHolder(holder: CustomHolder, position: Int) {
         holder.name.text = mDataArray[position].name
         holder.description.text = mDataArray[position].price.toString()
         holder.price.text = mDataArray[position].rating.toString()
         holder.price.alpha = 0.5f
-        Picasso.with(context).load(mDataArray[position].thumbImageURL).into(holder.img_mobile)
+        Picasso.with(context).load(mDataArray[position].thumbImageURL).into(holder.image_mobile)
         holder.rate.visibility = View.GONE
         holder.favorite.visibility = View.GONE
     }

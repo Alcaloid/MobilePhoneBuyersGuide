@@ -8,8 +8,8 @@ import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
-class FavoritePresentation(val _view: FavoriteContract.favView) :
-    FavoriteContract.favPresentor {
+class FavoritePresentation(val _view: FavoriteContract.FavoriteView) :
+    FavoriteContract.FavoritePresenter {
 
     private var favoriteMobile: ArrayList<MobileListResponse> = arrayListOf()
     private var appDatabase: AppDatabase? = null

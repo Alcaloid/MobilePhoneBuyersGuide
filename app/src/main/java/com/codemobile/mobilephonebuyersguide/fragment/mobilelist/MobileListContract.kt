@@ -13,7 +13,7 @@ interface MobileListContract {
         fun closeRefresh()
     }
 
-    interface MobileListPresentor {
+    interface MobileListPresenter {
         fun feedMobileList()
         fun sortMobile(sortForm: String)
         fun getCurrentFav(list: ArrayList<MobileListResponse>?)

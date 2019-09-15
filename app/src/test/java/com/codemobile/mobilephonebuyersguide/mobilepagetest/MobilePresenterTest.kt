@@ -18,7 +18,7 @@ class MobilePresenterTest {
     @Mock
     private lateinit var view: MobileListContract.MobileListView
     @Mock
-    private lateinit var presenter: MobileListContract.MobileListPresentor
+    private lateinit var presenter: MobileListContract.MobileListPresenter
 
     @Before
     fun setup() {

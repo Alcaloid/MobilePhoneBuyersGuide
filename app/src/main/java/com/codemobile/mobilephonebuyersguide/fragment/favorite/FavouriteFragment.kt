@@ -17,7 +17,7 @@ import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
 
-class FavouriteFragment : Fragment(), FavoriteContract.favView,
+class FavouriteFragment : Fragment(), FavoriteContract.FavoriteView,
     BaseSortInterface {
 
     private var favoriteAdapter: MobileListAdapter? = null
@@ -35,7 +35,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.favView,
     }
 
     override fun showMobileFav(mobileFav: ArrayList<MobileListResponse>) {
-        favoriteAdapter?.sublitList(mobileFav)
+        favoriteAdapter?.submitList(mobileFav)
     }
 
     override fun updateSortType(sortType: String) {

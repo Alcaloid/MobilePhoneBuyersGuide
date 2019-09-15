@@ -1,6 +1,10 @@
 package com.codemobile.mobilephonebuyersguide.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Update
+import androidx.room.Query
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 @Dao

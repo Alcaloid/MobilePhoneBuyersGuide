@@ -4,11 +4,11 @@ import android.content.Context
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 interface FavoriteContract {
-    interface favView {
+    interface FavoriteView {
         fun showMobileFav(mobileFav: ArrayList<MobileListResponse>)
     }
 
-    interface favPresentor {
+    interface FavoritePresenter {
         fun removeMobileFav(position: Int)
         fun deleteMobileFavInDatabase(position: Int)
         fun sortMobile(sortForm: String)

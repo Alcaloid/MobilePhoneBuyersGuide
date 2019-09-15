@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
@@ -24,7 +25,7 @@ class ImageMobileListAdapter(val context: Context) : RecyclerView.Adapter<ImageH
         )
     }
 
-    fun sublitList(list: List<ImageResponse>) {
+    fun submitList(list: List<ImageResponse>) {
         urlArray = list
         notifyDataSetChanged()
     }
@@ -41,5 +42,5 @@ class ImageMobileListAdapter(val context: Context) : RecyclerView.Adapter<ImageH
 }
 
 class ImageHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val imageMobile = view.grid_item
+    val imageMobile: ImageView = view.grid_item
 }

@@ -38,10 +38,11 @@ abstract class AppDatabase : RoomDatabase() {
                         super.onCreate(db)
                         Log.d(TAG, "onCreate")
                     }
-                }).build().also {
-                    instance = it
-                    return instance!!
-                }
+                }).addMigrations()
+                    .build().also {
+                        instance = it
+                        return instance!!
+                    }
             }
         }
     }

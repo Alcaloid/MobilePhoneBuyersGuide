@@ -11,7 +11,7 @@ import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
 
 class MobileListPresentation(val _view: MobileListContract.MobileListView, val service: ApiInterface = ApiInterface.getBase()) :
-    MobileListContract.MobileListPresentor {
+    MobileListContract.MobileListPresenter {
 
     private var favMobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()

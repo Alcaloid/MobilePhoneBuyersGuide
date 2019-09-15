@@ -17,9 +17,9 @@ import org.mockito.MockitoAnnotations
 
 class FavoritePresenterTest {
     @Mock
-    private lateinit var view: FavoriteContract.favView
+    private lateinit var view: FavoriteContract.FavoriteView
     @Mock
-    private lateinit var presenter: FavoriteContract.favPresentor
+    private lateinit var presenter: FavoriteContract.FavoritePresenter
 
     @Before
     fun setup() {

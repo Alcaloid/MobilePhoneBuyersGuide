@@ -25,7 +25,7 @@ class MobileListFragment : Fragment(),
     BaseSortInterface {
 
     private var mobileListAdapter: MobileListAdapter? = null
-    private var mobilePresentor = MobileListPresentation(this)
+    private var mobilePresenter = MobileListPresentation(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(com.codemobile.mobilephonebuyersguide.R.layout.fragment_recyclerview, container, false)
@@ -37,7 +37,7 @@ class MobileListFragment : Fragment(),
     }
 
     override fun showMobileList(list: ArrayList<MobileListResponse>) {
-        mobileListAdapter?.sublitList(list)
+        mobileListAdapter?.submitList(list)
     }
 
     override fun showLoading() {
@@ -59,12 +59,12 @@ class MobileListFragment : Fragment(),
     }
 
     override fun updateSortType(sortType: String) {
-        mobilePresentor.sortMobile(sortType)
+        mobilePresenter.sortMobile(sortType)
     }
 
     private fun init(view: View) {
         setMobileAdapter(view)
-        mobilePresentor.let {
+        mobilePresenter.let {
             it.setupDatabase(view.context)
             it.checkPreviousFavorite()
             it.feedMobileList()
@@ -74,20 +74,20 @@ class MobileListFragment : Fragment(),
             it.layoutManager = LinearLayoutManager(view.context)
         }
         srl_refreshData.setOnRefreshListener {
-            mobilePresentor.feedMobileList()
+            mobilePresenter.feedMobileList()
         }
     }
 
-    fun setMobileAdapter(view: View) {
+    private fun setMobileAdapter(view: View) {
         mobileListAdapter = MobileListAdapter(view.context,0, object : MobileListAdapter.MobileAdapterInterface {
             override fun addFavMobile(target: MobileListResponse) {
-                mobilePresentor.addFavoriteMobile(target)
-                mobilePresentor.makeFavoriteMobileInRoomDatabase(target, ADD_FAV)
+                mobilePresenter.addFavoriteMobile(target)
+                mobilePresenter.makeFavoriteMobileInRoomDatabase(target, ADD_FAV)
             }
 
             override fun removeFavMobile(target: MobileListResponse) {
-                mobilePresentor.removeFavoriteMobile(target)
-                mobilePresentor.makeFavoriteMobileInRoomDatabase(target, DELETE_FAV)
+                mobilePresenter.removeFavoriteMobile(target)
+                mobilePresenter.makeFavoriteMobileInRoomDatabase(target, DELETE_FAV)
             }
 
             override fun gotoDetailPage(infomation: MobileListResponse) {
@@ -103,14 +103,14 @@ class MobileListFragment : Fragment(),
     }
 
     override fun setPreFavorite() {
-        mobilePresentor.getCurrentFav(mobilePresentor.getFavoriteMobile())
+        mobilePresenter.getCurrentFav(mobilePresenter.getFavoriteMobile())
     }
 
     fun getFavData(): ArrayList<MobileListResponse>? {
-        return mobilePresentor.getFavoriteMobile()
+        return mobilePresenter.getFavoriteMobile()
     }
 
     fun checkUnFav(list: ArrayList<MobileListResponse>?) {
-        mobilePresentor.getCurrentFav(list)
+        mobilePresenter.getCurrentFav(list)
     }
 }

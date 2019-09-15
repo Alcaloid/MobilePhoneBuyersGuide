@@ -46,7 +46,7 @@ class DetailActivity : AppCompatActivity(),
     }
 
     override fun showImageMobileList(imageList: List<ImageResponse>) {
-        imageAdapter.sublitList(imageList)
+        imageAdapter.submitList(imageList)
     }
 
     override fun showErrorMessage() {

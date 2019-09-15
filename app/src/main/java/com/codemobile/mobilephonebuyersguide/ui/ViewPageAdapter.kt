@@ -12,55 +12,7 @@ class ViewPageAdapter(
     private val fragmentManager: FragmentManager
 ) : FragmentPagerAdapter(fragmentManager) {
 
-    fun updateSortTye(sortType: String) {
-        val fragments = fragmentManager.fragments
-        fragments.forEach {
-            if (it is BaseSortInterface) {
-                it.updateSortType(sortType)
-            }
-        }
-    }
-
-    private fun getFavoriteMobile(): ArrayList<MobileListResponse>? {
-        val fragments = fragmentManager.fragments
-        fragments.forEach {
-            if (it is MobileListFragment) {
-                return it.getFavData()
-            }
-        }
-        return null
-    }
-
-    fun setFavoriteMobile() {
-        val favoriteMobile = getFavoriteMobile()
-        val fragments = fragmentManager.fragments
-        fragments.forEach {
-            if (it is FavouriteFragment) {
-                it.sendDataFav(favoriteMobile)
-            }
-        }
-    }
-
-    private fun getUnFavoriteMobile(): ArrayList<MobileListResponse>? {
-        val fragments = fragmentManager.fragments
-        fragments.forEach {
-            if (it is FavouriteFragment) {
-                return it.getUnFav()
-            }
-        }
-        return null
-    }
-
-    fun setUnFavoriteMobile() {
-        val unFavoriteMobile = getUnFavoriteMobile()
-        val fragments = fragmentManager.fragments
-        fragments.forEach {
-            if (it is MobileListFragment) {
-                it.checkUnFav(unFavoriteMobile)
-            }
-        }
-    }
-
+    private val TAB_TITLES = arrayOf("Mobile list", "Favorites list")
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
@@ -77,18 +29,59 @@ class ViewPageAdapter(
     }
 
     override fun getCount(): Int {
-        return 2
+        return TAB_TITLES.size
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when (position) {
-            0 -> {
-                "Mobile List"
-            }
-            1 -> "Favorite"
-            else -> {
-                return ""
+        return TAB_TITLES[position]
+    }
+
+    fun updateSortTye(sortType: String) {
+        val fragments = fragmentManager.fragments
+        fragments.forEach {
+            if (it is BaseSortInterface) {
+                it.updateSortType(sortType)
             }
         }
+    }
+
+    fun setFavoriteMobile() {
+        val favoriteMobile = getFavoriteMobile()
+        val fragments = fragmentManager.fragments
+        fragments.forEach {
+            if (it is FavouriteFragment) {
+                it.sendDataFav(favoriteMobile)
+            }
+        }
+    }
+
+    fun setUnFavoriteMobile() {
+        val unFavoriteMobile = getUnFavoriteMobile()
+        val fragments = fragmentManager.fragments
+        fragments.forEach {
+            if (it is MobileListFragment) {
+                it.checkUnFav(unFavoriteMobile)
+            }
+        }
+    }
+
+    private fun getFavoriteMobile(): ArrayList<MobileListResponse>? {
+        val fragments = fragmentManager.fragments
+        fragments.forEach {
+            if (it is MobileListFragment) {
+                return it.getFavData()
+            }
+        }
+        return null
+    }
+
+    private fun getUnFavoriteMobile(): ArrayList<MobileListResponse>? {
+        val fragments = fragmentManager.fragments
+        fragments.forEach {
+            if (it is FavouriteFragment) {
+                return it.getUnFav()
+            }
+        }
+        return null
     }
 }

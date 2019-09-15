@@ -22,7 +22,7 @@ class APIUnitTesting {
     @Mock
     private lateinit var view: MobileListContract.MobileListView
     @Mock
-    private lateinit var presenter: MobileListContract.MobileListPresentor
+    private lateinit var presenter: MobileListContract.MobileListPresenter
     @Mock
     private lateinit var service:ApiInterface
 
