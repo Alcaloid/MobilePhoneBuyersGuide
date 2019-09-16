@@ -36,5 +36,4 @@ class DetailPresentation(val view: DetailContract.DetailView, val service: ApiIn
             }
         })
     }
-
 }

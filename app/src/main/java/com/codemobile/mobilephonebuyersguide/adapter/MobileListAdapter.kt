@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 
-class MobileListAdapter(val context: Context, val setHoler: Int, val mobileAdapterInterface: MobileAdapterInterface) :
+class MobileListAdapter(val context: Context, private val setHolder: Int, private val mobileAdapterInterface: MobileAdapterInterface) :
     RecyclerView.Adapter<CustomHolder>() {
 
     private var mDataArray: ArrayList<MobileListResponse> = arrayListOf()
@@ -31,7 +31,7 @@ class MobileListAdapter(val context: Context, val setHoler: Int, val mobileAdapt
     }
 
     override fun onBindViewHolder(holder: CustomHolder, position: Int) {
-        if (setHoler == 0) {
+        if (setHolder == 0) {
             setMobileListHolder(holder, position)
         } else {
             setFavoriteHolder(holder, position)
