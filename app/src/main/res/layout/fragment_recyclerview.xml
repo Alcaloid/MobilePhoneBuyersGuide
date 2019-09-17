@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:visibility="gone"
             android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/rotate_progressbar"
+            android:indeterminateDrawable="@drawable/progressbar_circle"
             />
 
 
