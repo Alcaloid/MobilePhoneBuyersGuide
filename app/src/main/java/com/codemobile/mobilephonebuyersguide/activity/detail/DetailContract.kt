@@ -14,7 +14,7 @@ interface DetailContract {
         fun showImageMobileList(imageList: List<ImageResponse>)
     }
 
-    interface DetailPresenttaion {
+    interface DetailPresentation {
         fun getPassData(info: MobileListResponse)
         fun feedImageDetail(id: Int)
     }

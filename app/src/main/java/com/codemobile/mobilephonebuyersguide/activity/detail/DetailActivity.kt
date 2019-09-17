@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.activity_mobile_detail.*
 class DetailActivity : AppCompatActivity(),
     DetailContract.DetailView {
 
-    lateinit var mobileInfo: MobileListResponse
-    lateinit var imageAdapter: ImageMobileListAdapter
-    lateinit var presentor: DetailContract.DetailPresenttaion
+    private lateinit var mobileInfo: MobileListResponse
+    private lateinit var imageAdapter: ImageMobileListAdapter
+    private lateinit var presenter: DetailContract.DetailPresentation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +65,10 @@ class DetailActivity : AppCompatActivity(),
             it.adapter = imageAdapter
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         }
-        presentor = DetailPresentation(this)
+        presenter = DetailPresentation(this)
         mobileInfo = intent.extras?.getSerializable(INFORMATION) as MobileListResponse
-        presentor.getPassData(mobileInfo)
-        presentor.feedImageDetail(mobileInfo.id)
+        presenter.getPassData(mobileInfo)
+        presenter.feedImageDetail(mobileInfo.id)
         detail_toolbar.setNavigationOnClickListener {
             finish()
         }

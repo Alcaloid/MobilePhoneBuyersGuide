@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fragmentAdapter = ViewPageAdapter(supportFragmentManager)
-        main_viewPager.let {
-            it.adapter = fragmentAdapter
-            main_tab.setupWithViewPager(it)
-            it.addOnPageChangeListener(mainPageChangeListener)
+        main_viewPager.let {viewPager->
+            viewPager.adapter = fragmentAdapter
+            main_tab.setupWithViewPager(viewPager)
+            viewPager.addOnPageChangeListener(mainPageChangeListener)
         }
         image_filter.setOnClickListener {
             val builder = AlertDialog.Builder(this)

@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DetailPresentation(val view: DetailContract.DetailView, val service: ApiInterface = ApiInterface.getBase()) :
-    DetailContract.DetailPresenttaion {
+    DetailContract.DetailPresentation {
 
     override fun getPassData(info: MobileListResponse) {
         view.setName(info.name)

@@ -20,7 +20,7 @@ class DetailPresenterTest {
     @Mock
     private lateinit var view: DetailContract.DetailView
     @Mock
-    private lateinit var presenter: DetailContract.DetailPresenttaion
+    private lateinit var presenter: DetailContract.DetailPresentation
     @Mock
     private lateinit var service: ApiInterface
 
