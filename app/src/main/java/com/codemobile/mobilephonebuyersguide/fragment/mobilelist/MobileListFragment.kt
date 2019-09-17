@@ -41,11 +41,11 @@ class MobileListFragment : Fragment(),
     }
 
     override fun showLoading() {
-        pgb_fragment.visibility = View.VISIBLE
+        pgb_fragment?.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        pgb_fragment.visibility = View.GONE
+        pgb_fragment?.visibility = View.GONE
     }
 
     override fun showErrorMessage() {
@@ -67,6 +67,7 @@ class MobileListFragment : Fragment(),
         mobilePresenter.let {
             it.setupDatabase(view.context)
             it.checkPreviousFavorite()
+            showLoading()
             it.feedMobileList()
         }
         rcv_frgment.let {
@@ -99,7 +100,7 @@ class MobileListFragment : Fragment(),
     }
 
     override fun closeRefresh() {
-        srl_refreshData.isRefreshing = false
+        srl_refreshData?.isRefreshing = false
     }
 
     override fun setPreFavorite() {

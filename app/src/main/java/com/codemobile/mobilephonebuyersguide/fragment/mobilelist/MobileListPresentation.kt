@@ -10,12 +10,15 @@ import retrofit2.Response
 import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
 
-class MobileListPresentation(val _view: MobileListContract.MobileListView, val service: ApiInterface = ApiInterface.getBase()) :
+class MobileListPresentation(
+    val _view: MobileListContract.MobileListView,
+    val service: ApiInterface = ApiInterface.getBase()
+) :
     MobileListContract.MobileListPresenter {
 
     private var favMobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
-    private var stateTypeSort:String? = null
+    private var stateTypeSort: String? = null
     private var appDatabase: AppDatabase? = null
     var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
@@ -41,7 +44,6 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
     }
 
     override fun feedMobileList() {
-        _view.showLoading()
         val call = service.getMobileList()
         call.enqueue(object : Callback<List<MobileListResponse>> {
             override fun onFailure(call: Call<List<MobileListResponse>>, t: Throwable) {
@@ -58,16 +60,18 @@ class MobileListPresentation(val _view: MobileListContract.MobileListView, val s
                     mobileArrayList.clear()
                     mobileArrayList.addAll(response.body()!!)
                     checkSort()
-                    _view.hideLoading()
                     _view.showMobileList(mobileArrayList)
                     _view.setPreFavorite()
+                } else {
+                    _view.showErrorMessage()
                 }
+                _view.hideLoading()
                 _view.closeRefresh()
             }
         })
     }
 
-    fun checkSort(){
+    fun checkSort() {
         stateTypeSort?.let { sortMobile(it) }
     }
 

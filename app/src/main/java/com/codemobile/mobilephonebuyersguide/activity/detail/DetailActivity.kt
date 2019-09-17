@@ -10,6 +10,8 @@ import com.codemobile.mobilephonebuyersguide.constantclass.INFORMATION
 import com.codemobile.mobilephonebuyersguide.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import kotlinx.android.synthetic.main.activity_mobile_detail.*
+import androidx.recyclerview.widget.LinearSnapHelper
+import com.codemobile.mobilephonebuyersguide.ui.CirclePagerIndicatorDecoration
 
 
 class DetailActivity : AppCompatActivity(),
@@ -46,6 +48,11 @@ class DetailActivity : AppCompatActivity(),
     }
 
     override fun showImageMobileList(imageList: List<ImageResponse>) {
+        imageList.forEach {
+            if (!it.url.contains("http")){
+                it.url = "https://${it.url}"
+            }
+        }
         imageAdapter.submitList(imageList)
     }
 
@@ -60,10 +67,13 @@ class DetailActivity : AppCompatActivity(),
     }
 
     private fun setupData() {
+        val helper = LinearSnapHelper()
         imageAdapter = ImageMobileListAdapter(this)
         detail_rcv.let {
             it.adapter = imageAdapter
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(it)
+            it.addItemDecoration(CirclePagerIndicatorDecoration())
         }
         presenter = DetailPresentation(this)
         mobileInfo = intent.extras?.getSerializable(INFORMATION) as MobileListResponse

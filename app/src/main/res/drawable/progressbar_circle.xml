@@ -15,8 +15,8 @@
             >
         <solid android:color="#7631C1"/>
         <size
-                android:height="50dp"
-                android:width="50dp"
+                android:height="100dp"
+                android:width="100dp"
                 />
     </shape>
 </rotate>
