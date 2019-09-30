@@ -77,6 +77,7 @@ class MobileListFragment : Fragment(),
         srl_refreshData.setOnRefreshListener {
             mobilePresenter.feedMobileList()
         }
+
     }
 
     private fun setMobileAdapter(view: View) {

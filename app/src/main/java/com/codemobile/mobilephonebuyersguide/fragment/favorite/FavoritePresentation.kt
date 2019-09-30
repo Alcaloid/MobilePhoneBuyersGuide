@@ -8,7 +8,7 @@ import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
-class FavoritePresentation(val _view: FavoriteContract.FavoriteView) :
+class FavoritePresentation(private val _view: FavoriteContract.FavoriteView) :
     FavoriteContract.FavoritePresenter {
 
     private var favoriteMobile: ArrayList<MobileListResponse> = arrayListOf()
@@ -66,7 +66,7 @@ class FavoritePresentation(val _view: FavoriteContract.FavoriteView) :
         }
     }
 
-    fun checkSortType() {
+    private fun checkSortType() {
         stateTypeSort?.let { sortMobile(it) }
     }
 

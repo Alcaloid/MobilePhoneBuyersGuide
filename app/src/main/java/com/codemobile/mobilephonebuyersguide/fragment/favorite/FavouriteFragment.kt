@@ -73,7 +73,7 @@ class FavouriteFragment : Fragment(), FavoriteContract.FavoriteView,
         _view.rcv_frgment.let {
             it.adapter = favoriteAdapter
             it.layoutManager = LinearLayoutManager(context)
-            val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback);
+            val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
             itemTouchHelper.attachToRecyclerView(it)
 
         }

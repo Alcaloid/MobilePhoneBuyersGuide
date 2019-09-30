@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codemobile.mobilephonebuyersguide.R
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import com.squareup.picasso.Picasso
-import kotlin.collections.ArrayList
 
 
 class MobileListAdapter(val context: Context, private val setHolder: Int, private val mobileAdapterInterface: MobileAdapterInterface) :
@@ -74,8 +73,8 @@ class MobileListAdapter(val context: Context, private val setHolder: Int, privat
             //switch fav or not
             if (like) {
                 holder.favorite.setImageResource(R.drawable.ic_heart)
-                mDataArray[position].fav = false
                 mobileAdapterInterface.removeFavMobile(mDataArray[position])
+                mDataArray[position].fav = false
                 like = false
             } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite)

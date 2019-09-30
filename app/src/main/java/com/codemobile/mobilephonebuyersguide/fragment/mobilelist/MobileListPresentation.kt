@@ -2,13 +2,13 @@ package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import android.content.Context
 import com.codemobile.mobilephonebuyersguide.constantclass.*
+import com.codemobile.mobilephonebuyersguide.database.AppDatabase
+import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.codemobile.mobilephonebuyersguide.database.AppDatabase
-import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
 
 class MobileListPresentation(
     val _view: MobileListContract.MobileListView,
@@ -20,7 +20,7 @@ class MobileListPresentation(
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var stateTypeSort: String? = null
     private var appDatabase: AppDatabase? = null
-    var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
+    private var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
 
