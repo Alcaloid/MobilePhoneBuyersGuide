@@ -1,7 +1,7 @@
 package com.codemobile.mobilephonebuyersguide
 
-import com.codemobile.mobilephonebuyersguide.model.ImageResponse
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.action.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 
 class TestUtil {
     companion object {

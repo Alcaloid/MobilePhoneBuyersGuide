@@ -1,0 +1,3 @@
+package com.codemobile.mobilephonebuyersguide.dagger.application
+
+interface InjectInterface

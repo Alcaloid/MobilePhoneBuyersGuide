@@ -3,8 +3,8 @@ package com.codemobile.mobilephonebuyersguide
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.codemobile.mobilephonebuyersguide.database.AppDatabase
-import com.codemobile.mobilephonebuyersguide.database.FavoriteDAO
+import com.codemobile.mobilephonebuyersguide.app.database.AppDatabase
+import com.codemobile.mobilephonebuyersguide.app.database.FavoriteDAO
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import java.io.IOException
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)

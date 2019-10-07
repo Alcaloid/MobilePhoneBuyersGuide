@@ -1,10 +1,10 @@
 package com.codemobile.mobilephonebuyersguide.api
 
 import com.codemobile.mobilephonebuyersguide.TestUtil
-import com.codemobile.mobilephonebuyersguide.fragment.mobilelist.MobileListContract
-import com.codemobile.mobilephonebuyersguide.fragment.mobilelist.MobileListPresentation
-import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.action.fragment.mobilelist.MobileListContract
+import com.codemobile.mobilephonebuyersguide.action.fragment.mobilelist.MobileListPresentation
+import com.codemobile.mobilephonebuyersguide.action.internet.ApiInterface
+import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
@@ -24,12 +24,16 @@ class APIUnitTesting {
     @Mock
     private lateinit var presenter: MobileListContract.MobileListPresenter
     @Mock
-    private lateinit var service:ApiInterface
+    private lateinit var service: ApiInterface
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        presenter = MobileListPresentation(view, service)
+        presenter =
+            MobileListPresentation(
+                view,
+                service
+            )
     }
 
     @Test

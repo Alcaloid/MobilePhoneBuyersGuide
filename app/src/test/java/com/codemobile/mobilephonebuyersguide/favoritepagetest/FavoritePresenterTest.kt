@@ -1,12 +1,12 @@
 package com.codemobile.mobilephonebuyersguide.favoritepagetest
 
 import com.codemobile.mobilephonebuyersguide.TestUtil
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_HIGHTOLOW
-import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
-import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
-import com.codemobile.mobilephonebuyersguide.fragment.favorite.FavoriteContract
-import com.codemobile.mobilephonebuyersguide.fragment.favorite.FavoritePresentation
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.app.constantclass.PRICE_HIGHTOLOW
+import com.codemobile.mobilephonebuyersguide.app.constantclass.PRICE_LOWTOHIGH
+import com.codemobile.mobilephonebuyersguide.app.constantclass.RATE_5_1
+import com.codemobile.mobilephonebuyersguide.action.fragment.favorite.FavoriteContract
+import com.codemobile.mobilephonebuyersguide.action.fragment.favorite.FavoritePresentation
+import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 import junit.framework.Assert.assertEquals
 import mockit.Deencapsulation
 import org.junit.Before
@@ -24,7 +24,8 @@ class FavoritePresenterTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        presenter = FavoritePresentation(view)
+        presenter =
+            FavoritePresentation(view)
     }
 
     @Test

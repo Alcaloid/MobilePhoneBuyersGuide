@@ -1,10 +1,10 @@
 package com.codemobile.mobilephonebuyersguide
 
-import com.codemobile.mobilephonebuyersguide.activity.detail.DetailContract
-import com.codemobile.mobilephonebuyersguide.activity.detail.DetailPresentation
-import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
-import com.codemobile.mobilephonebuyersguide.model.ImageResponse
-import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
+import com.codemobile.mobilephonebuyersguide.app.activity.detail.DetailContract
+import com.codemobile.mobilephonebuyersguide.action.activity.detail.DetailPresentation
+import com.codemobile.mobilephonebuyersguide.action.internet.ApiInterface
+import com.codemobile.mobilephonebuyersguide.action.model.ImageResponse
+import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -27,7 +27,10 @@ class DetailPresenterTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        presenter = DetailPresentation(view,service)
+        presenter = DetailPresentation(
+            view,
+            service
+        )
     }
 
     @Test
