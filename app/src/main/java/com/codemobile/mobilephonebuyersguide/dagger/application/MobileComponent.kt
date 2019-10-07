@@ -2,6 +2,7 @@ package com.codemobile.mobilephonebuyersguide.dagger.application
 
 import android.app.Application
 import com.codemobile.mobilephonebuyersguide.dagger.module.ActivityModule
+import com.codemobile.mobilephonebuyersguide.dagger.module.AppModule
 import com.codemobile.mobilephonebuyersguide.dagger.module.CenterMobileModule
 import dagger.BindsInstance
 import dagger.Component
@@ -13,7 +14,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         CenterMobileModule::class,
-        ActivityModule::class
+        ActivityModule::class,
+        AppModule::class
     ]
 )
 interface MobileComponent {

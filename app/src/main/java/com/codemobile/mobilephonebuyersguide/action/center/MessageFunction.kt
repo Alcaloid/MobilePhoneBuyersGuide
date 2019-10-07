@@ -3,14 +3,11 @@ package com.codemobile.mobilephonebuyersguide.action.center
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import com.codemobile.mobilephonebuyersguide.R
 
 class MessageFunction(var context: Context) {
 
-    fun showErrorMessage():AlertDialog{
-        return AlertDialog  .Builder(context)
-                            .setTitle("Error")
-                            .setMessage("Can't feed mobile data")
-                            .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ -> })
-                            .create()
+    fun getMessage():String{
+        return context.getString(R.string.app_name)
     }
 }

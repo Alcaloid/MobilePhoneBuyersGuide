@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.app.database
+package com.codemobile.mobilephonebuyersguide.action.database
 
 import androidx.room.Dao
 import androidx.room.Delete

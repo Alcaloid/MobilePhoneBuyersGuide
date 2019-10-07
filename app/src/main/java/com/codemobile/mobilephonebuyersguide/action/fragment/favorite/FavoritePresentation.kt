@@ -4,8 +4,8 @@ import android.content.Context
 import com.codemobile.mobilephonebuyersguide.app.constantclass.PRICE_HIGHTOLOW
 import com.codemobile.mobilephonebuyersguide.app.constantclass.PRICE_LOWTOHIGH
 import com.codemobile.mobilephonebuyersguide.app.constantclass.RATE_5_1
-import com.codemobile.mobilephonebuyersguide.app.database.AppDatabase
-import com.codemobile.mobilephonebuyersguide.app.database.CMWorkerThread
+import com.codemobile.mobilephonebuyersguide.action.database.AppDatabase
+import com.codemobile.mobilephonebuyersguide.action.database.CMWorkerThread
 import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 
 class FavoritePresentation(private val _view: FavoriteContract.FavoriteView) :

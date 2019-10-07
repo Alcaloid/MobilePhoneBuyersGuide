@@ -1,5 +1,7 @@
 package com.codemobile.mobilephonebuyersguide.action.fragment.mobilelist
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,9 +29,6 @@ class MobileListFragment : BaseFragment(),
     private var mobileListAdapter: MobileListAdapter? = null
     private var mobilePresenter =
         MobileListPresentation(this)
-
-    @Inject
-    lateinit var messageDialog:MessageFunction
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +60,12 @@ class MobileListFragment : BaseFragment(),
     }
 
     override fun showErrorMessage() {
-        messageDialog.showErrorMessage().show()
+        val errorDialog = AlertDialog.Builder(context)
+            .setTitle("Error")
+            .setMessage("Can't feed mobile data")
+            .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ -> })
+            .create()
+        errorDialog.show()
     }
 
     override fun updateSortType(sortType: String) {

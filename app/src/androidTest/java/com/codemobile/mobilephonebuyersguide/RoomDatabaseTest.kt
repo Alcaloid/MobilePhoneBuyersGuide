@@ -3,8 +3,8 @@ package com.codemobile.mobilephonebuyersguide
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.codemobile.mobilephonebuyersguide.app.database.AppDatabase
-import com.codemobile.mobilephonebuyersguide.app.database.FavoriteDAO
+import com.codemobile.mobilephonebuyersguide.action.database.AppDatabase
+import com.codemobile.mobilephonebuyersguide.action.database.FavoriteDAO
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After

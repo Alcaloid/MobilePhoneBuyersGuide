@@ -16,5 +16,6 @@ class MobileApplication : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
         AppInjector.init(this)
+        DaggerMobileComponent.builder().application(this).build()
     }
 }

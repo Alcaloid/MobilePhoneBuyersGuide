@@ -1,4 +1,4 @@
-package com.codemobile.mobilephonebuyersguide.app.database
+package com.codemobile.mobilephonebuyersguide.action.database
 
 import android.os.Handler
 import android.os.HandlerThread
