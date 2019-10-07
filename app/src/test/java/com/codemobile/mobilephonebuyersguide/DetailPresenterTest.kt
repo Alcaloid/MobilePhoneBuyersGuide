@@ -63,7 +63,7 @@ class DetailPresenterTest {
         }
 
         //when
-        presenter.feedImageDetail(1)
+        presenter.feedImageDetail(0)
 
         //then
         verify(view).showErrorMessage()

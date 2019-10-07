@@ -1,9 +1,12 @@
 package com.codemobile.mobilephonebuyersguide.fragment.mobilelist
 
 import android.content.Context
-import com.codemobile.mobilephonebuyersguide.constantclass.*
+import com.codemobile.mobilephonebuyersguide.constantclass.ADD_FAV
+import com.codemobile.mobilephonebuyersguide.constantclass.DELETE_FAV
+import com.codemobile.mobilephonebuyersguide.constantclass.QUERY_ALLFAV
 import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
+import com.codemobile.mobilephonebuyersguide.function.MobileFunction
 import com.codemobile.mobilephonebuyersguide.internet.ApiInterface
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 import retrofit2.Call
@@ -14,32 +17,17 @@ class MobileListPresentation(
     val _view: MobileListContract.MobileListView,
     val service: ApiInterface = ApiInterface.getBase()
 ) :
-    MobileListContract.MobileListPresenter {
+    MobileListContract.MobileListPresenter, MobileFunction() {
 
     private var favMobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
-    private var stateTypeSort: String? = null
     private var appDatabase: AppDatabase? = null
     private var mCMWorkerThread: CMWorkerThread = CMWorkerThread("favoritedatabase").also {
         it.start()
     }
 
     override fun sortMobile(sortForm: String) {
-        stateTypeSort = sortForm
-        when (sortForm) {
-            PRICE_LOWTOHIGH -> {
-                mobileArrayList.sortBy { it.price }
-            }
-            PRICE_HIGHTOLOW -> {
-                mobileArrayList.sortByDescending { it.price }
-            }
-            RATE_5_1 -> {
-                mobileArrayList.sortByDescending { it.rating }
-            }
-            else -> {
-                mobileArrayList.sortBy { it.price }
-            }
-        }
+        mobileArrayList = sortMobile(mobileArrayList, sortForm)
         _view.showMobileList(mobileArrayList)
     }
 
@@ -72,7 +60,7 @@ class MobileListPresentation(
     }
 
     fun checkSort() {
-        stateTypeSort?.let { sortMobile(it) }
+        mobileArrayList = checkSortData(mobileArrayList)
     }
 
     override fun getCurrentFav(list: ArrayList<MobileListResponse>?) {
@@ -97,7 +85,10 @@ class MobileListPresentation(
         favMobileArrayList.remove(target)
     }
 
-    override fun makeFavoriteMobileInRoomDatabase(target: MobileListResponse, roomFunction: String) {
+    override fun makeFavoriteMobileInRoomDatabase(
+        target: MobileListResponse,
+        roomFunction: String
+    ) {
         dataFromRoomDatabase(roomFunction, target)
     }
 

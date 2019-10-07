@@ -45,7 +45,6 @@ class APIUnitTesting {
         presenter.feedMobileList()
 
         //then
-        verify(view).showLoading()
         verify(view).hideLoading()
         verify(view).closeRefresh()
         verify(view).showErrorMessage()
@@ -69,7 +68,6 @@ class APIUnitTesting {
         val result = Deencapsulation.getField<ArrayList<MobileListResponse>>(presenter,"mobileArrayList")
 
         //then
-        verify(view).showLoading()
         verify(view).hideLoading()
         verify(view).closeRefresh()
         verify(view).setPreFavorite()

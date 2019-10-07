@@ -6,10 +6,11 @@ import com.codemobile.mobilephonebuyersguide.constantclass.PRICE_LOWTOHIGH
 import com.codemobile.mobilephonebuyersguide.constantclass.RATE_5_1
 import com.codemobile.mobilephonebuyersguide.database.AppDatabase
 import com.codemobile.mobilephonebuyersguide.database.CMWorkerThread
+import com.codemobile.mobilephonebuyersguide.function.MobileFunction
 import com.codemobile.mobilephonebuyersguide.model.MobileListResponse
 
 class FavoritePresentation(private val _view: FavoriteContract.FavoriteView) :
-    FavoriteContract.FavoritePresenter {
+    FavoriteContract.FavoritePresenter, MobileFunction() {
 
     private var favoriteMobile: ArrayList<MobileListResponse> = arrayListOf()
     private var appDatabase: AppDatabase? = null
@@ -35,20 +36,7 @@ class FavoritePresentation(private val _view: FavoriteContract.FavoriteView) :
 
     override fun sortMobile(sortForm: String) {
         stateTypeSort = sortForm
-        when (sortForm) {
-            PRICE_LOWTOHIGH -> {
-                favoriteMobile.sortBy { it.price }
-            }
-            PRICE_HIGHTOLOW -> {
-                favoriteMobile.sortByDescending { it.price }
-            }
-            RATE_5_1 -> {
-                favoriteMobile.sortByDescending { it.rating }
-            }
-            else -> {
-                favoriteMobile.sortBy { it.price }
-            }
-        }
+        favoriteMobile = sortMobile(favoriteMobile,sortForm)
         _view.showMobileFav(favoriteMobile)
     }
 
