@@ -1,5 +1,8 @@
 package com.codemobile.mobilephonebuyersguide.action.activity.detail
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -21,9 +24,6 @@ class DetailActivity : BaseActivity(),
     private lateinit var mobileInfo: MobileListResponse
     private lateinit var imageAdapter: ImageMobileListAdapter
     private lateinit var presenter: DetailContract.DetailPresentation
-
-    @Inject
-    lateinit var messageDialog: MessageFunction
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,7 @@ class DetailActivity : BaseActivity(),
 
     override fun showImageMobileList(imageList: List<ImageResponse>) {
         imageList.forEach {
-            if (!it.url.contains("http")){
+            if (!it.url.contains("http")) {
                 it.url = "https://${it.url}"
             }
         }
@@ -61,7 +61,12 @@ class DetailActivity : BaseActivity(),
     }
 
     override fun showErrorMessage() {
-        messageDialog.showErrorMessage().show()
+        val errorDialog = AlertDialog.Builder(this)
+            .setTitle("Error")
+            .setMessage("Can't Feed data")
+            .setPositiveButton("") { _, _ -> }
+            .create()
+        errorDialog.show()
     }
 
     private fun setupData() {

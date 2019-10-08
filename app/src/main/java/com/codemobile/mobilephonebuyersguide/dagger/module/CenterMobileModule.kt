@@ -9,9 +9,4 @@ import javax.inject.Singleton
 @Module
 abstract class CenterMobileModule {
 
-    @Provides
-    @Singleton
-    fun provideMessageFunction(application:MobileApplication): MessageFunction {
-        return MessageFunction(application.applicationContext)
-    }
 }

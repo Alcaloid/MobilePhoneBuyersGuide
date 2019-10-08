@@ -63,7 +63,7 @@ class MobileListFragment : BaseFragment(),
         val errorDialog = AlertDialog.Builder(context)
             .setTitle("Error")
             .setMessage("Can't feed mobile data")
-            .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ -> })
+            .setPositiveButton("OK") { _, _ -> }
             .create()
         errorDialog.show()
     }
