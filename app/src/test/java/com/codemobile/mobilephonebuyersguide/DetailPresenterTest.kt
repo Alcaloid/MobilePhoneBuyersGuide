@@ -10,6 +10,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -28,8 +29,7 @@ class DetailPresenterTest {
     fun setup() {
         MockitoAnnotations.initMocks(this)
         presenter = DetailPresentation(
-            view,
-            service
+            view
         )
     }
 

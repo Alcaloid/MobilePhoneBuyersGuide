@@ -1,13 +1,9 @@
 package com.codemobile.mobilephonebuyersguide.action.activity.detail
 
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.codemobile.mobilephonebuyersguide.action.center.MessageFunction
-import com.codemobile.mobilephonebuyersguide.action.center.MyDagger
 import com.codemobile.mobilephonebuyersguide.action.model.ImageResponse
 import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 import com.codemobile.mobilephonebuyersguide.action.ui.CirclePagerIndicatorDecoration
@@ -24,7 +20,6 @@ class DetailActivity : BaseActivity(),
 
     private lateinit var mobileInfo: MobileListResponse
     private lateinit var imageAdapter: ImageMobileListAdapter
-//    private lateinit var presenter: DetailContract.DetailPresentation
 
     @Inject
     lateinit var presenter: DetailPresentation
@@ -83,9 +78,6 @@ class DetailActivity : BaseActivity(),
             helper.attachToRecyclerView(it)
             it.addItemDecoration(CirclePagerIndicatorDecoration())
         }
-//        presenter =
-//            DetailPresentation(this)
-        presenter.setView(this)
         mobileInfo = intent.extras?.getSerializable(INFORMATION) as MobileListResponse
         presenter.getPassData(mobileInfo)
         presenter.feedImageDetail(mobileInfo.id)

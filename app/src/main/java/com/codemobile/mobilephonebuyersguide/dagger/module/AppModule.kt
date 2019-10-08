@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class AppModule{
+abstract class AppModule {
     @Binds
-    abstract fun bindContext(application: Application):Context
+    abstract fun bindContext(application: Application): Context
 }
