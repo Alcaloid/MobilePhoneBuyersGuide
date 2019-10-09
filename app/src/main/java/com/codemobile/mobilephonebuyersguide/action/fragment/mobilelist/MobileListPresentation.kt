@@ -14,13 +14,13 @@ import com.codemobile.mobilephonebuyersguide.action.model.MobileListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MobileListPresentation(
-    val _view: MobileListContract.MobileListView,
-    val service: ApiInterface = ApiInterface.getBase()
+class MobileListPresentation @Inject constructor(
+    val _view: MobileListContract.MobileListView
 ) :
     MobileListContract.MobileListPresenter {
-
+        private val service: ApiInterface = ApiInterface.getBase()
     private var favMobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var mobileArrayList: ArrayList<MobileListResponse> = arrayListOf()
     private var stateTypeSort: String? = null
@@ -104,7 +104,10 @@ class MobileListPresentation(
         favMobileArrayList.remove(target)
     }
 
-    override fun makeFavoriteMobileInRoomDatabase(target: MobileListResponse, roomFunction: String) {
+    override fun makeFavoriteMobileInRoomDatabase(
+        target: MobileListResponse,
+        roomFunction: String
+    ) {
         dataFromRoomDatabase(roomFunction, target)
     }
 

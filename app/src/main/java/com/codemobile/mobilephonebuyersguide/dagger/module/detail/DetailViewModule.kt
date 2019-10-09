@@ -7,7 +7,6 @@ import dagger.Module
 
 @Module
 abstract class DetailViewModule {
-
     @Binds
     abstract fun bindDetailView(activity: DetailActivity): DetailContract.DetailView
 }

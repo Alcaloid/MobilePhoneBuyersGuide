@@ -26,9 +26,9 @@ class MobileListFragment : BaseFragment(),
     MobileListContract.MobileListView,
     BaseSortInterface {
 
+    @Inject
+    lateinit var mobilePresenter:MobileListPresentation
     private var mobileListAdapter: MobileListAdapter? = null
-    private var mobilePresenter =
-        MobileListPresentation(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
